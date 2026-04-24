@@ -1,0 +1,24 @@
+<article class="article-card" itemscope itemtype="https://schema.org/Article">
+    <a href="/artykuly/{{ a.slug }}.html" class="article-card__link-wrap" aria-label="Czytaj: {{ a.title }}">
+        <div class="article-card__image">
+            {% if a.image_thumb or a.image_webp or a.image_url %}
+            <picture>
+                {% if a.image_thumb %}<source srcset="{{ a.image_thumb }}" type="image/webp">
+                {% elif a.image_webp %}<source srcset="{{ a.image_webp }}" type="image/webp">{% endif %}
+                <img src="{{ a.image_thumb or a.image_webp or a.image_url }}" alt="{{ a.title }}" loading="lazy" decoding="async" width="400" height="225" itemprop="image">
+            </picture>
+            {% else %}
+            <span class="article-card__icon" aria-hidden="true">{{ a.icon or '📖' }}</span>
+            {% endif %}
+        </div>
+        <div class="article-card__content">
+            <div class="article-card__meta">
+                {% if a.category_name %}<span class="article-card__category">{{ a.category_name }}</span>{% endif %}
+                {% if a.reading_time %}<span class="article-card__time">{{ a.reading_time }} min czytania</span>{% endif %}
+            </div>
+            <h3 itemprop="headline">{{ a.title }}</h3>
+            <p itemprop="description">{{ a.excerpt }}</p>
+            <span class="article-card__cta">Czytaj więcej →</span>
+        </div>
+    </a>
+</article>

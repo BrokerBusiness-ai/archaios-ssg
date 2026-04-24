@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}Admin{% endblock %} – Zdrowie Fit</title>
+<style>
+:root{--c:#4a7c59;--cd:#3a6347;--bg:#f1f5f9;--s:#fff;--t:#1e293b;--tm:#64748b;--b:#e2e8f0;--r:8px;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--t);display:flex;min-height:100vh}
+a{color:var(--c);text-decoration:none}
+.sidebar{width:240px;background:var(--t);color:#fff;padding:20px 0;position:fixed;top:0;left:0;bottom:0;overflow-y:auto}
+.sidebar h2{padding:0 20px 20px;font-size:1.2rem;border-bottom:1px solid #334155}
+.sidebar h2 span{color:#f59e0b}
+.sidebar nav{padding:12px 0}
+.sidebar a{display:block;padding:10px 20px;color:#94a3b8;font-size:.9rem;transition:.2s}
+.sidebar a:hover,.sidebar a.active{color:#fff;background:#334155}
+.sidebar .logout{margin-top:20px;border-top:1px solid #334155;padding-top:12px}
+.main{margin-left:240px;flex:1;padding:24px 32px}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+.header h1{font-size:1.5rem}
+.card{background:var(--s);border-radius:var(--r);padding:20px;box-shadow:0 1px 3px rgba(0,0,0,.06);margin-bottom:16px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:24px}
+.stat{background:var(--s);border-radius:var(--r);padding:20px;box-shadow:0 1px 3px rgba(0,0,0,.06);text-align:center}
+.stat-num{font-size:2rem;font-weight:700;color:var(--c)}
+.stat-label{font-size:.85rem;color:var(--tm);margin-top:4px}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;padding:10px 12px;font-size:.8rem;color:var(--tm);text-transform:uppercase;letter-spacing:.05em;border-bottom:2px solid var(--b)}
+td{padding:10px 12px;border-bottom:1px solid var(--b);font-size:.9rem}
+tr:hover{background:#f8fafc}
+.btn{display:inline-block;padding:8px 16px;border-radius:6px;font-size:.85rem;font-weight:600;border:none;cursor:pointer;transition:.2s}
+.btn-primary{background:var(--c);color:#fff}.btn-primary:hover{background:var(--cd)}
+.btn-danger{background:#dc2626;color:#fff}.btn-danger:hover{background:#b91c1c}
+.btn-sm{padding:5px 10px;font-size:.8rem}
+.badge{display:inline-block;padding:2px 10px;border-radius:50px;font-size:.75rem;font-weight:600}
+.badge-green{background:#dcfce7;color:#166534}
+.badge-yellow{background:#fef9c3;color:#854d0e}
+.badge-blue{background:#dbeafe;color:#1e40af}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;font-size:.85rem;font-weight:600;color:var(--tm);margin-bottom:4px}
+.form-group input,.form-group textarea,.form-group select{width:100%;padding:8px 12px;border:1px solid var(--b);border-radius:6px;font-size:.9rem;font-family:inherit}
+.form-group textarea{min-height:200px;resize:vertical}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-check{display:flex;align-items:center;gap:8px}
+.form-check input{width:auto}
+.error{color:#dc2626;font-size:.9rem;margin-bottom:12px}
+.empty{text-align:center;padding:40px;color:var(--tm)}
+</style>
+</head>
+<body>
+{% block sidebar %}
+<div class="sidebar">
+    <h2>Zdrowie<span>Fit</span></h2>
+    <nav>
+        <a href="/admin/" {% if active == "dashboard" %}class="active"{% endif %}>📊 Dashboard</a>
+        <a href="/admin/articles" {% if active == "articles" %}class="active"{% endif %}>📝 Artykuły</a>
+        <a href="/admin/categories" {% if active == "categories" %}class="active"{% endif %}>📁 Kategorie</a>
+        <a href="/admin/authors" {% if active == "authors" %}class="active"{% endif %}>👤 Autorzy</a>
+        <a href="/admin/products" {% if active == "products" %}class="active"{% endif %}>💰 Produkty / lejek</a>
+        <a href="/api/docs" target="_blank">📡 API Docs</a>
+        <div class="logout">
+            <a href="/admin/logout">🚪 Wyloguj ({{ admin }})</a>
+        </div>
+    </nav>
+</div>
+{% endblock %}
+<div class="main">
+{% block content %}{% endblock %}
+</div>
+</body>
+</html>

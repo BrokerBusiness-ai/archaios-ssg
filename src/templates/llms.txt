@@ -1,0 +1,32 @@
+# {{ site.name }}
+
+> {{ site.description }}
+
+Website: {{ site.url }}
+Language: {{ site.lang }}
+Contact: {{ site.email }}
+
+## Articles
+{% for a in articles %}
+- [{{ a.title }}]({{ site.url }}/artykuly/{{ a.slug }}.html) — {{ a.excerpt | truncate(120) }}{% if a.author %} | Author: {{ a.author }}{% endif %}{% if a.category_name %} | Category: {{ a.category_name }}{% endif %}
+
+{% endfor %}
+
+## Authors
+{% for au in authors %}
+- {{ au.name }}{% if au.credentials %} ({{ au.credentials }}){% endif %} — {{ site.url }}/autor/{{ au.slug }}.html
+{% endfor %}
+
+## Categories
+{% for c in categories %}
+- {{ c.name }}{% if c.description %}: {{ c.description | truncate(100) }}{% endif %} — {{ site.url }}/kategoria/{{ c.slug }}.html
+{% endfor %}
+
+## Full Content
+
+For full-text content of all articles, see: {{ site.url }}/llms-full.txt
+
+## Feeds
+
+- RSS: {{ site.url }}/rss.xml
+- Sitemap: {{ site.url }}/sitemap.xml

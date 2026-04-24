@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Logowanie – Zdrowie Fit Admin</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#f1f5f9;display:flex;justify-content:center;align-items:center;min-height:100vh}
+.login-box{background:#fff;padding:40px;border-radius:12px;box-shadow:0 4px 6px rgba(0,0,0,.07);width:100%;max-width:380px}
+h1{font-size:1.4rem;text-align:center;margin-bottom:8px}
+h1 span{color:#e67e5a}
+.sub{text-align:center;color:#64748b;font-size:.9rem;margin-bottom:24px}
+label{display:block;font-size:.85rem;font-weight:600;color:#64748b;margin-bottom:4px}
+input{width:100%;padding:10px 14px;border:1px solid #e2e8f0;border-radius:8px;font-size:.95rem;margin-bottom:16px}
+input:focus{outline:none;border-color:#4a7c59}
+button{width:100%;padding:12px;background:#4a7c59;color:#fff;border:none;border-radius:8px;font-size:1rem;font-weight:600;cursor:pointer}
+button:hover{background:#3a6347}
+.error{color:#dc2626;text-align:center;margin-bottom:12px;font-size:.9rem}
+</style>
+</head>
+<body>
+<div class="login-box">
+    <h1>Zdrowie<span>Fit</span></h1>
+    <p class="sub">Panel administracyjny</p>
+    {% if error %}<p class="error">{{ error }}</p>{% endif %}
+    <form method="post" action="/admin/login">
+        <label for="username">Login</label>
+        <input type="text" id="username" name="username" required autofocus>
+        <label for="password">Hasło</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit">Zaloguj się</button>
+    </form>
+</div>
+</body>
+</html>

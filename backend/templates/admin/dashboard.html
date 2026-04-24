@@ -1,0 +1,35 @@
+{% extends "components/base.html" %}
+{% set active = "dashboard" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="header"><h1>Dashboard</h1></div>
+<div class="stats">
+    <div class="stat"><div class="stat-num">{{ articles }}</div><div class="stat-label">Artykuły</div></div>
+    <div class="stat"><div class="stat-num">{{ published }}</div><div class="stat-label">Opublikowane</div></div>
+    <div class="stat"><div class="stat-num">{{ drafts }}</div><div class="stat-label">Szkice</div></div>
+    <div class="stat"><div class="stat-num">{{ categories }}</div><div class="stat-label">Kategorie</div></div>
+    <div class="stat"><div class="stat-num">{{ views }}</div><div class="stat-label">Wyświetlenia</div></div>
+</div>
+<div class="card">
+    <h2 style="margin-bottom:16px;font-size:1.1rem">Ostatnio edytowane</h2>
+    {% if recent %}
+    <table>
+        <thead><tr><th>Tytuł</th><th>Status</th><th>Wyświetlenia</th><th>Data</th><th></th></tr></thead>
+        <tbody>
+        {% for a in recent %}
+        <tr>
+            <td><strong>{{ a.title }}</strong></td>
+            <td>
+                {% if a.is_published %}<span class="badge badge-green">opublikowany</span>
+                {% else %}<span class="badge badge-yellow">szkic</span>{% endif %}
+            </td>
+            <td>{{ a.views }}</td>
+            <td>{{ a.updated_at.strftime('%Y-%m-%d %H:%M') if a.updated_at else '—' }}</td>
+            <td><a href="/admin/articles/{{ a.id }}/edit" class="btn btn-sm btn-primary">Edytuj</a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}<p class="empty">Brak artykułów. <a href="/admin/articles/new">Utwórz pierwszy</a></p>{% endif %}
+</div>
+{% endblock %}

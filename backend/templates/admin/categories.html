@@ -1,0 +1,53 @@
+{% extends "components/base.html" %}
+{% set active = "categories" %}
+{% block title %}Kategorie{% endblock %}
+{% block content %}
+<div class="header"><h1>Kategorie</h1></div>
+
+<div class="card">
+    <h2 style="margin-bottom:12px;font-size:1rem">Dodaj kategorię</h2>
+    <form method="post" action="/admin/categories/new" style="display:flex;gap:12px;flex-wrap:wrap;align-items:end">
+        <div class="form-group" style="flex:1;min-width:200px;margin-bottom:0">
+            <label for="name">Nazwa *</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group" style="flex:1;min-width:200px;margin-bottom:0">
+            <label for="description">Opis</label>
+            <input type="text" id="description" name="description">
+        </div>
+        <div class="form-group" style="width:80px;margin-bottom:0">
+            <label for="icon">Ikona</label>
+            <input type="text" id="icon" name="icon" value="📝" maxlength="10">
+        </div>
+        <div class="form-group" style="width:100px;margin-bottom:0">
+            <label for="color">Kolor</label>
+            <input type="color" id="color" name="color" value="#4a7c59">
+        </div>
+        <button type="submit" class="btn btn-primary" style="height:38px">Dodaj</button>
+    </form>
+</div>
+
+<div class="card">
+{% if categories %}
+<table>
+    <thead><tr><th></th><th>Nazwa</th><th>Slug</th><th>Artykuły</th><th>Kolor</th><th></th></tr></thead>
+    <tbody>
+    {% for c in categories %}
+    <tr>
+        <td>{{ c.icon }}</td>
+        <td><strong>{{ c.name }}</strong><br><small style="color:#64748b">{{ c.description }}</small></td>
+        <td><code>{{ c.slug }}</code></td>
+        <td>{{ c.article_count }}</td>
+        <td><span style="display:inline-block;width:24px;height:24px;border-radius:4px;background:{{ c.color }}"></span></td>
+        <td>
+            <form method="post" action="/admin/categories/{{ c.id }}/delete" style="display:inline" onsubmit="return confirm('Usunąć kategorię {{ c.name }}? Artykuły stracą przypisanie.')">
+                <button class="btn btn-sm btn-danger">Usuń</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}<p class="empty">Brak kategorii.</p>{% endif %}
+</div>
+{% endblock %}

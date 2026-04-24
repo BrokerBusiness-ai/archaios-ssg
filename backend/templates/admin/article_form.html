@@ -1,0 +1,213 @@
+{% extends "components/base.html" %}
+{% set active = "articles" %}
+{% block title %}{{ "Edytuj" if article else "Nowy" }} artykuł{% endblock %}
+{% block content %}
+<div class="header">
+    <h1>{{ "Edytuj artykuł" if article else "Nowy artykuł" }}</h1>
+    <a href="/admin/articles" class="btn btn-sm" style="border:1px solid #e2e8f0">← Wróć</a>
+</div>
+{% if error %}<p class="error">{{ error }}</p>{% endif %}
+<div class="card">
+<form method="post" action="{{ '/admin/articles/' ~ article.id ~ '/edit' if article else '/admin/articles/new' }}" id="article-form">
+    <div class="form-row">
+        <div class="form-group">
+            <label for="title">Tytuł *</label>
+            <input type="text" id="title" name="title" value="{{ article.title if article else '' }}" required>
+        </div>
+        <div class="form-group">
+            <label for="author_id">Autor</label>
+            <select id="author_id" name="author_id">
+                <option value="0">— domyślny (Redakcja) —</option>
+                {% for au in authors %}
+                <option value="{{ au.id }}" {% if article and article.author_id == au.id %}selected{% endif %}>{{ au.name }}{% if au.credentials %} ({{ au.credentials }}){% endif %}</option>
+                {% endfor %}
+            </select>
+            <small style="color:#64748b">Zarządzaj w <a href="/admin/authors">/admin/authors</a></small>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="excerpt">Zajawka (~160 znaków — pokazuje się w Google i social)</label>
+        <textarea id="excerpt" name="excerpt" rows="2" maxlength="300" style="min-height:auto">{{ article.excerpt if article else '' }}</textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="content">Treść artykułu</label>
+        <textarea id="content" name="content">{{ article.content if article else '' }}</textarea>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label for="category_id">Kategoria</label>
+            <select id="category_id" name="category_id">
+                <option value="0">— brak —</option>
+                {% for c in categories %}
+                <option value="{{ c.id }}" {% if article and article.category_id == c.id %}selected{% endif %}>{{ c.icon }} {{ c.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="tags">Tagi (przecinki) — używane do dopasowywania produktów</label>
+            <input type="text" id="tags" name="tags" value="{{ article.tags if article else '' }}" placeholder="np. stres, sen, lęk">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Zdjęcie wiodące</label>
+        <div style="display:flex;gap:12px;align-items:flex-start">
+            <div style="flex:1">
+                <input type="text" id="image_url" name="image_url" value="{{ article.image_url if article else '' }}" placeholder="URL obrazka lub wgraj plik poniżej" style="margin-bottom:8px">
+                <div style="display:flex;gap:8px;align-items:center">
+                    <input type="file" id="image-upload" accept="image/*" style="flex:1">
+                    <button type="button" id="image-upload-btn" class="btn btn-primary btn-sm">Wgraj (auto-resize + WebP)</button>
+                </div>
+                <small id="upload-status" style="color:#64748b"></small>
+            </div>
+            <div id="image-preview" style="width:160px;height:90px;background:#f1f5f9;border-radius:6px;background-size:cover;background-position:center;{% if article and article.image_url %}background-image:url('{{ article.image_url }}'){% endif %}"></div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label for="og_image_custom">Custom OG image (1200×630, opcjonalnie)</label>
+            <input type="text" id="og_image_custom" name="og_image_custom" value="{{ article.og_image_custom if article else '' }}" placeholder="Puste = generowany automatycznie z tytułem">
+        </div>
+        <div class="form-group">
+            <label for="icon">Ikona / emoji</label>
+            <input type="text" id="icon" name="icon" value="{{ article.icon if article else '📝' }}" maxlength="10">
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label for="reading_time">Czas czytania (min)</label>
+            <input type="number" id="reading_time" name="reading_time" value="{{ article.reading_time if article else 5 }}" min="1" max="120">
+        </div>
+        <div class="form-group" style="display:flex;gap:24px;align-items:end;padding-bottom:8px">
+            <label class="form-check">
+                <input type="checkbox" name="is_published" value="true" {% if article and article.is_published %}checked{% endif %}>
+                Opublikowany
+            </label>
+            <label class="form-check">
+                <input type="checkbox" name="is_featured" value="true" {% if article and article.is_featured %}checked{% endif %}>
+                Wyróżniony
+            </label>
+        </div>
+    </div>
+
+    <h3 style="margin:24px 0 12px;font-size:1rem;color:#64748b;text-transform:uppercase;letter-spacing:.05em">📚 Źródła i powiązania (E-E-A-T)</h3>
+
+    <div class="form-group">
+        <label for="bibliography">Bibliografia / Źródła (HTML — lista linków do badań, PubMed, DOI)</label>
+        <textarea id="bibliography" name="bibliography" rows="6" placeholder="&lt;ol&gt;&lt;li&gt;Smith et al. (2023). Title. &lt;a href=&quot;https://pubmed.ncbi.nlm.nih.gov/...&quot;&gt;PubMed&lt;/a&gt;&lt;/li&gt;&lt;/ol&gt;" style="min-height:120px;font-family:monospace;font-size:.85rem">{{ article.bibliography if article else '' }}</textarea>
+        <small style="color:#64748b">W YMYL (zdrowie) Google mocno patrzy na źródła naukowe. Im więcej linków do PubMed/DOI, tym lepsze E-A-T.</small>
+    </div>
+
+    <div class="form-group">
+        <label for="related_slugs">Powiązane artykuły (ręcznie, comma-separated slugs)</label>
+        <input type="text" id="related_slugs" name="related_slugs" value="{{ article.related_slugs if article else '' }}" placeholder="np. sen-regeneracja-mozgu,dieta-a-klarownosc-umyslu">
+        {% if all_articles %}
+        <details style="margin-top:8px">
+            <summary style="cursor:pointer;color:#64748b;font-size:.85rem">Lista dostępnych sluggów — kliknij, żeby dodać</summary>
+            <div style="max-height:150px;overflow-y:auto;background:#f8fafc;padding:8px;border-radius:6px;margin-top:4px;font-size:.8rem">
+            {% for a in all_articles %}<code style="display:block;padding:2px 0;cursor:pointer" onclick="addSlug('related_slugs','{{ a.slug }}')">{{ a.slug }}</code>{% endfor %}
+            </div>
+        </details>
+        {% endif %}
+    </div>
+
+    <h3 style="margin:24px 0 12px;font-size:1rem;color:#64748b;text-transform:uppercase;letter-spacing:.05em">💰 Lejek sprzedażowy</h3>
+
+    <div class="form-group">
+        <label for="product_slugs">Produkty do promocji w tym artykule (ręczny wybór, puste = auto-matching)</label>
+        <input type="text" id="product_slugs" name="product_slugs" value="{{ article.product_slugs if article else '' }}" placeholder="Puste = automatyczne dopasowanie po kategoriach + tagach">
+        {% if all_products %}
+        <details style="margin-top:8px">
+            <summary style="cursor:pointer;color:#64748b;font-size:.85rem">Dostępne produkty — kliknij, żeby dodać</summary>
+            <div style="max-height:150px;overflow-y:auto;background:#f8fafc;padding:8px;border-radius:6px;margin-top:4px;font-size:.8rem">
+            {% for p in all_products %}<code style="display:block;padding:2px 0;cursor:pointer" onclick="addSlug('product_slugs','{{ p.slug }}')">{{ p.slug }} — {{ p.name }} {% if not p.is_active %}(nieaktywny){% endif %}</code>{% endfor %}
+            </div>
+        </details>
+        {% endif %}
+        <small style="color:#64748b">Jeśli puste, generator sam dobiera produkty z <a href="/admin/products">/admin/products</a> na podstawie kategorii + tagów.</small>
+    </div>
+
+    <h3 style="margin:24px 0 12px;font-size:1rem;color:#64748b;text-transform:uppercase;letter-spacing:.05em">🔍 Meta SEO (opcjonalnie)</h3>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label for="meta_title">Meta title (pokazuje się w Google) — puste = tytuł artykułu</label>
+            <input type="text" id="meta_title" name="meta_title" value="{{ article.meta_title if article else '' }}" maxlength="70">
+        </div>
+        <div class="form-group">
+            <label for="meta_description">Meta description — puste = zajawka</label>
+            <input type="text" id="meta_description" name="meta_description" value="{{ article.meta_description if article else '' }}" maxlength="180">
+        </div>
+    </div>
+
+    <input type="hidden" name="author" value="{{ article.author if article else 'Zdrowie Fit Team' }}">
+
+    <div style="display:flex;gap:12px;margin-top:24px">
+        <button type="submit" class="btn btn-primary">💾 {{ "Zapisz zmiany" if article else "Utwórz artykuł" }}</button>
+        <a href="/admin/articles" class="btn" style="background:#e2e8f0;color:#1e293b">Anuluj</a>
+    </div>
+</form>
+</div>
+
+<!-- TinyMCE (darmowy CDN) -->
+<script src="https://cdn.jsdelivr.net/npm/tinymce@7/tinymce.min.js"></script>
+<script>
+    tinymce.init({
+        selector: '#content',
+        height: 500,
+        menubar: 'file edit view insert format tools table',
+        plugins: 'advlist autolink lists link image charmap preview anchor searchreplace visualblocks code fullscreen insertdatetime media table help wordcount',
+        toolbar: 'undo redo | blocks | bold italic underline strikethrough | alignleft aligncenter alignright | bullist numlist outdent indent | link image media table | removeformat | code fullscreen help',
+        block_formats: 'Paragraf=p; Nagłówek 2=h2; Nagłówek 3=h3; Nagłówek 4=h4; Cytat=blockquote; Kod=pre',
+        content_style: 'body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;font-size:16px;line-height:1.7;max-width:720px;margin:0 auto;padding:1rem} h2,h3,h4{font-family:Georgia,serif;margin-top:1.5em}',
+        images_upload_handler: (blobInfo, progress) => new Promise((resolve, reject) => {
+            const formData = new FormData();
+            formData.append('file', blobInfo.blob(), blobInfo.filename());
+            fetch('/api/upload/image', { method: 'POST', body: formData, credentials: 'include' })
+                .then(r => r.ok ? r.json() : Promise.reject(r.status))
+                .then(data => resolve(data.variants.card.jpg))
+                .catch(err => reject('Upload failed: ' + err));
+        }),
+        automatic_uploads: true,
+        paste_data_images: true,
+        branding: false,
+        promotion: false,
+    });
+
+    // Image upload — zdjęcie wiodące
+    document.getElementById('image-upload-btn').addEventListener('click', async () => {
+        const fileInput = document.getElementById('image-upload');
+        const status = document.getElementById('upload-status');
+        const urlInput = document.getElementById('image_url');
+        const preview = document.getElementById('image-preview');
+        if (!fileInput.files[0]) { status.textContent = 'Wybierz plik'; return; }
+        status.textContent = 'Wgrywanie + resize + WebP...';
+        const formData = new FormData();
+        formData.append('file', fileInput.files[0]);
+        try {
+            const r = await fetch('/api/upload/image', { method: 'POST', body: formData, credentials: 'include' });
+            if (!r.ok) throw new Error('HTTP ' + r.status);
+            const data = await r.json();
+            urlInput.value = data.image_url;
+            preview.style.backgroundImage = `url('${data.image_url}')`;
+            status.innerHTML = `✓ Gotowe. Wygenerowano: hero ${data.variants.hero.width}×${data.variants.hero.height}, card, thumb (WebP + JPG).`;
+        } catch (err) {
+            status.textContent = '❌ Błąd: ' + err.message;
+        }
+    });
+
+    function addSlug(fieldId, slug) {
+        const field = document.getElementById(fieldId);
+        const current = field.value.split(',').map(s => s.trim()).filter(Boolean);
+        if (!current.includes(slug)) {
+            current.push(slug);
+            field.value = current.join(', ');
+        }
+    }
+</script>
+{% endblock %}

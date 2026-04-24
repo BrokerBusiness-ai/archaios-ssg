@@ -1,0 +1,99 @@
+domain: "aidzisiaj.pl"
+name: "AI Dzisiaj"
+tagline: "Sztuczna inteligencja w polskim biznesie — praktycznie"
+description: "Praktyczne zastosowania AI w polskich firmach. Narzędzia, wdrożenia, case studies, regulacje. Bez hype'u, z konkretem."
+lang: "pl"
+locale: "pl_PL"
+
+brand: "archaios"
+main_domain: "archaios.ai"
+funnel_type: "article_cta"
+role: "satellite"
+
+logo_mark: "🤖"
+logo_text: "AI"
+logo_accent: "Dzisiaj"
+
+colors:
+  primary: "#1a365d"
+  primary_dark: "#0f2440"
+  primary_light: "#4a7ab5"
+  accent: "#c0392b"
+  accent_dark: "#962d22"
+  trust: "#2980b9"
+
+hero:
+  eyebrow: "AI dla polskiego biznesu"
+  h1: "Sztuczna inteligencja w polskim biznesie — praktycznie"
+  subtitle: "Konkretne narzędzia, realne wdrożenia, polskie case studies. AI bez hype'u — tylko to, co działa."
+  cta_primary:
+    text: "Czytaj artykuły"
+    url: "/artykuly.html"
+  cta_secondary:
+    text: "O projekcie"
+    url: "#o-nas"
+
+pillars:
+  - icon: "🏢"
+    title: "AI w firmie"
+    desc: "Jak wdrożyć AI w organizacji — od strategii po konkretne narzędzia."
+  - icon: "🔧"
+    title: "Narzędzia AI"
+    desc: "Przegląd narzędzi AI dla biznesu — ChatGPT, Claude, Copilot, automatyzacje."
+  - icon: "📁"
+    title: "Case studies"
+    desc: "Realne wdrożenia AI w polskich firmach — co zadziałało, co nie."
+  - icon: "⚖️"
+    title: "Regulacje AI"
+    desc: "AI Act, RODO a AI, regulacje europejskie — co musisz wiedzieć."
+
+categories:
+  - name: "AI w biznesie"
+    slug: "ai-w-biznesie"
+    icon: "🏢"
+    color: "#1a365d"
+  - name: "Narzędzia"
+    slug: "narzedzia"
+    icon: "🔧"
+    color: "#2980b9"
+  - name: "Regulacje"
+    slug: "regulacje"
+    icon: "⚖️"
+    color: "#c0392b"
+
+about:
+  intro: "AIDzisiaj.pl to serwis o praktycznych zastosowaniach sztucznej inteligencji w polskim biznesie. Piszemy o narzędziach, wdrożeniach i regulacjach — bez hype'u, z konkretem."
+  values:
+    - "Praktyczność — piszemy o tym, co działa w polskich realiach"
+    - "Rzetelność — testujemy narzędzia, zanim o nich napiszemy"
+    - "Dostępność — AI wyjaśnione tak, żeby zrozumiał każdy przedsiębiorca"
+
+newsletter:
+  title_highlight: "cotygodniowy przegląd"
+  title_rest: "nowości AI dla biznesu"
+  subtitle: "Raz w tygodniu: nowe narzędzia, wdrożenia, regulacje AI. Zero spamu."
+
+footer:
+  tagline: "Sztuczna inteligencja w polskim biznesie — praktycznie i bez hype'u."
+  disclaimer: "Treści mają charakter informacyjny i edukacyjny. Nie stanowią porady prawnej ani technicznej."
+
+email: "kontakt@aidzisiaj.pl"
+
+social:
+  fb: ""
+  ig: ""
+  yt: ""
+  tw: ""
+
+products:
+  - name: "ARCHAIOS AI Solutions"
+    slug: "archaios-ai"
+    brand: "archaios"
+    tagline_short: "Wdrożenia AI i automatyzacja dla Twojej firmy"
+    cta_text: "Sprawdź ofertę"
+    target_url: "https://archaios.ai"
+    placement: "end"
+    target_category_slugs: ""
+    target_tags: "ai,wdrożenia,narzędzia,automatyzacja,biznes"
+    priority: 90
+    kind: "own"

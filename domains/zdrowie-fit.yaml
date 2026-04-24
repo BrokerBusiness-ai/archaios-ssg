@@ -1,0 +1,116 @@
+domain: "zdrowie.fit"
+name: "Zdrowie Fit"
+tagline: "Ciało i umysł w harmonii"
+description: "Holistyczne podejście do zdrowia — ruch, umysł, odżywianie, regeneracja. Artykuły oparte na badaniach naukowych."
+lang: "pl"
+locale: "pl_PL"
+
+brand: "nurio"
+main_domain: "nurio.pl"
+funnel_type: "article_cta"
+role: "satellite"
+
+logo_mark: "◐"
+logo_text: "Zdrowie"
+logo_accent: ".fit"
+
+colors:
+  primary: "#4a7c59"
+  primary_dark: "#3a6347"
+  primary_light: "#7fb3a3"
+  accent: "#d9724a"
+  accent_dark: "#b85a38"
+  trust: "#5b8def"
+
+hero:
+  eyebrow: "Serwis o zdrowiu"
+  h1: "Ciało i umysł w harmonii"
+  subtitle: "Artykuły o zdrowiu fizycznym i psychicznym oparte na badaniach naukowych."
+  cta_primary:
+    text: "Czytaj artykuły"
+    url: "/artykuly.html"
+  cta_secondary:
+    text: "O projekcie"
+    url: "#o-nas"
+
+pillars:
+  - icon: "🏃"
+    title: "Ruch"
+    desc: "Trening siłowy, cardio, rozciąganie — jak ciało wpływa na umysł."
+  - icon: "🧠"
+    title: "Umysł"
+    desc: "Mindfulness, terapia, zarządzanie stresem i emocjami."
+  - icon: "🥗"
+    title: "Odżywianie"
+    desc: "Dieta oparta na badaniach, mikrobiom, suplementacja."
+  - icon: "😴"
+    title: "Regeneracja"
+    desc: "Sen, odpoczynek, higiena dnia. Bez tego nic nie działa."
+  - icon: "🌿"
+    title: "Natura"
+    desc: "Shinrin-yoku, światło dzienne, kontakt z przyrodą."
+  - icon: "❤️"
+    title: "Relacje"
+    desc: "Więzi społeczne to jeden z najsilniejszych predyktorów zdrowia."
+
+categories:
+  - name: "Zdrowie fizyczne"
+    slug: "fizyczne"
+    icon: "🏃"
+    color: "#4a7c59"
+  - name: "Zdrowie psychiczne"
+    slug: "psychiczne"
+    icon: "🧠"
+    color: "#5b8def"
+  - name: "Dieta i odżywianie"
+    slug: "dieta"
+    icon: "🥗"
+    color: "#d9724a"
+
+about:
+  intro: "Zdrowie.fit to serwis łączący wiedzę o zdrowiu fizycznym i psychicznym. Każdy artykuł jest oparty na badaniach naukowych i recenzowany pod kątem merytorycznym."
+  values:
+    - "Dowody naukowe — cytujemy źródła, nie opinie"
+    - "Holistyka — ciało i umysł to jeden system"
+    - "Praktyczność — konkretne wskazówki, które możesz wdrożyć dziś"
+
+newsletter:
+  title_highlight: "cotygodniowy przegląd"
+  title_rest: "badań o zdrowiu"
+  subtitle: "Raz w tygodniu: 3 konkretne wskazówki oparte na badaniach, zero spamu, wypisujesz się jednym klikiem."
+
+footer:
+  tagline: "Holistyczne podejście do zdrowia — ciało i umysł w harmonii."
+  disclaimer: "Treści mają charakter edukacyjny, nie zastępują konsultacji z lekarzem."
+
+email: "kontakt@zdrowie.fit"
+
+social:
+  fb: ""
+  ig: ""
+  yt: ""
+  tw: ""
+
+products:
+  - name: "Nurio"
+    slug: "nurio"
+    brand: "nurio"
+    tagline_short: "Twój AI companion do dobrostanu psychicznego"
+    cta_text: "Wypróbuj Nurio"
+    target_url: "https://nurio.pl"
+    placement: "end"
+    target_category_slugs: "psychiczne"
+    target_tags: "stres,lęk,sen,mindfulness"
+    priority: 90
+    kind: "own"
+  - name: "Psychozdrowie"
+    slug: "psychozdrowie"
+    brand: "psychozdrowie"
+    tagline_short: "Profesjonalne testy i diagnozy psychologiczne online"
+    cta_text: "Zrób test"
+    target_url: "https://psychozdrowie.online"
+    placement: "sidebar"
+    target_category_slugs: "psychiczne"
+    target_tags: "test,diagnoza,wypalenie,depresja"
+    priority: 80
+    kind: "own"

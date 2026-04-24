@@ -1,0 +1,114 @@
+domain: "audytzespolu.pl"
+name: "Audyt Zespołu"
+tagline: "Diagnoza i rozwój zespołów — mediacja, komunikacja, efektywność"
+description: "Audyt zespołów, mediacja w firmie, komunikacja i compliance NIS2/RODO. Narzędzia diagnostyczne dla liderów i HR."
+lang: "pl"
+locale: "pl_PL"
+
+brand: "archaios"
+main_domain: "archaios.ai"
+funnel_type: "article_cta"
+role: "satellite"
+
+logo_mark: "👥"
+logo_text: "Audyt"
+logo_accent: "Zespołu"
+
+colors:
+  primary: "#1a365d"
+  primary_dark: "#122744"
+  primary_light: "#2a5a8f"
+  accent: "#c0392b"
+  accent_dark: "#962d22"
+  trust: "#5b8def"
+
+hero:
+  eyebrow: "Diagnoza i rozwój zespołów"
+  h1: "Audyt zespołu — od diagnozy do działania"
+  subtitle: "Mediacja, komunikacja, compliance. Narzędzia i wiedza dla liderów, HR i organizacji."
+  cta_primary:
+    text: "Czytaj artykuły"
+    url: "/artykuly.html"
+  cta_secondary:
+    text: "O projekcie"
+    url: "#o-nas"
+
+pillars:
+  - icon: "📋"
+    title: "Audyt zespołu"
+    desc: "Diagnoza dynamiki zespołowej, ról, kompetencji i punktów zapalnych."
+  - icon: "💬"
+    title: "Komunikacja"
+    desc: "Narzędzia i techniki skutecznej komunikacji w zespołach."
+  - icon: "⚖"
+    title: "Mediacja w firmie"
+    desc: "Rozwiązywanie konfliktów wewnętrznych — metody, procedury, case studies."
+  - icon: "🛡"
+    title: "NIS2/RODO compliance"
+    desc: "Zgodność z regulacjami, audyt bezpieczeństwa, procedury wewnętrzne."
+
+categories:
+  - name: "Audyt"
+    slug: "audyt"
+    icon: "📋"
+    color: "#1a365d"
+  - name: "Mediacja"
+    slug: "mediacja"
+    icon: "⚖"
+    color: "#c0392b"
+  - name: "Compliance"
+    slug: "compliance"
+    icon: "🛡"
+    color: "#2a5a8f"
+
+about:
+  intro: "AudytZespolu.pl to serwis poświęcony diagnozie i rozwojowi zespołów. Łączymy wiedzę z zakresu psychologii organizacji, mediacji i compliance, by wspierać liderów i działy HR w budowaniu efektywnych organizacji."
+  values:
+    - "Dowody i praktyka — metody oparte na badaniach, nie intuicji"
+    - "Compliance — zgodność z NIS2, RODO i najlepszymi praktykami"
+    - "Rozwój — od diagnozy do konkretnego planu działania"
+
+newsletter:
+  title_highlight: "cotygodniowy przegląd"
+  title_rest: "narzędzi i artykułów o zespołach"
+  subtitle: "Raz w tygodniu: konkretne wskazówki dla liderów i HR, zero spamu."
+
+footer:
+  tagline: "Diagnoza i rozwój zespołów — mediacja, komunikacja, efektywność."
+  disclaimer: "Treści mają charakter informacyjny i edukacyjny, nie zastępują profesjonalnego doradztwa prawnego."
+
+email: "kontakt@audytzespolu.pl"
+
+social:
+  fb: ""
+  ig: ""
+  yt: ""
+  tw: ""
+
+analytics:
+  ga4_id: ""
+  fb_pixel_id: ""
+
+products:
+  - name: "ARCHAIOS"
+    slug: "archaios"
+    brand: "archaios"
+    tagline_short: "AI marketing agent dla Twojej organizacji"
+    cta_text: "Poznaj ARCHAIOS"
+    target_url: "https://archaios.ai"
+    placement: "end"
+    target_category_slugs: ""
+    target_tags: ""
+    priority: 90
+    kind: "own"
+  - name: "Twoja Mediacja"
+    slug: "twojamediacja"
+    brand: "mediacja"
+    tagline_short: "Mediacja i rozwiązywanie konfliktów"
+    cta_text: "Umów mediację"
+    target_url: "https://twojamediacja.pl"
+    placement: "sidebar"
+    target_category_slugs: "mediacja"
+    target_tags: "konflikt,mediacja,negocjacje"
+    priority: 85
+    kind: "own"

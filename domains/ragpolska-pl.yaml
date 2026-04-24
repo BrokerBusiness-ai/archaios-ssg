@@ -1,0 +1,103 @@
+domain: "ragpolska.pl"
+name: "RAG Polska"
+tagline: "Retrieval-Augmented Generation w polskim biznesie"
+description: "RAG, LLM i wdrożenia AI w polskich firmach. Praktyczne poradniki, case studies, bezpieczeństwo danych."
+lang: "pl"
+locale: "pl_PL"
+
+brand: "archaios"
+main_domain: "archaios.ai"
+funnel_type: "article_cta"
+role: "satellite"
+
+logo_mark: "🔗"
+logo_text: "RAG"
+logo_accent: "Polska"
+
+colors:
+  primary: "#1a365d"
+  primary_dark: "#122744"
+  primary_light: "#2a5a8f"
+  accent: "#e74c3c"
+  accent_dark: "#c0392b"
+  trust: "#5b8def"
+
+hero:
+  eyebrow: "AI dla polskiego biznesu"
+  h1: "RAG — inteligentne wyszukiwanie dla Twojej firmy"
+  subtitle: "Retrieval-Augmented Generation, LLM, wdrożenia i bezpieczeństwo danych. Praktyczna wiedza po polsku."
+  cta_primary:
+    text: "Czytaj artykuły"
+    url: "/artykuly.html"
+  cta_secondary:
+    text: "O projekcie"
+    url: "#o-nas"
+
+pillars:
+  - icon: "🔗"
+    title: "RAG"
+    desc: "Retrieval-Augmented Generation — architektura, wektory, chunking, retrieval."
+  - icon: "🤖"
+    title: "LLM"
+    desc: "Duże modele językowe — GPT, Claude, Gemini, Llama. Porównania i zastosowania."
+  - icon: "🏗"
+    title: "Wdrożenia"
+    desc: "Case studies wdrożeń AI w polskich firmach — od MVP do produkcji."
+  - icon: "🔒"
+    title: "Bezpieczeństwo danych"
+    desc: "RODO, NIS2, ochrona danych w kontekście AI i LLM."
+
+categories:
+  - name: "RAG"
+    slug: "rag"
+    icon: "🔗"
+    color: "#1a365d"
+  - name: "AI w firmie"
+    slug: "ai-w-firmie"
+    icon: "🤖"
+    color: "#e74c3c"
+  - name: "Wdrożenia"
+    slug: "wdrozenia"
+    icon: "🏗"
+    color: "#2a5a8f"
+
+about:
+  intro: "RAGPolska.pl to serwis poświęcony wdrożeniom Retrieval-Augmented Generation i dużych modeli językowych w polskim biznesie. Publikujemy praktyczne poradniki, porównania narzędzi i case studies."
+  values:
+    - "Praktyczność — konkretne wdrożenia, nie teoria"
+    - "Polski kontekst — RODO, NIS2, polskie realia biznesowe"
+    - "Bezpieczeństwo — dane firmowe pod kontrolą"
+
+newsletter:
+  title_highlight: "cotygodniowy przegląd"
+  title_rest: "nowości RAG i AI"
+  subtitle: "Raz w tygodniu: narzędzia, wdrożenia, case studies z polskiego rynku AI. Zero spamu."
+
+footer:
+  tagline: "Retrieval-Augmented Generation w polskim biznesie."
+  disclaimer: "Treści mają charakter informacyjny i edukacyjny."
+
+email: "kontakt@ragpolska.pl"
+
+social:
+  fb: ""
+  ig: ""
+  yt: ""
+  tw: ""
+
+analytics:
+  ga4_id: ""
+  fb_pixel_id: ""
+
+products:
+  - name: "ARCHAIOS"
+    slug: "archaios"
+    brand: "archaios"
+    tagline_short: "AI marketing agent — automatyzacja marketingu"
+    cta_text: "Poznaj ARCHAIOS"
+    target_url: "https://archaios.ai"
+    placement: "end"
+    target_category_slugs: ""
+    target_tags: "rag,llm,ai,wdrożenie"
+    priority: 90
+    kind: "own"

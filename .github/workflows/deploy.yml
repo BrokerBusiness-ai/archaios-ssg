@@ -1,0 +1,95 @@
+name: Build and deploy Archaios SSG
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      domain:
+        description: 'Domena do deployu (slug z domains/*.yaml, np. zdrowie-fit) lub "all"'
+        required: true
+        default: 'all'
+      clean:
+        description: 'Wyczyść output przed buildem'
+        required: false
+        type: boolean
+        default: true
+
+env:
+  PYTHONIOENCODING: utf-8
+
+jobs:
+  matrix-setup:
+    runs-on: ubuntu-latest
+    outputs:
+      domains: ${{ steps.pick.outputs.domains }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: pick
+        shell: bash
+        run: |
+          if [[ "${{ github.event_name }}" == "push" || "${{ github.event.inputs.domain }}" == "all" ]]; then
+            DOMAINS=$(ls domains/*.yaml 2>/dev/null | xargs -n1 basename | sed 's/\.yaml$//' | grep -v '^_schema$' | jq -R -s -c 'split("\n") | map(select(length>0))')
+          else
+            DOMAINS='["${{ github.event.inputs.domain }}"]'
+          fi
+          echo "domains=$DOMAINS" >> "$GITHUB_OUTPUT"
+          echo "Build matrix: $DOMAINS"
+
+  build-and-deploy:
+    needs: matrix-setup
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        domain: ${{ fromJSON(needs.matrix-setup.outputs.domains) }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r backend/requirements.txt
+          pip install Pillow python-dotenv httpx pyyaml
+
+      - name: Read domain slug → real domain
+        id: cfg
+        shell: bash
+        run: |
+          DOMAIN_YAML="domains/${{ matrix.domain }}.yaml"
+          REAL_DOMAIN=$(python -c "import yaml,sys; print(yaml.safe_load(open('$DOMAIN_YAML'))['domain'])")
+          echo "real_domain=$REAL_DOMAIN" >> "$GITHUB_OUTPUT"
+          echo "slug=${{ matrix.domain }}" >> "$GITHUB_OUTPUT"
+          echo "Domain slug='${{ matrix.domain }}' → real='$REAL_DOMAIN'"
+
+      - name: Build static site
+        env:
+          USE_API: 'false'
+          GA4_ID: ${{ secrets.GA4_ID }}
+          FB_PIXEL_ID: ${{ secrets.FB_PIXEL_ID }}
+          FB_PAGE: ${{ secrets.FB_PAGE }}
+          IG_HANDLE: ${{ secrets.IG_HANDLE }}
+          NEWSLETTER_ENDPOINT: ${{ secrets.NEWSLETTER_ENDPOINT }}
+        run: |
+          CLEAN_FLAG=""
+          if [[ "${{ github.event.inputs.clean }}" != "false" ]]; then CLEAN_FLAG="--clean"; fi
+          python build.py --domain "${{ steps.cfg.outputs.real_domain }}" $CLEAN_FLAG
+
+      - name: Deploy via SFTP to Cyber_Folks
+        uses: pressidium/lftp-mirror-action@v1
+        with:
+          host: ${{ secrets.FTP_HOST }}
+          port: ${{ secrets.FTP_PORT || 222 }}
+          user: ${{ secrets.FTP_USER }}
+          pass: ${{ secrets.FTP_PASS }}
+          onlyNewer: true
+          settings: 'sftp:auto-confirm yes'
+          localDir: './output/${{ steps.cfg.outputs.slug }}/'
+          remoteDir: /home/bestios/domains/${{ steps.cfg.outputs.real_domain }}/public_html

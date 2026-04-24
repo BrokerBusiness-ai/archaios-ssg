@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}404 — Strona nie znaleziona | {{ site.name }}{% endblock %}
+{% block description %}Strona, której szukasz, nie istnieje lub została przeniesiona.{% endblock %}
+{% block robots %}noindex,nofollow{% endblock %}
+
+{% block content %}
+<section class="section" style="text-align:center;padding:clamp(4rem,10vw,8rem) 0">
+    <div class="container" style="max-width:560px">
+        <p style="font-size:5rem;margin-bottom:1rem;font-family:var(--font-serif);color:var(--color-primary)">404</p>
+        <h1 style="font-size:clamp(1.5rem,3vw,2rem);margin-bottom:1rem">Tej strony tu nie ma</h1>
+        <p style="color:var(--color-text-muted);margin-bottom:2rem">Strona mogła zostać przeniesiona, usunięta lub nigdy nie istniała. Sprawdź adres URL lub wróć na stronę główną.</p>
+        <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+            <a href="/" class="btn btn--primary">Strona główna</a>
+            <a href="/artykuly.html" class="btn btn--ghost">Przeglądaj artykuły</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block newsletter %}{% endblock %}
+{% block mobile_bottom_nav %}{% endblock %}
+{% block cookie_consent %}{% endblock %}

@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}{{ author.name }} – autor | {{ site.name }}{% endblock %}
+{% block description %}{{ author.bio_short or (author.name + ' — autor publikacji w Zdrowie.fit.') }}{% endblock %}
+{% block og_type %}profile{% endblock %}
+{% block og_image %}{% if author.photo_url %}{{ author.photo_url }}{% else %}{{ site.url }}/img/og-default.png{% endif %}{% endblock %}
+
+{% block schema_extra %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": {{ author.name | tojson }},
+  "url": "{{ site.url }}/autor/{{ author.slug }}.html",
+  "image": {{ (author.photo_url or (site.url + '/img/og-default.png')) | tojson }},
+  "description": {{ author.bio_short | tojson }},
+  "jobTitle": {{ author.credentials | tojson }},
+  "knowsAbout": [{% for s in author.specializations_list %}{{ s | tojson }}{% if not loop.last %}, {% endif %}{% endfor %}],
+  "sameAs": [
+    {% set links = [] %}
+    {% if author.linkedin %}{% set _ = links.append(author.linkedin) %}{% endif %}
+    {% if author.twitter %}{% set _ = links.append(author.twitter) %}{% endif %}
+    {% if author.website %}{% set _ = links.append(author.website) %}{% endif %}
+    {% for l in links %}{{ l | tojson }}{% if not loop.last %}, {% endif %}{% endfor %}
+  ]
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <nav class="breadcrumb" aria-label="Okruszki">
+            <a href="/">Start</a> <span>/</span>
+            <a href="/autorzy.html">Autorzy</a> <span>/</span>
+            <span aria-current="page">{{ author.name }}</span>
+        </nav>
+    </div>
+</section>
+
+<section class="section author-page">
+    <div class="container" style="max-width:720px">
+        <div style="display:flex;gap:2rem;align-items:center;margin-bottom:2rem;flex-wrap:wrap">
+            {% if author.photo_url %}<img src="{{ author.photo_url }}" alt="{{ author.name }}" style="width:140px;height:140px;border-radius:50%;object-fit:cover;box-shadow:var(--shadow-md)">{% endif %}
+            <div>
+                <h1 style="margin-bottom:0.5rem">{{ author.name }}</h1>
+                {% if author.credentials %}<p style="color:var(--color-primary);font-weight:600;margin-bottom:0.5rem">{{ author.credentials }}</p>{% endif %}
+                {% if author.bio_short %}<p style="color:var(--color-text-muted)">{{ author.bio_short }}</p>{% endif %}
+                <div style="display:flex;gap:0.75rem;margin-top:1rem">
+                    {% if author.website %}<a href="{{ author.website }}" target="_blank" rel="noopener" class="btn btn--ghost" style="padding:0.5rem 1rem;font-size:0.85rem">🌐 Strona</a>{% endif %}
+                    {% if author.linkedin %}<a href="{{ author.linkedin }}" target="_blank" rel="noopener" class="btn btn--ghost" style="padding:0.5rem 1rem;font-size:0.85rem">in</a>{% endif %}
+                    {% if author.twitter %}<a href="{{ author.twitter }}" target="_blank" rel="noopener" class="btn btn--ghost" style="padding:0.5rem 1rem;font-size:0.85rem">X</a>{% endif %}
+                </div>
+            </div>
+        </div>
+
+        {% if author.bio_long %}
+        <div class="prose">{{ author.bio_long | safe }}</div>
+        {% endif %}
+
+        {% if author.specializations_list %}
+        <div style="margin:2rem 0">
+            <h3>Specjalizacje</h3>
+            <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.5rem">
+                {% for s in author.specializations_list %}<span class="tag">{{ s }}</span>{% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+{% if articles %}
+<section class="section section--alt">
+    <div class="container">
+        <h2 class="section__title">Artykuły autora ({{ articles | length }})</h2>
+        <div class="articles-grid">
+            {% for a in articles %}{% include "_article_card.html" %}{% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

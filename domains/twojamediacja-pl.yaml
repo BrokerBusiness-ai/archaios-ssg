@@ -1,0 +1,103 @@
+domain: "twojamediacja.pl"
+name: "Twoja Mediacja"
+tagline: "Mediacja i rozwiązywanie konfliktów — Białystok i online"
+description: "Profesjonalna mediacja rodzinna, gospodarcza i pracownicza. Białystok i online. Szybkie, poufne rozwiązywanie sporów."
+lang: "pl"
+locale: "pl_PL"
+
+brand: "mediacja"
+main_domain: ""
+funnel_type: "article_cta"
+role: "main"
+
+logo_mark: "⚖"
+logo_text: "Twoja"
+logo_accent: "Mediacja"
+
+colors:
+  primary: "#27ae60"
+  primary_dark: "#1e8c4d"
+  primary_light: "#52c77e"
+  accent: "#2c3e50"
+  accent_dark: "#1a252f"
+  trust: "#5b8def"
+
+hero:
+  eyebrow: "Mediacja profesjonalna"
+  h1: "Rozwiąż konflikt — szybko, poufnie, skutecznie"
+  subtitle: "Mediacja rodzinna, gospodarcza i pracownicza. Białystok i cała Polska online."
+  cta_primary:
+    text: "Czytaj artykuły"
+    url: "/artykuly.html"
+  cta_secondary:
+    text: "O mediacji"
+    url: "#o-nas"
+
+pillars:
+  - icon: "👨‍👩‍👧‍👦"
+    title: "Mediacja rodzinna"
+    desc: "Rozwody, alimenty, kontakty z dziećmi, podział majątku — bez sądu."
+  - icon: "🏢"
+    title: "Mediacja gospodarcza"
+    desc: "Spory między firmami, kontrahentami, wspólnikami."
+  - icon: "👔"
+    title: "Mediacja pracownicza"
+    desc: "Konflikty w zespołach, mobbing, wypowiedzenia — mediacja zamiast procesu."
+  - icon: "💻"
+    title: "Mediacja online"
+    desc: "Pełna mediacja przez wideokonferencję — wygodnie, z dowolnego miejsca."
+
+categories:
+  - name: "Mediacje"
+    slug: "mediacje"
+    icon: "⚖"
+    color: "#27ae60"
+  - name: "Prawo"
+    slug: "prawo"
+    icon: "📜"
+    color: "#2c3e50"
+  - name: "Porady"
+    slug: "porady"
+    icon: "💡"
+    color: "#1e8c4d"
+
+about:
+  intro: "TwojaMediacja.pl to serwis poświęcony profesjonalnej mediacji. Pomagamy rozwiązywać konflikty rodzinne, gospodarcze i pracownicze — szybciej, taniej i mniej stresująco niż w sądzie."
+  values:
+    - "Poufność — wszystko, co powiedziane w mediacji, zostaje w mediacji"
+    - "Neutralność — mediator nie stoi po żadnej ze stron"
+    - "Skuteczność — ponad 70% mediacji kończy się ugodą"
+
+newsletter:
+  title_highlight: "cotygodniowy przegląd"
+  title_rest: "artykułów o mediacji i prawie"
+  subtitle: "Raz w tygodniu: praktyczne porady prawne i mediacyjne, zero spamu."
+
+footer:
+  tagline: "Mediacja i rozwiązywanie konfliktów — Białystok i online."
+  disclaimer: "Treści mają charakter informacyjny i nie stanowią porady prawnej."
+
+email: "kontakt@twojamediacja.pl"
+
+social:
+  fb: ""
+  ig: ""
+  yt: ""
+  tw: ""
+
+analytics:
+  ga4_id: ""
+  fb_pixel_id: ""
+
+products:
+  - name: "Twoja Mediacja — usługi"
+    slug: "twojamediacja-uslugi"
+    brand: "mediacja"
+    tagline_short: "Umów mediację — Białystok i online"
+    cta_text: "Umów mediację"
+    target_url: "https://twojamediacja.pl/kontakt"
+    placement: "end"
+    target_category_slugs: ""
+    target_tags: ""
+    priority: 95
+    kind: "own"

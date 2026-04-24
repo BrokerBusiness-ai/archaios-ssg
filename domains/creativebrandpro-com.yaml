@@ -1,0 +1,103 @@
+domain: "creativebrandpro.com"
+name: "Creative Brand Pro"
+tagline: "AI Music & Creative Branding"
+description: "AI-powered music production, creative branding tools, and portfolio showcase. Original compositions, sound design, and brand identity."
+lang: "en"
+locale: "en_US"
+
+brand: "marek"
+main_domain: "marekporycki.pl"
+funnel_type: "article_cta"
+role: "main"
+
+logo_mark: "🎵"
+logo_text: "Creative"
+logo_accent: "BrandPro"
+
+colors:
+  primary: "#6c3483"
+  primary_dark: "#512668"
+  primary_light: "#8e44ad"
+  accent: "#f39c12"
+  accent_dark: "#d4860e"
+  trust: "#5b8def"
+
+hero:
+  eyebrow: "AI Music & Creative Branding"
+  h1: "Create. Brand. Amplify."
+  subtitle: "AI-powered music production, creative branding, and digital portfolio. Original compositions and brand identity tools."
+  cta_primary:
+    text: "Read articles"
+    url: "/artykuly.html"
+  cta_secondary:
+    text: "About"
+    url: "#o-nas"
+
+pillars:
+  - icon: "🎵"
+    title: "AI Music"
+    desc: "Original AI-assisted compositions, sound design, and music production workflows."
+  - icon: "🎨"
+    title: "Branding"
+    desc: "Brand identity, visual storytelling, and creative strategy for digital creators."
+  - icon: "🛠"
+    title: "Creative Tools"
+    desc: "Reviews and guides on AI tools for music, design, and content creation."
+  - icon: "📁"
+    title: "Portfolio"
+    desc: "Showcase of projects, compositions, and creative collaborations."
+
+categories:
+  - name: "AI Music"
+    slug: "ai-music"
+    icon: "🎵"
+    color: "#6c3483"
+  - name: "Branding"
+    slug: "branding"
+    icon: "🎨"
+    color: "#f39c12"
+  - name: "Creative"
+    slug: "creative"
+    icon: "🛠"
+    color: "#8e44ad"
+
+about:
+  intro: "CreativeBrandPro.com is a hub for AI-powered music production and creative branding. We explore the intersection of artificial intelligence, sound design, and brand identity."
+  values:
+    - "Originality — every composition and design is a unique creation"
+    - "AI-first — leveraging cutting-edge AI tools for creative work"
+    - "Quality — professional-grade output, not experiments"
+
+newsletter:
+  title_highlight: "weekly roundup"
+  title_rest: "of AI music and branding"
+  subtitle: "Once a week: tools, techniques, and creative inspiration. No spam."
+
+footer:
+  tagline: "AI Music & Creative Branding — create, brand, amplify."
+  disclaimer: "Content is for informational and educational purposes."
+
+email: "contact@creativebrandpro.com"
+
+social:
+  fb: ""
+  ig: ""
+  yt: ""
+  tw: ""
+
+analytics:
+  ga4_id: ""
+  fb_pixel_id: ""
+
+products:
+  - name: "Marek Porycki — Portfolio"
+    slug: "marekporycki"
+    brand: "marek"
+    tagline_short: "Digital creator, author, AI music producer"
+    cta_text: "Visit portfolio"
+    target_url: "https://marekporycki.pl"
+    placement: "end"
+    target_category_slugs: ""
+    target_tags: ""
+    priority: 90
+    kind: "own"

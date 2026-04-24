@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}Polityka prywatności – {{ site.name }}{% endblock %}
+{% block description %}Polityka prywatności serwisu {{ site.name }} zgodna z RODO.{% endblock %}
+{% block robots %}noindex,follow{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container article__container">
+        <nav class="breadcrumb" aria-label="Okruszki">
+            <a href="/">Start</a> <span>/</span> <span aria-current="page">Polityka prywatności</span>
+        </nav>
+        <h1>Polityka prywatności</h1>
+        <p class="article__meta"><em>Ostatnia aktualizacja: {{ now.strftime('%d.%m.%Y') }}</em></p>
+
+        <div class="article__content prose">
+            <h2>1. Administrator danych</h2>
+            <p>Administratorem danych osobowych jest właściciel serwisu {{ site.name }}, adres kontaktowy: <a href="mailto:{{ site.email }}">{{ site.email }}</a>.</p>
+
+            <h2>2. Zakres zbieranych danych</h2>
+            <ul>
+                <li><strong>Newsletter</strong> — jeśli zapisujesz się na listę: adres e-mail, data zapisu, status zgody.</li>
+                <li><strong>Pliki cookie</strong> — techniczne (niezbędne) oraz analityczne (Google Analytics 4) i marketingowe (Meta Pixel) — tylko po wyrażeniu zgody.</li>
+                <li><strong>Logi serwera</strong> — adres IP, user-agent (przez maks. 30 dni, w celu bezpieczeństwa).</li>
+            </ul>
+
+            <h2>3. Cele przetwarzania i podstawa prawna</h2>
+            <ul>
+                <li>Wysyłka newslettera — zgoda (art. 6 ust. 1 lit. a RODO).</li>
+                <li>Analityka i marketing — zgoda (art. 6 ust. 1 lit. a RODO).</li>
+                <li>Obsługa techniczna i bezpieczeństwo — uzasadniony interes (art. 6 ust. 1 lit. f RODO).</li>
+            </ul>
+
+            <h2>4. Twoje prawa (RODO)</h2>
+            <ul>
+                <li>Prawo dostępu do danych</li>
+                <li>Prawo do sprostowania</li>
+                <li>Prawo do usunięcia („prawo do bycia zapomnianym")</li>
+                <li>Prawo do ograniczenia przetwarzania</li>
+                <li>Prawo do przenoszenia danych</li>
+                <li>Prawo do wniesienia sprzeciwu</li>
+                <li>Prawo wycofania zgody w dowolnym momencie (bez wpływu na zgodność z prawem przetwarzania sprzed wycofania)</li>
+                <li>Prawo do złożenia skargi do Prezesa UODO</li>
+            </ul>
+            <p>W celu realizacji któregokolwiek z praw skontaktuj się mailowo: <a href="mailto:{{ site.email }}">{{ site.email }}</a>.</p>
+
+            <h2>5. Odbiorcy danych</h2>
+            <p>Dane mogą być przekazywane podmiotom: dostawcy hostingu (Cyber_Folks), operator newslettera, Google (Analytics 4), Meta Platforms (Pixel) — wyłącznie w zakresie niezbędnym do realizacji celu.</p>
+
+            <h2>6. Okres przechowywania</h2>
+            <p>Dane newsletterowe — do momentu wycofania zgody. Logi serwera — 30 dni. Cookies — zgodnie z ich indywidualnym czasem życia (standardowo do 2 lat).</p>
+
+            <h2>7. Pliki cookie</h2>
+            <p>Serwis używa plików cookie. Możesz zarządzać zgodą w dowolnym momencie przez baner zgody u dołu strony lub ustawienia przeglądarki.</p>
+
+            <h2>8. Zmiany polityki</h2>
+            <p>Zastrzegamy możliwość aktualizacji polityki. Data ostatniej zmiany jest widoczna na górze strony.</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

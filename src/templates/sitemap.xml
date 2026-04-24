@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+    <url>
+        <loc>{{ site.url }}/</loc>
+        <lastmod>{{ now.strftime('%Y-%m-%d') }}</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+    </url>
+    <url>
+        <loc>{{ site.url }}/artykuly.html</loc>
+        <lastmod>{{ now.strftime('%Y-%m-%d') }}</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+    </url>
+    {% for a in articles %}
+    <url>
+        <loc>{{ site.url }}/artykuly/{{ a.slug }}.html</loc>
+        <lastmod>{{ (a.updated_at or a.published_at or a.created_at)[:10] }}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+        {% if a.image_url %}
+        <image:image>
+            <image:loc>{{ a.image_url if 'http' in a.image_url else site.url + a.image_url }}</image:loc>
+            <image:title>{{ a.title | e }}</image:title>
+            <image:caption>{{ a.excerpt | e }}</image:caption>
+        </image:image>
+        {% endif %}
+    </url>
+    {% endfor %}
+    {% for c in categories %}
+    <url>
+        <loc>{{ site.url }}/kategoria/{{ c.slug }}.html</loc>
+        <lastmod>{{ now.strftime('%Y-%m-%d') }}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    {% endfor %}
+    {% for au in authors %}
+    <url>
+        <loc>{{ site.url }}/autor/{{ au.slug }}.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    {% endfor %}
+    <url>
+        <loc>{{ site.url }}/polityka-prywatnosci.html</loc>
+        <changefreq>yearly</changefreq>
+        <priority>0.3</priority>
+    </url>
+    <url>
+        <loc>{{ site.url }}/regulamin.html</loc>
+        <changefreq>yearly</changefreq>
+        <priority>0.3</priority>
+    </url>
+</urlset>

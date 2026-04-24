@@ -1,0 +1,99 @@
+domain: "onpremiseai.pl"
+name: "On-Premise AI"
+tagline: "AI w Twojej infrastrukturze — bezpiecznie i zgodnie z prawem"
+description: "Wdrożenia sztucznej inteligencji on-premise. Modele lokalne, bezpieczeństwo danych, zgodność z NIS2 i RODO, pełna kontrola nad infrastrukturą AI."
+lang: "pl"
+locale: "pl_PL"
+
+brand: "archaios"
+main_domain: "archaios.ai"
+funnel_type: "article_cta"
+role: "satellite"
+
+logo_mark: "🤖"
+logo_text: "OnPremise"
+logo_accent: "AI"
+
+colors:
+  primary: "#1a365d"
+  primary_dark: "#0f2440"
+  primary_light: "#4a7ab5"
+  accent: "#c0392b"
+  accent_dark: "#962d22"
+  trust: "#2980b9"
+
+hero:
+  eyebrow: "AI on-premise dla biznesu"
+  h1: "AI w Twojej infrastrukturze — bezpiecznie i zgodnie z prawem"
+  subtitle: "Lokalne modele AI, pełna kontrola nad danymi, zgodność z NIS2 i RODO. Bez chmury, bez ryzyka wycieku."
+  cta_primary:
+    text: "Czytaj artykuły"
+    url: "/artykuly.html"
+  cta_secondary:
+    text: "O projekcie"
+    url: "#o-nas"
+
+pillars:
+  - icon: "🧠"
+    title: "Wdrożenia AI"
+    desc: "Jak wdrożyć sztuczną inteligencję w firmie — od strategii po produkcję."
+  - icon: "🔐"
+    title: "Bezpieczeństwo danych"
+    desc: "Ochrona danych wrażliwych przy pracy z modelami AI — lokalnie, bez chmury."
+  - icon: "⚖️"
+    title: "Compliance"
+    desc: "Zgodność AI z NIS2, RODO i AI Act — wymagania regulacyjne krok po kroku."
+  - icon: "🖥️"
+    title: "Modele lokalne"
+    desc: "Ollama, vLLM, llama.cpp — jak uruchomić LLM na własnym serwerze."
+
+categories:
+  - name: "AI On-Premise"
+    slug: "ai-on-premise"
+    icon: "🖥️"
+    color: "#1a365d"
+  - name: "Bezpieczeństwo"
+    slug: "bezpieczenstwo"
+    icon: "🔐"
+    color: "#c0392b"
+  - name: "Compliance"
+    slug: "compliance"
+    icon: "⚖️"
+    color: "#2980b9"
+
+about:
+  intro: "OnPremiseAI.pl to serwis dla firm, które chcą wdrożyć sztuczną inteligencję bez oddawania danych do chmury. Pokazujemy, jak uruchomić modele lokalnie, zachować zgodność z przepisami i mieć pełną kontrolę."
+  values:
+    - "Suwerenność danych — Twoje dane zostają w Twojej infrastrukturze"
+    - "Compliance — zgodność z NIS2, RODO i AI Act od pierwszego dnia"
+    - "Praktyka — konkretne wdrożenia, nie teoria"
+
+newsletter:
+  title_highlight: "cotygodniowy przegląd"
+  title_rest: "nowości w AI on-premise i compliance"
+  subtitle: "Raz w tygodniu: nowe modele, narzędzia, regulacje AI. Zero spamu."
+
+footer:
+  tagline: "AI w Twojej infrastrukturze — bezpiecznie, lokalnie, zgodnie z prawem."
+  disclaimer: "Treści mają charakter informacyjny i edukacyjny. Nie stanowią porady prawnej ani technicznej."
+
+email: "kontakt@onpremiseai.pl"
+
+social:
+  fb: ""
+  ig: ""
+  yt: ""
+  tw: ""
+
+products:
+  - name: "ARCHAIOS AI Solutions"
+    slug: "archaios-ai"
+    brand: "archaios"
+    tagline_short: "Wdrożenie AI on-premise dla Twojej firmy"
+    cta_text: "Sprawdź ofertę"
+    target_url: "https://archaios.ai"
+    placement: "end"
+    target_category_slugs: ""
+    target_tags: "ai,on-premise,llm,bezpieczeństwo,compliance"
+    priority: 90
+    kind: "own"

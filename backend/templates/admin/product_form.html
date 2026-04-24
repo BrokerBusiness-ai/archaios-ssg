@@ -1,0 +1,146 @@
+{% extends "components/base.html" %}
+{% set active = "products" %}
+{% block title %}{{ "Edytuj" if product else "Nowy" }} produkt{% endblock %}
+{% block content %}
+<div class="header">
+    <h1>{{ "Edytuj produkt" if product else "Nowy produkt / kampania" }}</h1>
+    <a href="/admin/products" class="btn btn-sm" style="border:1px solid #e2e8f0">← Wróć</a>
+</div>
+{% if error %}<p class="error">{{ error }}</p>{% endif %}
+<div class="card">
+<form method="post" action="{{ '/admin/products/' ~ product.id ~ '/edit' if product else '/admin/products/new' }}">
+
+    <h3 style="margin-bottom:12px;font-size:1rem;color:#64748b;text-transform:uppercase;letter-spacing:.05em">Podstawowe</h3>
+    <div class="form-row">
+        <div class="form-group">
+            <label for="name">Nazwa produktu / kampanii *</label>
+            <input type="text" id="name" name="name" value="{{ product.name if product else '' }}" required placeholder="np. Nurio — psycholog AI">
+        </div>
+        <div class="form-group">
+            <label for="brand">Marka / właściciel</label>
+            <input type="text" id="brand" name="brand" value="{{ product.brand if product else '' }}" placeholder="np. Nurio, Twoja Marka, Partner Afiliacyjny">
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label for="tagline_short">Hasło krótkie (wyświetlane w CTA boxie)</label>
+            <input type="text" id="tagline_short" name="tagline_short" value="{{ product.tagline_short if product else '' }}" maxlength="200" placeholder="np. Psycholog AI 24/7">
+        </div>
+        <div class="form-group">
+            <label for="tagline_long">Hasło długie (1-2 zdania)</label>
+            <input type="text" id="tagline_long" name="tagline_long" value="{{ product.tagline_long if product else '' }}" maxlength="500">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="description">Opis długi (HTML, opcjonalnie)</label>
+        <textarea id="description" name="description" rows="5">{{ product.description if product else '' }}</textarea>
+    </div>
+
+    <h3 style="margin:24px 0 12px;font-size:1rem;color:#64748b;text-transform:uppercase;letter-spacing:.05em">🎯 CTA i link</h3>
+    <div class="form-row">
+        <div class="form-group">
+            <label for="cta_text">Tekst przycisku</label>
+            <input type="text" id="cta_text" name="cta_text" value="{{ product.cta_text if product else 'Sprawdź' }}" maxlength="100">
+        </div>
+        <div class="form-group">
+            <label for="target_url">URL docelowy *</label>
+            <input type="url" id="target_url" name="target_url" value="{{ product.target_url if product else '' }}" required placeholder="https://...">
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label for="utm_source">UTM source (do analityki)</label>
+            <input type="text" id="utm_source" name="utm_source" value="{{ product.utm_source if product else 'zdrowie.fit' }}">
+        </div>
+        <div class="form-group">
+            <label for="utm_medium">UTM medium</label>
+            <input type="text" id="utm_medium" name="utm_medium" value="{{ product.utm_medium if product else 'article' }}">
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label for="logo_url">URL logo</label>
+            <input type="text" id="logo_url" name="logo_url" value="{{ product.logo_url if product else '' }}">
+        </div>
+        <div class="form-group">
+            <label for="hero_image">URL hero image (800×450, opcjonalnie)</label>
+            <input type="text" id="hero_image" name="hero_image" value="{{ product.hero_image if product else '' }}">
+        </div>
+    </div>
+
+    <h3 style="margin:24px 0 12px;font-size:1rem;color:#64748b;text-transform:uppercase;letter-spacing:.05em">🎯 Targetowanie</h3>
+    <div class="form-row">
+        <div class="form-group">
+            <label for="target_category_slugs">Kategorie (comma-separated slugi, puste = wszystkie)</label>
+            <input type="text" id="target_category_slugs" name="target_category_slugs" value="{{ product.target_category_slugs if product else '' }}" placeholder="np. psychiczne,zdrowie">
+            <small style="color:#64748b">Dostępne:
+                {% for c in categories %}<code>{{ c.slug }}</code>{% if not loop.last %}, {% endif %}{% endfor %}
+            </small>
+        </div>
+        <div class="form-group">
+            <label for="target_tags">Tagi do dopasowania (comma-separated)</label>
+            <input type="text" id="target_tags" name="target_tags" value="{{ product.target_tags if product else '' }}" placeholder="np. stres,lęk,sen,mindfulness">
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label for="placement">Gdzie wyświetlać w artykule</label>
+            <select id="placement" name="placement">
+                <option value="end" {% if product and product.placement == 'end' %}selected{% endif %}>Na końcu artykułu (CTA box)</option>
+                <option value="sidebar" {% if product and product.placement == 'sidebar' %}selected{% endif %}>Sidebar (sticky)</option>
+                <option value="inline" {% if product and product.placement == 'inline' %}selected{% endif %}>Inline (w środku treści)</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="priority">Priorytet (0-100, wyższy = wyżej)</label>
+            <input type="number" id="priority" name="priority" value="{{ product.priority if product else 50 }}" min="0" max="100">
+        </div>
+    </div>
+
+    <h3 style="margin:24px 0 12px;font-size:1rem;color:#64748b;text-transform:uppercase;letter-spacing:.05em">📅 Okno czasowe (np. "promocja tygodnia")</h3>
+    <div class="form-row">
+        <div class="form-group">
+            <label for="valid_from">Aktywne od (puste = od razu)</label>
+            <input type="datetime-local" id="valid_from" name="valid_from" value="{{ (product.valid_from.strftime('%Y-%m-%dT%H:%M') if product and product.valid_from else '') }}">
+        </div>
+        <div class="form-group">
+            <label for="valid_to">Aktywne do (puste = bez limitu)</label>
+            <input type="datetime-local" id="valid_to" name="valid_to" value="{{ (product.valid_to.strftime('%Y-%m-%dT%H:%M') if product and product.valid_to else '') }}">
+        </div>
+    </div>
+
+    <h3 style="margin:24px 0 12px;font-size:1rem;color:#64748b;text-transform:uppercase;letter-spacing:.05em">⚖️ Zgodność (RODO / UOKiK)</h3>
+    <div class="form-row">
+        <div class="form-group">
+            <label for="kind">Typ</label>
+            <select id="kind" name="kind">
+                <option value="own" {% if product and product.kind == 'own' %}selected{% endif %}>Własny produkt</option>
+                <option value="affiliate" {% if product and product.kind == 'affiliate' %}selected{% endif %}>Affiliate (wymagany disclaimer)</option>
+                <option value="partner" {% if product and product.kind == 'partner' %}selected{% endif %}>Partner (współpraca)</option>
+            </select>
+        </div>
+        <div class="form-group" style="display:flex;align-items:end;padding-bottom:8px">
+            <label class="form-check">
+                <input type="checkbox" name="is_active" value="true" {% if not product or product.is_active %}checked{% endif %}>
+                <strong>AKTYWNY</strong> (wyświetla się na stronie)
+            </label>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="affiliate_disclaimer">Disclaimer (wymagany dla affiliate)</label>
+        <input type="text" id="affiliate_disclaimer" name="affiliate_disclaimer" value="{{ product.affiliate_disclaimer if product else '' }}" placeholder="np. Link afiliacyjny — możemy otrzymać prowizję.">
+    </div>
+
+    <div style="display:flex;gap:12px;margin-top:24px">
+        <button type="submit" class="btn btn-primary">💾 {{ "Zapisz" if product else "Utwórz" }}</button>
+        <a href="/admin/products" class="btn" style="background:#e2e8f0;color:#1e293b">Anuluj</a>
+    </div>
+</form>
+</div>
+{% endblock %}

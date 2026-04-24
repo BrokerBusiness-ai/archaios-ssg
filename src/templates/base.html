@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang }}" dir="ltr" prefix="og: https://ogp.me/ns#">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="{{ colors.primary | default('#4a7c59') }}">
+    <meta name="color-scheme" content="light dark">
+
+    <title>{% block title %}{{ site.name }} – {{ site.tagline }}{% endblock %}</title>
+    <meta name="description" content="{% block description %}{{ site.description }}{% endblock %}">
+    <meta name="author" content="{{ site.author }}">
+    <meta name="robots" content="{% block robots %}index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1{% endblock %}">
+    <meta name="generator" content="Archaios SSG">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="canonical" href="{% block canonical %}{{ site.url }}{{ page.path | default('/') }}{% endblock %}">
+
+    <!-- Favicon + PWA -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/img/logo.png">
+    <link rel="manifest" href="/manifest.json">
+
+    <!-- Open Graph -->
+    <meta property="og:site_name" content="{{ site.name }}">
+    <meta property="og:locale" content="{{ site.locale }}">
+    <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+    <meta property="og:title" content="{% block og_title %}{{ self.title() }}{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}{{ self.description() }}{% endblock %}">
+    <meta property="og:url" content="{% block og_url %}{{ site.url }}{{ page.path | default('/') }}{% endblock %}">
+    <meta property="og:image" content="{% block og_image %}{{ site.url }}/img/og-default.png{% endblock %}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="{% block og_image_alt %}{{ site.name }} – {{ site.tagline }}{% endblock %}">
+    {% block og_article_meta %}{% endblock %}
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ self.og_title() }}">
+    <meta name="twitter:description" content="{{ self.og_description() }}">
+    <meta name="twitter:image" content="{{ self.og_image() }}">
+    {% if site.tw %}<meta name="twitter:site" content="{{ site.tw }}">{% endif %}
+
+    <!-- Fonts (self-hosted, zero external requests) + CSS -->
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-v18-latin-ext-regular.woff2" crossorigin>
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/fraunces-v38-latin-ext-600.woff2" crossorigin>
+    {% if critical_css %}<style>{{ critical_css }}</style>{% endif %}
+    <link rel="stylesheet" href="/css/fonts.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/domain-colors.css">
+    <!-- DNS prefetch for analytics -->
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://connect.facebook.net">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="{{ site.name }} – artykuły" href="/rss.xml">
+
+    <!-- JSON-LD: WebSite + Organization -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "{{ site.url }}/#website",
+          "url": "{{ site.url }}",
+          "name": "{{ site.name }}",
+          "description": "{{ site.description }}",
+          "inLanguage": "{{ site.lang }}",
+          "publisher": {"@id": "{{ site.url }}/#organization"},
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "{{ site.url }}/artykuly.html?search={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@type": "Organization",
+          "@id": "{{ site.url }}/#organization",
+          "name": "{{ site.name }}",
+          "url": "{{ site.url }}",
+          "logo": {"@type": "ImageObject", "url": "{{ site.url }}/img/logo.png"},
+          "sameAs": [{% set links = [] %}{% if site.fb %}{% set _ = links.append(site.fb) %}{% endif %}{% if site.ig %}{% set _ = links.append(site.ig) %}{% endif %}{% if site.yt %}{% set _ = links.append(site.yt) %}{% endif %}{% if site.tw %}{% set _ = links.append(site.tw) %}{% endif %}{% for l in links %}"{{ l }}"{% if not loop.last %}, {% endif %}{% endfor %}]
+        }
+      ]
+    }
+    </script>
+
+    {% block schema_extra %}{% endblock %}
+
+    {% if analytics.ga4_id %}
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ analytics.ga4_id }}"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('consent', 'default', {analytics_storage: 'denied', ad_storage: 'denied'});
+      gtag('config', '{{ analytics.ga4_id }}', { anonymize_ip: true });
+    </script>
+    {% endif %}
+
+    {% if analytics.fb_pixel_id %}
+    <script>
+      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+      n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+      document,'script','https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '{{ analytics.fb_pixel_id }}');
+      fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id={{ analytics.fb_pixel_id }}&ev=PageView&noscript=1"/></noscript>
+    {% endif %}
+
+    <!-- Prerender / prefetch hints -->
+    {% block prerender %}{% endblock %}
+
+    {% block head_extra %}{% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+    <a href="#main-content" class="skip-link">Przejdź do treści</a>
+
+    <header class="header" role="banner">
+        <div class="container header__inner">
+            <a href="/" class="logo" aria-label="{{ site.name }} – strona główna">
+                <span class="logo__mark">{{ site.logo_mark | default('◐') }}</span>
+                <span class="logo__text">{{ site.logo_text | default(site.name) }}<span class="logo__accent">{{ site.logo_accent | default('') }}</span></span>
+            </a>
+            <nav class="nav" role="navigation" aria-label="Główna nawigacja">
+                <ul class="nav__list">
+                    <li><a href="/" class="nav__link{% if page.slug == 'home' %} nav__link--active{% endif %}">Start</a></li>
+                    <li><a href="/artykuly.html" class="nav__link{% if page.slug in ['articles', 'article'] %} nav__link--active{% endif %}">Artykuły</a></li>
+                    <li><a href="/#o-nas" class="nav__link">O projekcie</a></li>
+                    <li><a href="#newsletter" class="nav__link nav__link--cta">Newsletter</a></li>
+                </ul>
+                <button class="nav__toggle" aria-label="Menu" aria-expanded="false">☰</button>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    {% block newsletter %}
+    <section id="newsletter" class="newsletter" aria-labelledby="nl-title">
+        <div class="container newsletter__inner">
+            <div class="newsletter__text">
+                <h2 id="nl-title">Odbierz <span class="highlight">{{ newsletter.title_highlight | default('cotygodniowy przegląd') }}</span> {{ newsletter.title_rest | default('nowości') }}</h2>
+                <p>{{ newsletter.subtitle | default('Raz w tygodniu: konkretne wskazówki, zero spamu, wypisujesz się jednym klikiem.') }}</p>
+            </div>
+            <form class="newsletter__form" data-newsletter-form{% if newsletter.endpoint %} action="{{ newsletter.endpoint }}" method="post"{% endif %} novalidate>
+                <label class="visually-hidden" for="nl-email">Twój adres e-mail</label>
+                <input type="email" id="nl-email" name="email" placeholder="twoj@email.pl" required autocomplete="email">
+                <button type="submit" class="btn btn--primary">Zapisz się</button>
+                <p class="newsletter__consent">
+                    <label><input type="checkbox" required> Zgadzam się na <a href="/polityka-prywatnosci.html">przetwarzanie danych</a> w celu otrzymywania newslettera.</label>
+                </p>
+            </form>
+        </div>
+    </section>
+    {% endblock %}
+
+    <footer class="footer" role="contentinfo">
+        <div class="container footer__grid">
+            <div class="footer__brand">
+                <span class="logo__text">{{ site.logo_text | default(site.name) }}<span class="logo__accent">{{ site.logo_accent | default('') }}</span></span>
+                <p>{{ footer_cfg.tagline | default(site.description) }}</p>
+                <div class="footer__social">
+                    {% if site.fb %}<a href="{{ site.fb }}" aria-label="Facebook" target="_blank" rel="noopener">FB</a>{% endif %}
+                    {% if site.ig %}<a href="{{ site.ig }}" aria-label="Instagram" target="_blank" rel="noopener">IG</a>{% endif %}
+                    {% if site.yt %}<a href="{{ site.yt }}" aria-label="YouTube" target="_blank" rel="noopener">YT</a>{% endif %}
+                    {% if site.tw %}<a href="{{ site.tw }}" aria-label="Twitter/X" target="_blank" rel="noopener">X</a>{% endif %}
+                    <a href="/rss.xml" aria-label="RSS feed">RSS</a>
+                </div>
+            </div>
+            <nav class="footer__nav" aria-label="Nawigacja stopki">
+                <h3>Treści</h3>
+                <a href="/">Start</a>
+                <a href="/artykuly.html">Artykuły</a>
+                <a href="/rss.xml">Kanał RSS</a>
+            </nav>
+            <nav class="footer__nav" aria-label="Formalności">
+                <h3>Formalności</h3>
+                <a href="/polityka-prywatnosci.html">Polityka prywatności</a>
+                <a href="/regulamin.html">Regulamin</a>
+                <a href="mailto:{{ site.email }}">{{ site.email }}</a>
+            </nav>
+        </div>
+        <div class="container footer__bottom">
+            <p>&copy; {{ now.year }} {{ site.name }}. {{ footer_cfg.disclaimer | default('Treści mają charakter informacyjny.') }}</p>
+            <p class="footer__built">Zbudowane: {{ now.strftime('%Y-%m-%d %H:%M') }}</p>
+        </div>
+    </footer>
+
+    {% block mobile_bottom_nav %}
+    <nav class="mobile-bottom-nav" aria-label="Nawigacja mobilna" data-mobile-nav>
+        <a href="/" aria-label="Start"><span aria-hidden="true">🏠</span><span>Start</span></a>
+        <a href="/artykuly.html" aria-label="Artykuły"><span aria-hidden="true">📖</span><span>Artykuły</span></a>
+        <a href="#newsletter" aria-label="Newsletter" class="mobile-bottom-nav__cta"><span aria-hidden="true">✉</span><span>Zapisz się</span></a>
+        <button type="button" aria-label="Szukaj" data-mobile-search><span aria-hidden="true">🔍</span><span>Szukaj</span></button>
+    </nav>
+    {% endblock %}
+
+    {% block cookie_consent %}
+    <div id="cookie-consent" class="cookie-consent" hidden>
+        <div class="cookie-consent__inner container">
+            <p>Używamy plików cookie do analizy ruchu i personalizacji treści. <a href="/polityka-prywatnosci.html">Dowiedz się więcej</a>.</p>
+            <div class="cookie-consent__actions">
+                <button type="button" class="btn btn--outline" data-consent="reject">Tylko niezbędne</button>
+                <button type="button" class="btn btn--primary" data-consent="accept">Akceptuję wszystkie</button>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+
+    <script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js',{scope:'/'})}</script>
+    <script src="/js/main.js" defer></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

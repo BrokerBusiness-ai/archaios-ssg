@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Wszystkie artykuły – {{ site.name }}{% endblock %}
+{% block description %}Baza artykułów o psychosomatyce, dietetyce, neuronauce i wellbeing. Treści oparte na badaniach.{% endblock %}
+
+{% block schema_extra %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Artykuły – {{ site.name }}",
+  "url": "{{ site.url }}/artykuly.html",
+  "description": "Wszystkie artykuły o zdrowiu psychicznym i fizycznym.",
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Start", "item": "{{ site.url }}/"},
+      {"@type": "ListItem", "position": 2, "name": "Artykuły", "item": "{{ site.url }}/artykuly.html"}
+    ]
+  }
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <nav class="breadcrumb" aria-label="Okruszki">
+            <a href="/">Start</a> <span>/</span> <span aria-current="page">Artykuły</span>
+        </nav>
+        <h1>Artykuły</h1>
+        <p class="page-header__lead">Wszystkie treści — posortowane i przefiltrowane. {{ articles | length }} {{ 'artykuł' if articles|length == 1 else 'artykuły' if 1 < articles|length < 5 else 'artykułów' }}.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="articles__toolbar">
+            <div class="articles__filters" role="group" aria-label="Filtry kategorii">
+                <button type="button" class="filter-btn active" data-category="all">Wszystkie</button>
+                {% for cat in categories %}
+                <button type="button" class="filter-btn" data-category="{{ cat.slug }}" style="--cat-color: {{ cat.color }}">{{ cat.icon }} {{ cat.name }}</button>
+                {% endfor %}
+            </div>
+            <label class="articles__search">
+                <input type="search" id="articles-search" placeholder="Szukaj..." aria-label="Szukaj artykułu">
+            </label>
+        </div>
+
+        <div class="articles-grid" id="articles-grid">
+            {% for a in articles %}
+            {% include "_article_card.html" %}
+            {% endfor %}
+        </div>
+
+        <p class="articles__empty" id="articles-empty" hidden>Brak artykułów spełniających kryteria.</p>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="/js/articles.js" defer></script>
+{% endblock %}

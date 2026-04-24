@@ -1,0 +1,99 @@
+domain: "testnis2.pl"
+name: "Test NIS2"
+tagline: "Sprawdź gotowość firmy na NIS2"
+description: "Kompleksowy audyt gotowości Twojej organizacji na dyrektywę NIS2. Testy zgodności, checklista wymagań, plan wdrożenia."
+lang: "pl"
+locale: "pl_PL"
+
+brand: "archaios"
+main_domain: "archaios.ai"
+funnel_type: "article_cta"
+role: "satellite"
+
+logo_mark: "🛡"
+logo_text: "TestNIS2"
+logo_accent: ".pl"
+
+colors:
+  primary: "#1a365d"
+  primary_dark: "#0f2440"
+  primary_light: "#4a7ab5"
+  accent: "#c0392b"
+  accent_dark: "#962d22"
+  trust: "#2980b9"
+
+hero:
+  eyebrow: "Audyt zgodności NIS2"
+  h1: "Sprawdź gotowość firmy na NIS2"
+  subtitle: "Darmowy test zgodności z dyrektywą NIS2. Dowiedz się, czy Twoja organizacja spełnia wymagania i co musisz wdrożyć."
+  cta_primary:
+    text: "Czytaj artykuły"
+    url: "/artykuly.html"
+  cta_secondary:
+    text: "O projekcie"
+    url: "#o-nas"
+
+pillars:
+  - icon: "🔍"
+    title: "Audyt"
+    desc: "Kompleksowa ocena gotowości organizacji na wymagania dyrektywy NIS2."
+  - icon: "⚖️"
+    title: "Zgodność"
+    desc: "Analiza wymogów prawnych i technicznych — co musisz spełnić, żeby być zgodnym."
+  - icon: "🛠️"
+    title: "Wdrożenie"
+    desc: "Krok po kroku: jak wdrożyć NIS2 w firmie od podstaw."
+  - icon: "🎓"
+    title: "Szkolenia"
+    desc: "Edukacja zespołu — od zarządu po administratorów IT."
+
+categories:
+  - name: "Audyt NIS2"
+    slug: "audyt-nis2"
+    icon: "🔍"
+    color: "#1a365d"
+  - name: "Regulacje"
+    slug: "regulacje"
+    icon: "⚖️"
+    color: "#2980b9"
+  - name: "Wdrożenia"
+    slug: "wdrozenia"
+    icon: "🛠️"
+    color: "#c0392b"
+
+about:
+  intro: "TestNIS2.pl to serwis pomagający polskim firmom ocenić gotowość na dyrektywę NIS2. Dostarczamy rzetelne informacje o wymaganiach, terminach i konsekwencjach braku zgodności."
+  values:
+    - "Rzetelność — opieramy się na oficjalnych źródłach i aktach prawnych"
+    - "Praktyczność — konkretne checklisty i plany działania"
+    - "Dostępność — skomplikowane regulacje wyjaśnione prostym językiem"
+
+newsletter:
+  title_highlight: "cotygodniowy przegląd"
+  title_rest: "zmian w NIS2 i cyberbezpieczeństwie"
+  subtitle: "Raz w tygodniu: nowe wymagania, terminy, praktyczne wskazówki. Zero spamu."
+
+footer:
+  tagline: "Sprawdź gotowość firmy na NIS2 — audyt, zgodność, wdrożenie."
+  disclaimer: "Treści mają charakter informacyjny i edukacyjny. Nie stanowią porady prawnej ani audytu certyfikacyjnego."
+
+email: "kontakt@testnis2.pl"
+
+social:
+  fb: ""
+  ig: ""
+  yt: ""
+  tw: ""
+
+products:
+  - name: "ARCHAIOS Cybersecurity"
+    slug: "archaios-cyber"
+    brand: "archaios"
+    tagline_short: "Kompleksowe wdrożenie NIS2 dla Twojej firmy"
+    cta_text: "Sprawdź ofertę"
+    target_url: "https://archaios.ai"
+    placement: "end"
+    target_category_slugs: ""
+    target_tags: "nis2,audyt,zgodność,wdrożenie"
+    priority: 90
+    kind: "own"

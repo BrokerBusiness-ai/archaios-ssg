@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/">
+    <channel>
+        <title>{{ site.name }} — {{ site.tagline }}</title>
+        <link>{{ site.url }}</link>
+        <description>{{ site.description }}</description>
+        <language>{{ site.lang }}</language>
+        <lastBuildDate>{{ now.strftime('%a, %d %b %Y %H:%M:%S +0000') }}</lastBuildDate>
+        <atom:link href="{{ site.url }}/rss.xml" rel="self" type="application/rss+xml"/>
+        <image>
+            <url>{{ site.url }}/img/logo.png</url>
+            <title>{{ site.name }}</title>
+            <link>{{ site.url }}</link>
+        </image>
+        {% for a in articles[:20] %}
+        <item>
+            <title>{{ a.title | e }}</title>
+            <link>{{ site.url }}/artykuly/{{ a.slug }}.html</link>
+            <guid isPermaLink="true">{{ site.url }}/artykuly/{{ a.slug }}.html</guid>
+            <description>{{ a.excerpt | e }}</description>
+            {% if a.content %}<content:encoded><![CDATA[{{ a.content }}]]></content:encoded>{% endif %}
+            {% if a.published_at %}<pubDate>{{ a.pubdate_rfc822 }}</pubDate>{% endif %}
+            {% if a.author %}<dc:creator>{{ a.author | e }}</dc:creator>{% endif %}
+            {% if a.category_name %}<category>{{ a.category_name }}</category>{% endif %}
+            {% if a.image_url %}
+            <media:content url="{{ a.image_url if 'http' in a.image_url else site.url + a.image_url }}" medium="image" type="image/jpeg"/>
+            <media:thumbnail url="{{ a.image_url if 'http' in a.image_url else site.url + a.image_url }}"/>
+            {% endif %}
+        </item>
+        {% endfor %}
+    </channel>
+</rss>

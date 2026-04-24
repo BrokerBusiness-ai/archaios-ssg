@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Zdrowie.fit — pełne logo poziome (mark + wordmark)
+    Użyj w nagłówkach stron, stopce, emailach.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 64" role="img" aria-label="Zdrowie.fit – Ciało i umysł w harmonii">
+    <defs>
+        <linearGradient id="zf-grad-full" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#0d5464"/>
+            <stop offset="100%" stop-color="#2a7b9b"/>
+        </linearGradient>
+    </defs>
+
+    <!-- Mark (półksiężyc + impuls) -->
+    <g transform="translate(0,0)">
+        <path d="M 44 14
+                 A 22 22 0 1 0 44 50
+                 A 16 16 0 1 1 44 14 Z"
+              fill="url(#zf-grad-full)"/>
+        <path d="M 14 32 L 20 32 L 23 26 L 27 38 L 30 32 L 38 32"
+              fill="none" stroke="#ff7b5c" stroke-width="2.4"
+              stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+
+    <!-- Wordmark: "zdrowie.fit" w Fraunces-like (kursywa + wariant) -->
+    <g transform="translate(78,0)" font-family="'Fraunces', 'Times New Roman', Georgia, serif">
+        <text x="0" y="42" font-size="30" font-weight="600" fill="#1a1c20" letter-spacing="-0.5">zdrowie</text>
+        <!-- kropka jako coral accent -->
+        <circle cx="130" cy="42" r="2.8" fill="#ff7b5c"/>
+        <text x="136" y="42" font-size="30" font-weight="500" font-style="italic" fill="#ff7b5c" letter-spacing="-0.3">fit</text>
+    </g>
+</svg>

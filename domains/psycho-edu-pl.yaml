@@ -1,0 +1,114 @@
+domain: "psycho.edu.pl"
+name: "Psycho Edu"
+tagline: "Edukacja psychologiczna — wiedza dla każdego"
+description: "Portal edukacji psychologicznej. Psychologia ogólna, neuropsychologia, psychopatologia, metody terapii. Artykuły oparte na badaniach naukowych."
+lang: "pl"
+locale: "pl_PL"
+
+brand: "nurio"
+main_domain: "nurio.pl"
+funnel_type: "article_cta"
+role: "satellite"
+
+logo_mark: "🎓"
+logo_text: "Psycho"
+logo_accent: ".edu.pl"
+
+colors:
+  primary: "#2c6e8a"
+  primary_dark: "#215569"
+  primary_light: "#4a9bb5"
+  accent: "#e07b4f"
+  accent_dark: "#b8623e"
+  trust: "#5b8def"
+
+hero:
+  eyebrow: "Edukacja psychologiczna"
+  h1: "Psychologia — wiedza dla każdego"
+  subtitle: "Neuropsychologia, psychopatologia, metody terapii. Rzetelne artykuły oparte na badaniach naukowych."
+  cta_primary:
+    text: "Czytaj artykuły"
+    url: "/artykuly.html"
+  cta_secondary:
+    text: "O projekcie"
+    url: "#o-nas"
+
+pillars:
+  - icon: "🧠"
+    title: "Psychologia ogólna"
+    desc: "Procesy poznawcze, emocje, motywacja, osobowość — fundamenty psychologii."
+  - icon: "🔬"
+    title: "Neuropsychologia"
+    desc: "Mózg i zachowanie — jak neurobiologia kształtuje psychikę."
+  - icon: "📊"
+    title: "Psychopatologia"
+    desc: "Zaburzenia psychiczne — diagnostyka, klasyfikacja, mechanizmy."
+  - icon: "💊"
+    title: "Metody terapii"
+    desc: "CBT, psychodynamika, EMDR, terapia schematów — przegląd podejść."
+
+categories:
+  - name: "Edukacja"
+    slug: "edukacja"
+    icon: "🎓"
+    color: "#2c6e8a"
+  - name: "Neuropsychologia"
+    slug: "neuropsychologia"
+    icon: "🔬"
+    color: "#e07b4f"
+  - name: "Terapia"
+    slug: "terapia"
+    icon: "💊"
+    color: "#4a9bb5"
+
+about:
+  intro: "Psycho.edu.pl to portal edukacji psychologicznej. Udostępniamy rzetelną wiedzę z zakresu psychologii, neuropsychologii i terapii — w przystępnej formie, z odniesieniami do badań naukowych."
+  values:
+    - "Rzetelność — każdy artykuł oparty na źródłach naukowych"
+    - "Przystępność — skomplikowane tematy wyjaśnione prostym językiem"
+    - "Praktyczność — wiedza, którą możesz zastosować w codziennym życiu"
+
+newsletter:
+  title_highlight: "cotygodniowy przegląd"
+  title_rest: "artykułów z psychologii"
+  subtitle: "Raz w tygodniu: najnowsze artykuły, badania i porady psychologiczne, zero spamu."
+
+footer:
+  tagline: "Edukacja psychologiczna — wiedza dla każdego."
+  disclaimer: "Treści mają charakter edukacyjny i nie zastępują konsultacji ze specjalistą zdrowia psychicznego."
+
+email: "kontakt@psycho.edu.pl"
+
+social:
+  fb: ""
+  ig: ""
+  yt: ""
+  tw: ""
+
+analytics:
+  ga4_id: ""
+  fb_pixel_id: ""
+
+products:
+  - name: "Nurio"
+    slug: "nurio"
+    brand: "nurio"
+    tagline_short: "Twój AI companion do dobrostanu psychicznego"
+    cta_text: "Wypróbuj Nurio"
+    target_url: "https://nurio.pl"
+    placement: "end"
+    target_category_slugs: ""
+    target_tags: "terapia,zdrowie psychiczne,dobrostan"
+    priority: 90
+    kind: "own"
+  - name: "Psychozdrowie"
+    slug: "psychozdrowie"
+    brand: "psychozdrowie"
+    tagline_short: "Profesjonalne testy i diagnozy psychologiczne online"
+    cta_text: "Zrób test"
+    target_url: "https://psychozdrowie.online"
+    placement: "sidebar"
+    target_category_slugs: "neuropsychologia,terapia"
+    target_tags: "test,diagnoza,zaburzenia"
+    priority: 85
+    kind: "own"

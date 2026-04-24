@@ -1,0 +1,48 @@
+# {{ site.name }} — Full Content Index
+
+> {{ site.description }}
+> Website: {{ site.url }}
+> Generated: {{ now.strftime('%Y-%m-%d %H:%M UTC') }}
+
+---
+{% for a in articles %}
+
+## {{ a.title }}
+
+- URL: {{ site.url }}/artykuly/{{ a.slug }}.html
+- Author: {{ a.author | default('Redakcja') }}
+- Published: {{ a.published_date_pl }}
+- Category: {{ a.category_name | default('') }}
+- Tags: {{ a.tags | default('') }}
+- Reading time: {{ a.reading_time | default(5) }} min
+- Word count: {{ a.word_count | default(0) }}
+
+### Summary
+
+{{ a.excerpt | default('') }}
+
+### Content
+
+{{ a.content | striptags | wordwrap(80) }}
+
+{% if a.bibliography %}
+### Sources
+
+{{ a.bibliography | striptags }}
+{% endif %}
+
+---
+{% endfor %}
+
+## About {{ site.name }}
+
+{{ site.description }}
+
+### Authors
+{% for au in authors %}
+**{{ au.name }}**{% if au.credentials %} — {{ au.credentials }}{% endif %}
+
+{{ au.bio_short | default('') }}
+{% if au.specializations %}Specializations: {{ au.specializations }}{% endif %}
+
+{% endfor %}

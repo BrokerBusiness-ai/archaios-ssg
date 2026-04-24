@@ -1,0 +1,99 @@
+domain: "testpredyspozycje.pl"
+name: "Test Predyspozycje"
+tagline: "Poznaj swoje predyspozycje i mocne strony"
+description: "Testy osobowości, predyspozycje zawodowe, inteligencja i talenty. Profesjonalna diagnostyka psychologiczna oparta na badaniach."
+lang: "pl"
+locale: "pl_PL"
+
+brand: "nurio"
+main_domain: "nurio.pl"
+funnel_type: "article_cta"
+role: "satellite"
+
+logo_mark: "🧠"
+logo_text: "Test"
+logo_accent: "Predyspozycje"
+
+colors:
+  primary: "#2c6e8a"
+  primary_dark: "#1d4e66"
+  primary_light: "#6aafc9"
+  accent: "#e07b4f"
+  accent_dark: "#c0623a"
+  trust: "#7b68ee"
+
+hero:
+  eyebrow: "Testy i predyspozycje"
+  h1: "Poznaj swoje mocne strony"
+  subtitle: "Testy osobowości, predyspozycje zawodowe i talenty — profesjonalna diagnostyka oparta na psychologii."
+  cta_primary:
+    text: "Czytaj artykuły"
+    url: "/artykuly.html"
+  cta_secondary:
+    text: "O projekcie"
+    url: "#o-nas"
+
+pillars:
+  - icon: "🧩"
+    title: "Testy osobowości"
+    desc: "Big Five, MBTI, HEXACO — naukowe modele osobowości i ich praktyczne zastosowanie."
+  - icon: "💼"
+    title: "Predyspozycje zawodowe"
+    desc: "Holland, RIASEC, zainteresowania zawodowe — znajdź swoją ścieżkę kariery."
+  - icon: "🧠"
+    title: "Inteligencja"
+    desc: "IQ, inteligencja emocjonalna, inteligencje wielorakie — co mówi nauka."
+  - icon: "⭐"
+    title: "Talenty"
+    desc: "Mocne strony, StrengthsFinder, kompetencje — jak odkryć i rozwijać talenty."
+
+categories:
+  - name: "Testy"
+    slug: "testy"
+    icon: "🧩"
+    color: "#2c6e8a"
+  - name: "Kariera"
+    slug: "kariera"
+    icon: "💼"
+    color: "#e07b4f"
+  - name: "Rozwój"
+    slug: "rozwoj"
+    icon: "⭐"
+    color: "#7b68ee"
+
+about:
+  intro: "TestPredyspozycje to serwis o testach psychologicznych i diagnostyce predyspozycji. Pomagamy poznać siebie — osobowość, talenty i predyspozycje zawodowe — w oparciu o naukowe modele."
+  values:
+    - "Dowody naukowe — tylko testy o potwierdzonej trafności i rzetelności"
+    - "Przystępność — wyjaśniamy naukowe modele zrozumiałym językiem"
+    - "Praktyczność — jak wykorzystać wyniki testów w życiu i karierze"
+
+newsletter:
+  title_highlight: "cotygodniowy przegląd"
+  title_rest: "testów i predyspozycji"
+  subtitle: "Raz w tygodniu: nowości z psychometrii i diagnostyki, zero spamu, wypisujesz się jednym klikiem."
+
+footer:
+  tagline: "Poznaj swoje predyspozycje i mocne strony — oparte na psychologii naukowej."
+  disclaimer: "Treści mają charakter edukacyjny i nie zastępują profesjonalnej diagnozy psychologicznej."
+
+email: "kontakt@testpredyspozycje.pl"
+
+social:
+  fb: ""
+  ig: ""
+  yt: ""
+  tw: ""
+
+products:
+  - name: "Psychozdrowie — testy online"
+    slug: "psychozdrowie-testy"
+    brand: "psychozdrowie"
+    tagline_short: "Profesjonalne testy psychologiczne online"
+    cta_text: "Zrób test"
+    target_url: "https://psychozdrowie.online"
+    placement: "end"
+    target_category_slugs: "testy,kariera,rozwoj"
+    target_tags: "test,osobowość,predyspozycje,kariera,talenty"
+    priority: 90
+    kind: "own"

@@ -1,0 +1,99 @@
+domain: "karynis2.pl"
+name: "Kary NIS2"
+tagline: "Sankcje i konsekwencje prawne NIS2"
+description: "Wszystko o karach za brak zgodności z NIS2 — wysokość sankcji, odpowiedzialność zarządu, case studies i sposoby na uniknięcie kar."
+lang: "pl"
+locale: "pl_PL"
+
+brand: "archaios"
+main_domain: "archaios.ai"
+funnel_type: "article_cta"
+role: "satellite"
+
+logo_mark: "🛡"
+logo_text: "KaryNIS2"
+logo_accent: ".pl"
+
+colors:
+  primary: "#1a365d"
+  primary_dark: "#0f2440"
+  primary_light: "#4a7ab5"
+  accent: "#c0392b"
+  accent_dark: "#962d22"
+  trust: "#2980b9"
+
+hero:
+  eyebrow: "Sankcje i kary NIS2"
+  h1: "Sankcje i konsekwencje prawne NIS2"
+  subtitle: "Ile wynoszą kary za brak zgodności z NIS2? Kto odpowiada — zarząd czy firma? Poznaj realne konsekwencje i dowiedz się, jak ich uniknąć."
+  cta_primary:
+    text: "Czytaj artykuły"
+    url: "/artykuly.html"
+  cta_secondary:
+    text: "O projekcie"
+    url: "#o-nas"
+
+pillars:
+  - icon: "💰"
+    title: "Kary finansowe"
+    desc: "Wysokość sankcji finansowych — do 10 mln EUR lub 2% rocznego obrotu."
+  - icon: "👔"
+    title: "Odpowiedzialność zarządu"
+    desc: "Osobista odpowiedzialność członków zarządu za brak zgodności z NIS2."
+  - icon: "📁"
+    title: "Case studies"
+    desc: "Realne przypadki kar i ich konsekwencje dla firm w Europie."
+  - icon: "🛡️"
+    title: "Jak uniknąć kar"
+    desc: "Konkretne kroki, które chronią organizację przed sankcjami."
+
+categories:
+  - name: "Kary"
+    slug: "kary"
+    icon: "💰"
+    color: "#c0392b"
+  - name: "Prawo"
+    slug: "prawo"
+    icon: "⚖️"
+    color: "#1a365d"
+  - name: "Case studies"
+    slug: "case-studies"
+    icon: "📁"
+    color: "#2980b9"
+
+about:
+  intro: "KaryNIS2.pl to serwis informacyjny o sankcjach wynikających z dyrektywy NIS2. Pomagamy firmom zrozumieć ryzyko prawne i finansowe związane z brakiem zgodności."
+  values:
+    - "Fakty prawne — cytujemy przepisy, nie spekulujemy"
+    - "Case studies — realne przykłady z Europy"
+    - "Prewencja — pokazujemy, jak uniknąć kar zanim będzie za późno"
+
+newsletter:
+  title_highlight: "cotygodniowy przegląd"
+  title_rest: "sankcji i zmian prawnych NIS2"
+  subtitle: "Raz w tygodniu: nowe kary, orzeczenia, zmiany w przepisach. Zero spamu."
+
+footer:
+  tagline: "Kary NIS2 — sankcje, odpowiedzialność zarządu, konsekwencje prawne."
+  disclaimer: "Treści mają charakter informacyjny i edukacyjny. Nie stanowią porady prawnej. W sprawach indywidualnych skonsultuj się z prawnikiem."
+
+email: "kontakt@karynis2.pl"
+
+social:
+  fb: ""
+  ig: ""
+  yt: ""
+  tw: ""
+
+products:
+  - name: "ARCHAIOS Cybersecurity"
+    slug: "archaios-cyber"
+    brand: "archaios"
+    tagline_short: "Wdrożenie NIS2 — uniknij kar i bądź zgodny"
+    cta_text: "Sprawdź ofertę"
+    target_url: "https://archaios.ai"
+    placement: "end"
+    target_category_slugs: ""
+    target_tags: "nis2,kary,sankcje,zgodność,zarząd"
+    priority: 90
+    kind: "own"

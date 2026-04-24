@@ -1,0 +1,55 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build strony (clean)",
+            "type": "shell",
+            "command": "${workspaceFolder}/backend/venv/Scripts/python.exe",
+            "args": ["build.py", "--clean"],
+            "options": {
+                "cwd": "${workspaceFolder}",
+                "env": { "PYTHONIOENCODING": "utf-8" }
+            },
+            "group": { "kind": "build", "isDefault": true },
+            "presentation": { "reveal": "always", "panel": "dedicated" },
+            "problemMatcher": []
+        },
+        {
+            "label": "Uruchom backend (uvicorn --reload)",
+            "type": "shell",
+            "command": "${workspaceFolder}/backend/venv/Scripts/python.exe",
+            "args": ["-m", "uvicorn", "app.main:app", "--host", "127.0.0.1", "--port", "8765", "--reload"],
+            "options": {
+                "cwd": "${workspaceFolder}/backend",
+                "env": { "PYTHONIOENCODING": "utf-8" }
+            },
+            "isBackground": true,
+            "presentation": { "reveal": "always", "panel": "dedicated" },
+            "problemMatcher": []
+        },
+        {
+            "label": "Serwer statyczny (port 8766)",
+            "type": "shell",
+            "command": "python",
+            "args": ["-m", "http.server", "8766", "--bind", "127.0.0.1"],
+            "options": { "cwd": "${workspaceFolder}/zdrowie-fit" },
+            "isBackground": true,
+            "presentation": { "reveal": "always", "panel": "dedicated" },
+            "problemMatcher": []
+        },
+        {
+            "label": "Otwórz stronę w Simple Browser",
+            "type": "shell",
+            "command": "${command:simpleBrowser.show}",
+            "args": ["http://127.0.0.1:8766"],
+            "problemMatcher": []
+        },
+        {
+            "label": "Otwórz admin w Simple Browser",
+            "type": "shell",
+            "command": "${command:simpleBrowser.show}",
+            "args": ["http://127.0.0.1:8765/admin/login"],
+            "problemMatcher": []
+        }
+    ]
+}

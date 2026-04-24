@@ -1,0 +1,99 @@
+domain: "sprawdzwypalenie.pl"
+name: "Sprawdź Wypalenie"
+tagline: "Rozpoznaj i pokonaj wypalenie zawodowe"
+description: "Wypalenie zawodowe — diagnoza, profilaktyka, regeneracja i work-life balance. Testy i artykuły oparte na badaniach naukowych."
+lang: "pl"
+locale: "pl_PL"
+
+brand: "nurio"
+main_domain: "nurio.pl"
+funnel_type: "article_cta"
+role: "satellite"
+
+logo_mark: "🧠"
+logo_text: "Sprawdź"
+logo_accent: "Wypalenie"
+
+colors:
+  primary: "#2c6e8a"
+  primary_dark: "#1d4e66"
+  primary_light: "#6aafc9"
+  accent: "#e07b4f"
+  accent_dark: "#c0623a"
+  trust: "#7b68ee"
+
+hero:
+  eyebrow: "Wypalenie zawodowe"
+  h1: "Rozpoznaj i pokonaj wypalenie"
+  subtitle: "Diagnoza, profilaktyka i regeneracja. Sprawdź, czy wypalenie dotyczy Ciebie — i co możesz z tym zrobić."
+  cta_primary:
+    text: "Czytaj artykuły"
+    url: "/artykuly.html"
+  cta_secondary:
+    text: "O projekcie"
+    url: "#o-nas"
+
+pillars:
+  - icon: "🔍"
+    title: "Diagnoza"
+    desc: "Objawy wypalenia, skala Maslach, autodiagnoza — rozpoznaj problem zanim będzie za późno."
+  - icon: "🛡️"
+    title: "Profilaktyka"
+    desc: "Granice, asertywność, zarządzanie energią — jak zapobiegać wypaleniu."
+  - icon: "🔄"
+    title: "Regeneracja"
+    desc: "Powrót do równowagi — techniki, terapia, zmiana nawyków."
+  - icon: "⚖️"
+    title: "Work-life balance"
+    desc: "Równowaga między pracą a życiem prywatnym — strategie i narzędzia."
+
+categories:
+  - name: "Wypalenie"
+    slug: "wypalenie"
+    icon: "🔥"
+    color: "#2c6e8a"
+  - name: "Profilaktyka"
+    slug: "profilaktyka"
+    icon: "🛡️"
+    color: "#e07b4f"
+  - name: "Regeneracja"
+    slug: "regeneracja"
+    icon: "🔄"
+    color: "#7b68ee"
+
+about:
+  intro: "SprawdźWypalenie to serwis poświęcony wypaleniu zawodowemu. Pomagamy rozpoznać objawy, zapobiegać wypaleniu i wrócić do równowagi — w oparciu o badania naukowe."
+  values:
+    - "Dowody naukowe — opieramy się na modelu Maslach i aktualnych badaniach"
+    - "Praktyczność — konkretne narzędzia diagnozy i profilaktyki"
+    - "Szacunek — wypalenie to nie słabość, to sygnał do zmiany"
+
+newsletter:
+  title_highlight: "cotygodniowy przegląd"
+  title_rest: "badań o wypaleniu zawodowym"
+  subtitle: "Raz w tygodniu: wskazówki dotyczące profilaktyki wypalenia, zero spamu, wypisujesz się jednym klikiem."
+
+footer:
+  tagline: "Rozpoznaj i pokonaj wypalenie zawodowe — oparte na badaniach naukowych."
+  disclaimer: "Treści mają charakter edukacyjny i nie zastępują profesjonalnej pomocy psychologicznej ani diagnozy lekarskiej."
+
+email: "kontakt@sprawdzwypalenie.pl"
+
+social:
+  fb: ""
+  ig: ""
+  yt: ""
+  tw: ""
+
+products:
+  - name: "Psychozdrowie — test wypalenia"
+    slug: "psychozdrowie-wypalenie"
+    brand: "psychozdrowie"
+    tagline_short: "Profesjonalny test wypalenia zawodowego online"
+    cta_text: "Zrób test wypalenia"
+    target_url: "https://psychozdrowie.online"
+    placement: "end"
+    target_category_slugs: "wypalenie"
+    target_tags: "test,wypalenie,burnout,diagnoza"
+    priority: 90
+    kind: "own"

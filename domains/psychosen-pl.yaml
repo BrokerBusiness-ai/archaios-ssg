@@ -1,0 +1,110 @@
+domain: "psychosen.pl"
+name: "Psycho Sen"
+tagline: "Nauka o śnie — jak spać lepiej i zdrowiej"
+description: "Higiena snu, zaburzenia snu, chronobiologia i wpływ snu na zdrowie psychiczne. Artykuły oparte na badaniach naukowych."
+lang: "pl"
+locale: "pl_PL"
+
+brand: "nurio"
+main_domain: "nurio.pl"
+funnel_type: "article_cta"
+role: "satellite"
+
+logo_mark: "🧠"
+logo_text: "Psycho"
+logo_accent: "Sen"
+
+colors:
+  primary: "#2c6e8a"
+  primary_dark: "#1d4e66"
+  primary_light: "#6aafc9"
+  accent: "#e07b4f"
+  accent_dark: "#c0623a"
+  trust: "#7b68ee"
+
+hero:
+  eyebrow: "Nauka o śnie"
+  h1: "Jak spać lepiej i zdrowiej"
+  subtitle: "Higiena snu, chronobiologia i najnowsze badania — wszystko, co musisz wiedzieć o zdrowym śnie."
+  cta_primary:
+    text: "Czytaj artykuły"
+    url: "/artykuly.html"
+  cta_secondary:
+    text: "O projekcie"
+    url: "#o-nas"
+
+pillars:
+  - icon: "🛏️"
+    title: "Higiena snu"
+    desc: "Rytuały wieczorne, środowisko snu, nawyki — jak stworzyć idealne warunki do snu."
+  - icon: "⚠️"
+    title: "Zaburzenia snu"
+    desc: "Bezsenność, bezdech senny, parasomnie — rozpoznawanie i leczenie."
+  - icon: "🕐"
+    title: "Chronobiologia"
+    desc: "Rytm dobowy, chronotypy, melatonina — wewnętrzny zegar biologiczny."
+  - icon: "🧠"
+    title: "Sen a zdrowie psychiczne"
+    desc: "Wpływ snu na emocje, pamięć, koncentrację i zdrowie psychiczne."
+
+categories:
+  - name: "Higiena snu"
+    slug: "higiena-snu"
+    icon: "🛏️"
+    color: "#2c6e8a"
+  - name: "Zaburzenia"
+    slug: "zaburzenia"
+    icon: "⚠️"
+    color: "#e07b4f"
+  - name: "Badania"
+    slug: "badania"
+    icon: "🔬"
+    color: "#7b68ee"
+
+about:
+  intro: "PsychoSen to serwis poświęcony nauce o śnie. Łączymy wiedzę z chronobiologii, medycyny snu i psychologii, aby pomóc Ci spać lepiej i żyć zdrowiej."
+  values:
+    - "Dowody naukowe — opieramy się na badaniach z zakresu medycyny snu"
+    - "Praktyczność — konkretne techniki poprawy jakości snu"
+    - "Holistyka — sen w kontekście zdrowia psychicznego i fizycznego"
+
+newsletter:
+  title_highlight: "cotygodniowy przegląd"
+  title_rest: "badań o zdrowym śnie"
+  subtitle: "Raz w tygodniu: wskazówki dotyczące snu oparte na badaniach, zero spamu, wypisujesz się jednym klikiem."
+
+footer:
+  tagline: "Nauka o śnie — jak spać lepiej i zdrowiej."
+  disclaimer: "Treści mają charakter edukacyjny i nie zastępują profesjonalnej pomocy medycznej ani diagnozy zaburzeń snu."
+
+email: "kontakt@psychosen.pl"
+
+social:
+  fb: ""
+  ig: ""
+  yt: ""
+  tw: ""
+
+products:
+  - name: "Psychozdrowie — testy snu"
+    slug: "psychozdrowie-sen"
+    brand: "psychozdrowie"
+    tagline_short: "Sprawdź jakość swojego snu — profesjonalne testy online"
+    cta_text: "Zrób test snu"
+    target_url: "https://psychozdrowie.online"
+    placement: "end"
+    target_category_slugs: "higiena-snu,zaburzenia"
+    target_tags: "test,sen,bezsenność,jakość snu"
+    priority: 90
+    kind: "own"
+  - name: "Nurio"
+    slug: "nurio"
+    brand: "nurio"
+    tagline_short: "Twój AI companion do dobrostanu psychicznego"
+    cta_text: "Wypróbuj Nurio"
+    target_url: "https://nurio.pl"
+    placement: "sidebar"
+    target_category_slugs: "higiena-snu"
+    target_tags: "sen,relaksacja,mindfulness,stres"
+    priority: 80
+    kind: "own"

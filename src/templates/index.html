@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}{{ site.name }} – {{ site.tagline }}{% endblock %}
+{% block description %}{{ site.description }}{% endblock %}
+{% block prerender %}
+    <link rel="prefetch" href="/artykuly.html">
+    {% if articles[:1] %}<link rel="prefetch" href="/artykuly/{{ articles[0].slug }}.html">{% endif %}
+{% endblock %}
+
+{% block content %}
+<section class="hero" aria-labelledby="hero-title">
+    <div class="container hero__content">
+        <p class="hero__eyebrow">Psychosomatyka • Dietetyka • Neuronauka</p>
+        <h1 id="hero-title">Twoje ciało i umysł to <span class="highlight">jedno</span></h1>
+        <p class="hero__subtitle">Treści oparte na badaniach — jak dbać o formę fizyczną, żeby umysł za nią nadążył. I odwrotnie.</p>
+        <div class="hero__cta">
+            <a href="/artykuly.html" class="btn btn--primary btn--lg">Czytaj artykuły</a>
+            <a href="#newsletter" class="btn btn--ghost btn--lg">Zapisz się na newsletter</a>
+        </div>
+        <p class="hero__meta">Zero reklam. Zero clickbaitu. Źródła pod każdym artykułem.</p>
+    </div>
+</section>
+
+<section class="pillars section" aria-labelledby="pillars-title">
+    <div class="container">
+        <h2 id="pillars-title" class="section__title">Filary holistycznego zdrowia</h2>
+        <p class="section__lead">Nie da się oddzielić ciała od umysłu. Każdy z tych obszarów wpływa na pozostałe.</p>
+        <div class="pillars__grid">
+            {% for pillar in pillars %}
+            <article class="pillar">
+                <div class="pillar__icon" aria-hidden="true">{{ pillar.icon }}</div>
+                <h3>{{ pillar.title }}</h3>
+                <p>{{ pillar.desc }}</p>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section section--alt" aria-labelledby="latest-title">
+    <div class="container">
+        <div class="section__header">
+            <h2 id="latest-title" class="section__title">Najnowsze artykuły</h2>
+            <a href="/artykuly.html" class="section__link">Zobacz wszystkie →</a>
+        </div>
+        <div class="articles-grid">
+            {% for a in articles[:6] %}
+            {% include "_article_card.html" %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section id="o-nas" class="section about" aria-labelledby="about-title">
+    <div class="container about__inner">
+        <div class="about__text">
+            <h2 id="about-title" class="section__title">Po co ta strona?</h2>
+            <p>W internecie jest zalew treści o zdrowiu. Dużo z nich to marketing, clickbait albo powielanie mitów. <strong>Zdrowie.fit</strong> publikuje tylko treści oparte na badaniach — z linkami do źródeł, bez obietnic cudu.</p>
+            <p>Każdy artykuł przechodzi przez trzy pytania: <em>Czy to działa? Skąd to wiemy? Co z tym zrobić praktycznie?</em></p>
+            <ul class="about__values">
+                <li><strong>Oparte na badaniach</strong> — każda teza ma źródło</li>
+                <li><strong>Praktyczne</strong> — konkretne kroki, nie ogólniki</li>
+                <li><strong>Bez obietnic cudu</strong> — mówimy co działa i dla kogo</li>
+            </ul>
+        </div>
+    </div>
+</section>
+{% endblock %}

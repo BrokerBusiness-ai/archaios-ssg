@@ -1,0 +1,150 @@
+# ═══════════════════════════════════════════════════════════
+# SCHEMAT konfiguracji domeny satelitarnej
+# Każda domena ma osobny plik YAML w tym katalogu.
+# ═══════════════════════════════════════════════════════════
+
+# WYMAGANE
+domain: "example.pl"                    # domena (bez https://)
+name: "Nazwa Serwisu"                   # wyświetlana nazwa
+tagline: "Krótki slogan"               # podtytuł w hero
+description: "Opis serwisu do SEO"     # meta description
+lang: "pl"
+locale: "pl_PL"
+
+# BRAND & FUNNEL
+brand: "archaios"                       # nadrzędna marka: archaios | nurio | mediacja | broker | marek
+main_domain: "archaios.ai"             # domena docelowa CTA
+funnel_type: "article_cta"             # article_cta | lead_magnet | interactive
+role: "satellite"                       # satellite | main | hub
+
+# LOGO
+logo_mark: "◐"                         # emoji/symbol w logo
+logo_text: "Example"                   # tekst przed akcentem
+logo_accent: ".pl"                     # tekst akcentowany (po kropce)
+
+# KOLORY (CSS variables override)
+colors:
+  primary: "#4a7c59"                   # kolor główny (nagłówki, linki, hover)
+  primary_dark: "#3a6347"
+  primary_light: "#7fb3a3"
+  accent: "#d9724a"                    # kolor CTA (przyciski, wyróżnienia)
+  accent_dark: "#b85a38"
+  trust: "#5b8def"                     # kolor źródeł/badań
+
+# THEME (opcjonalne — nadpisuje domyślne CSS variables)
+theme:
+  # Typografia
+  font_heading: "Fraunces"             # serif/display: Fraunces | Georgia | Playfair Display
+  font_body: "Inter"                   # sans: Inter | system-ui | Source Sans Pro
+  font_size_base: "16px"              # bazowy rozmiar
+  line_height: "1.65"                  # line-height body
+  heading_weight: "600"                # waga nagłówków
+  letter_spacing_heading: "-0.01em"    # tracking nagłówków
+
+  # Geometria
+  radius_sm: "8px"
+  radius: "14px"
+  radius_lg: "20px"
+  radius_pill: "50px"
+
+  # Layout
+  container_max: "1180px"
+  prose_max: "720px"                   # optimum czytania (~65ch)
+
+  # Spacing
+  gutter: "clamp(1rem, 4vw, 2rem)"
+  section_spacing: "clamp(3rem, 8vw, 6rem)"
+
+  # Transitions
+  transition_fast: "150ms"
+  transition_base: "250ms"
+  transition_slow: "400ms"
+
+  # Dark mode
+  dark_mode: false                     # true = auto dark mode (klasa dark-auto na <html>)
+
+  # Shadow warmth
+  shadow_warmth: "warm"                # warm | cool | none
+
+# HERO (strona główna)
+hero:
+  eyebrow: "Serwis informacyjny"       # tekst nad H1
+  h1: "Tytuł strony głównej"
+  subtitle: "Opis pod H1"
+  cta_primary:
+    text: "Czytaj artykuły"
+    url: "/artykuly.html"
+  cta_secondary:
+    text: "Dowiedz się więcej"
+    url: "#o-nas"
+
+# FILARY (sekcja na stronie głównej)
+pillars:
+  - icon: "📋"
+    title: "Temat 1"
+    desc: "Opis tematu 1"
+  - icon: "🔍"
+    title: "Temat 2"
+    desc: "Opis tematu 2"
+  - icon: "📊"
+    title: "Temat 3"
+    desc: "Opis tematu 3"
+
+# KATEGORIE DOMYŚLNE (seed do bazy)
+categories:
+  - name: "Kategoria 1"
+    slug: "kategoria-1"
+    icon: "📋"
+    color: "#4a7c59"
+  - name: "Kategoria 2"
+    slug: "kategoria-2"
+    icon: "🔍"
+    color: "#d9724a"
+
+# ABOUT (sekcja "O projekcie")
+about:
+  intro: "Opis projektu i misji serwisu."
+  values:
+    - "Wartość 1 — opis"
+    - "Wartość 2 — opis"
+    - "Wartość 3 — opis"
+
+# NEWSLETTER
+newsletter:
+  title_highlight: "cotygodniowy przegląd"  # wyróżniony fragment w tytule
+  title_rest: "badań i nowości"
+  subtitle: "Raz w tygodniu: konkretne wskazówki, zero spamu."
+
+# FOOTER
+footer:
+  tagline: "Opis w stopce — misja serwisu."
+  disclaimer: "Treści mają charakter informacyjny."
+
+# KONTAKT
+email: "kontakt@example.pl"
+
+# SOCIAL MEDIA (opcjonalne)
+social:
+  fb: ""
+  ig: ""
+  yt: ""
+  tw: ""
+
+# ANALYTICS (opcjonalne — nadpisuje .env)
+analytics:
+  ga4_id: ""
+  fb_pixel_id: ""
+
+# CTA PRODUKTY (wstrzykiwane w artykuły)
+products:
+  - name: "Główny produkt"
+    slug: "produkt-glowny"
+    brand: "archaios"
+    tagline_short: "Krótki opis produktu"
+    cta_text: "Sprawdź"
+    target_url: "https://archaios.ai"
+    placement: "end"                   # end | sidebar | inline
+    target_category_slugs: ""         # puste = wszystkie kategorie
+    target_tags: ""
+    priority: 90
+    kind: "own"

@@ -1,0 +1,103 @@
+domain: "wppage.pl"
+name: "WP Page"
+tagline: "WordPress — tworzenie stron i optymalizacja"
+description: "WordPress: tworzenie stron, SEO, wtyczki, bezpieczeństwo. Poradniki i recenzje dla właścicieli stron."
+lang: "pl"
+locale: "pl_PL"
+
+brand: "broker"
+main_domain: "brokerbusiness.eu"
+funnel_type: "article_cta"
+role: "satellite"
+
+logo_mark: "🌐"
+logo_text: "WP"
+logo_accent: "Page"
+
+colors:
+  primary: "#21759b"
+  primary_dark: "#19587a"
+  primary_light: "#3a9cc5"
+  accent: "#d54e21"
+  accent_dark: "#a93d1a"
+  trust: "#5b8def"
+
+hero:
+  eyebrow: "WordPress dla każdego"
+  h1: "WordPress — twórz, optymalizuj, zabezpieczaj"
+  subtitle: "Poradniki, recenzje wtyczek, SEO i bezpieczeństwo. Wszystko, czego potrzebujesz do prowadzenia strony na WordPress."
+  cta_primary:
+    text: "Czytaj artykuły"
+    url: "/artykuly.html"
+  cta_secondary:
+    text: "O projekcie"
+    url: "#o-nas"
+
+pillars:
+  - icon: "🌐"
+    title: "WordPress"
+    desc: "Tworzenie stron, motywy, page buildery, Gutenberg, WooCommerce."
+  - icon: "🔍"
+    title: "SEO"
+    desc: "Optymalizacja WordPress pod wyszukiwarki — techniczna i treściowa."
+  - icon: "🔌"
+    title: "Wtyczki"
+    desc: "Recenzje, porównania i konfiguracja najlepszych wtyczek WordPress."
+  - icon: "🛡"
+    title: "Bezpieczeństwo"
+    desc: "Ochrona strony, aktualizacje, backup, firewall, SSL."
+
+categories:
+  - name: "WordPress"
+    slug: "wordpress"
+    icon: "🌐"
+    color: "#21759b"
+  - name: "SEO"
+    slug: "seo"
+    icon: "🔍"
+    color: "#d54e21"
+  - name: "Poradniki"
+    slug: "poradniki"
+    icon: "📖"
+    color: "#19587a"
+
+about:
+  intro: "WPPage.pl to serwis dla właścicieli stron na WordPress. Publikujemy poradniki, recenzje wtyczek i praktyczne wskazówki dotyczące SEO i bezpieczeństwa."
+  values:
+    - "Praktyczność — krok po kroku, z screenshotami"
+    - "Aktualność — testujemy na najnowszych wersjach WordPress"
+    - "Bezpieczeństwo — bezpieczna strona to podstawa"
+
+newsletter:
+  title_highlight: "cotygodniowy przegląd"
+  title_rest: "poradników WordPress"
+  subtitle: "Raz w tygodniu: wtyczki, triki SEO, bezpieczeństwo. Zero spamu."
+
+footer:
+  tagline: "WordPress — tworzenie stron i optymalizacja."
+  disclaimer: "Treści mają charakter informacyjny i edukacyjny."
+
+email: "kontakt@wppage.pl"
+
+social:
+  fb: ""
+  ig: ""
+  yt: ""
+  tw: ""
+
+analytics:
+  ga4_id: ""
+  fb_pixel_id: ""
+
+products:
+  - name: "Broker Business — usługi web"
+    slug: "brokerbusiness"
+    brand: "broker"
+    tagline_short: "Profesjonalne strony i marketing online"
+    cta_text: "Zamów stronę"
+    target_url: "https://brokerbusiness.eu"
+    placement: "end"
+    target_category_slugs: ""
+    target_tags: "wordpress,strona,seo"
+    priority: 90
+    kind: "own"

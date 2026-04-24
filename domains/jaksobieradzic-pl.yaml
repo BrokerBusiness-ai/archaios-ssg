@@ -1,0 +1,99 @@
+domain: "jaksobieradzic.pl"
+name: "Jak Sobie Radzić"
+tagline: "Strategie radzenia sobie w trudnych sytuacjach"
+description: "Stres, lęk, kryzysy życiowe i wsparcie psychologiczne. Sprawdzone strategie radzenia sobie oparte na badaniach naukowych."
+lang: "pl"
+locale: "pl_PL"
+
+brand: "nurio"
+main_domain: "nurio.pl"
+funnel_type: "article_cta"
+role: "satellite"
+
+logo_mark: "🧠"
+logo_text: "JakSobie"
+logo_accent: "Radzić"
+
+colors:
+  primary: "#2c6e8a"
+  primary_dark: "#1d4e66"
+  primary_light: "#6aafc9"
+  accent: "#e07b4f"
+  accent_dark: "#c0623a"
+  trust: "#7b68ee"
+
+hero:
+  eyebrow: "Strategie radzenia sobie"
+  h1: "Trudne sytuacje — konkretne rozwiązania"
+  subtitle: "Sprawdzone techniki radzenia sobie ze stresem, lękiem i kryzysami. Oparte na psychologii i badaniach naukowych."
+  cta_primary:
+    text: "Czytaj artykuły"
+    url: "/artykuly.html"
+  cta_secondary:
+    text: "O projekcie"
+    url: "#o-nas"
+
+pillars:
+  - icon: "😤"
+    title: "Stres"
+    desc: "Techniki redukcji stresu, zarządzanie napięciem i budowanie odporności psychicznej."
+  - icon: "😰"
+    title: "Lęk"
+    desc: "Rozpoznawanie lęku, techniki CBT, ekspozycja i strategie uspokajania."
+  - icon: "🆘"
+    title: "Kryzysy"
+    desc: "Utrata bliskich, rozwód, choroba — jak przetrwać najtrudniejsze momenty."
+  - icon: "🤲"
+    title: "Wsparcie"
+    desc: "Gdzie szukać pomocy, jak rozmawiać z bliskimi, kiedy iść do specjalisty."
+
+categories:
+  - name: "Radzenie sobie"
+    slug: "radzenie-sobie"
+    icon: "💪"
+    color: "#2c6e8a"
+  - name: "Techniki"
+    slug: "techniki"
+    icon: "🛠️"
+    color: "#e07b4f"
+  - name: "Wsparcie"
+    slug: "wsparcie"
+    icon: "🤲"
+    color: "#7b68ee"
+
+about:
+  intro: "JakSobieRadzić to serwis dla osób szukających sprawdzonych strategii radzenia sobie w trudnych sytuacjach życiowych. Łączymy wiedzę z psychologii klinicznej z praktycznymi wskazówkami."
+  values:
+    - "Dowody naukowe — techniki potwierdzone badaniami klinicznymi"
+    - "Empatia — piszemy z szacunkiem dla trudnych doświadczeń"
+    - "Praktyczność — konkretne kroki, które możesz podjąć od razu"
+
+newsletter:
+  title_highlight: "cotygodniowy przegląd"
+  title_rest: "strategii radzenia sobie"
+  subtitle: "Raz w tygodniu: praktyczne techniki psychologiczne, zero spamu, wypisujesz się jednym klikiem."
+
+footer:
+  tagline: "Strategie radzenia sobie w trudnych sytuacjach — oparte na psychologii i badaniach."
+  disclaimer: "Treści mają charakter edukacyjny i nie zastępują profesjonalnej pomocy psychologicznej ani psychoterapii. W sytuacji kryzysowej zadzwoń na Telefon Zaufania: 116 123."
+
+email: "kontakt@jaksobieradzic.pl"
+
+social:
+  fb: ""
+  ig: ""
+  yt: ""
+  tw: ""
+
+products:
+  - name: "Nurio"
+    slug: "nurio"
+    brand: "nurio"
+    tagline_short: "Twój AI companion do dobrostanu psychicznego"
+    cta_text: "Wypróbuj Nurio"
+    target_url: "https://nurio.pl"
+    placement: "end"
+    target_category_slugs: "radzenie-sobie,techniki,wsparcie"
+    target_tags: "stres,lęk,kryzys,wsparcie,coping"
+    priority: 90
+    kind: "own"

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Regulamin – {{ site.name }}{% endblock %}
+{% block description %}Regulamin serwisu {{ site.name }}.{% endblock %}
+{% block robots %}noindex,follow{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container article__container">
+        <nav class="breadcrumb" aria-label="Okruszki">
+            <a href="/">Start</a> <span>/</span> <span aria-current="page">Regulamin</span>
+        </nav>
+        <h1>Regulamin serwisu</h1>
+        <p class="article__meta"><em>Ostatnia aktualizacja: {{ now.strftime('%d.%m.%Y') }}</em></p>
+
+        <div class="article__content prose">
+            <h2>1. Postanowienia ogólne</h2>
+            <p>Serwis {{ site.name }} (dalej: „Serwis") dostępny pod adresem <a href="{{ site.url }}">{{ site.url }}</a> publikuje treści o charakterze informacyjno-edukacyjnym dotyczące zdrowia fizycznego i psychicznego.</p>
+
+            <h2>2. Zastrzeżenie medyczne</h2>
+            <p><strong>Treści w Serwisie mają charakter edukacyjny i nie stanowią porady medycznej, diagnozy ani rekomendacji leczenia.</strong> Przed zastosowaniem jakichkolwiek informacji skonsultuj się z lekarzem lub innym wykwalifikowanym specjalistą.</p>
+
+            <h2>3. Prawa autorskie</h2>
+            <p>Wszystkie treści publikowane w Serwisie są chronione prawem autorskim. Kopiowanie, rozpowszechnianie lub wykorzystywanie w innych kanałach wymaga pisemnej zgody administratora.</p>
+
+            <h2>4. Newsletter</h2>
+            <p>Zapisanie się na newsletter jest dobrowolne i bezpłatne. Wypisanie jest możliwe w dowolnej chwili przez link w stopce każdej wiadomości.</p>
+
+            <h2>5. Reklamacje i kontakt</h2>
+            <p>Wszelkie pytania i uwagi kieruj na <a href="mailto:{{ site.email }}">{{ site.email }}</a>.</p>
+
+            <h2>6. Postanowienia końcowe</h2>
+            <p>W sprawach nieuregulowanych stosuje się przepisy polskiego prawa. Spory podlegają sądowi właściwemu dla siedziby administratora.</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

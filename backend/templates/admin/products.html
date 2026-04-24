@@ -1,0 +1,46 @@
+{% extends "components/base.html" %}
+{% set active = "products" %}
+{% block title %}Produkty / lejek{% endblock %}
+{% block content %}
+<div class="header">
+    <h1>💰 Produkty / kampanie <small style="font-size:.85rem;color:#64748b;font-weight:400">— lejek sprzedażowy w artykułach</small></h1>
+    <a href="/admin/products/new" class="btn btn-primary">+ Nowy produkt</a>
+</div>
+
+<div class="card" style="background:#fef9c3;border-left:4px solid #f59e0b">
+    <strong>Jak to działa:</strong> generator przy budowaniu artykułu automatycznie dobiera pasujące produkty (na podstawie kategorii + tagów). Produkt wyświetla się w artykule w wybranym miejscu (na końcu, w sidebarze lub inline). Priorytet + daty "promocja tygodnia" rotują ofertę.
+</div>
+
+<div class="card">
+{% if products %}
+<table>
+    <thead>
+        <tr><th>Nazwa</th><th>Marka</th><th>Target</th><th>Placement</th><th>Aktywny</th><th>Priorytet</th><th></th></tr>
+    </thead>
+    <tbody>
+        {% for p in products %}
+        <tr>
+            <td>
+                <strong>{{ p.name }}</strong><br>
+                <small style="color:#64748b">{{ p.tagline_short or '—' }}</small>
+            </td>
+            <td>{{ p.brand or '—' }}</td>
+            <td><small>Kat: <code>{{ p.target_category_slugs or 'wszystkie' }}</code><br>Tagi: <code>{{ p.target_tags or '—' }}</code></small></td>
+            <td><span class="badge badge-blue">{{ p.placement }}</span></td>
+            <td>{% if p.is_active %}<span class="badge badge-green">TAK</span>{% else %}<span class="badge badge-yellow">NIE</span>{% endif %}</td>
+            <td>{{ p.priority }}</td>
+            <td>
+                <a href="/admin/products/{{ p.id }}/edit" class="btn btn-sm" style="background:#e2e8f0;color:#1e293b">Edytuj</a>
+                <form method="post" action="/admin/products/{{ p.id }}/delete" style="display:inline" onsubmit="return confirm('Usunąć {{ p.name }}?')">
+                    <button type="submit" class="btn btn-sm btn-danger">Usuń</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p class="empty">Brak produktów. <a href="/admin/products/new">Dodaj pierwszy</a>.</p>
+{% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,99 @@
+domain: "analizastatystyczna.me"
+name: "Analiza Statystyczna"
+tagline: "SPSS, statystyka i metodologia badań naukowych"
+description: "Analiza statystyczna w SPSS — testy statystyczne, metodologia badań, publikacje naukowe. Praktyczne poradniki dla badaczy."
+lang: "pl"
+locale: "pl_PL"
+
+brand: "marek"
+main_domain: "marekporycki.pl"
+funnel_type: "article_cta"
+role: "satellite"
+
+logo_mark: "📊"
+logo_text: "Analiza"
+logo_accent: "Statystyczna"
+
+colors:
+  primary: "#34495e"
+  primary_dark: "#2c3e50"
+  primary_light: "#5d6d7e"
+  accent: "#e67e22"
+  accent_dark: "#d35400"
+  trust: "#7b68ee"
+
+hero:
+  eyebrow: "Statystyka i metodologia"
+  h1: "SPSS, statystyka i badania naukowe"
+  subtitle: "Praktyczne poradniki analizy statystycznej, metodologii badań i publikacji naukowych — dla studentów i badaczy."
+  cta_primary:
+    text: "Czytaj artykuły"
+    url: "/artykuly.html"
+  cta_secondary:
+    text: "O projekcie"
+    url: "#o-nas"
+
+pillars:
+  - icon: "💻"
+    title: "SPSS"
+    desc: "Krok po kroku — jak przeprowadzić analizę w SPSS od wprowadzania danych do interpretacji wyników."
+  - icon: "📐"
+    title: "Metodologia"
+    desc: "Planowanie badań, dobór próby, zmienne, hipotezy — solidne fundamenty pracy naukowej."
+  - icon: "📊"
+    title: "Testy statystyczne"
+    desc: "t-test, ANOVA, chi-kwadrat, regresja, korelacja — kiedy, jak i dlaczego."
+  - icon: "📝"
+    title: "Publikacje"
+    desc: "APA 7, struktura artykułu, recenzje — jak napisać i opublikować pracę naukową."
+
+categories:
+  - name: "SPSS"
+    slug: "spss"
+    icon: "💻"
+    color: "#34495e"
+  - name: "Metodologia"
+    slug: "metodologia"
+    icon: "📐"
+    color: "#e67e22"
+  - name: "Analiza danych"
+    slug: "analiza-danych"
+    icon: "📊"
+    color: "#7b68ee"
+
+about:
+  intro: "AnalizaStatystyczna.me to serwis dla studentów, doktorantów i badaczy. Pomagamy zrozumieć statystykę, opanować SPSS i pisać lepsze prace naukowe."
+  values:
+    - "Praktyczność — krok po kroku, ze zrzutami ekranu i przykładami"
+    - "Rzetelność — wyjaśniamy założenia i ograniczenia każdej metody"
+    - "Dostępność — statystyka bez zbędnego żargonu, zrozumiała dla humanistów"
+
+newsletter:
+  title_highlight: "cotygodniowy przegląd"
+  title_rest: "poradników statystycznych"
+  subtitle: "Raz w tygodniu: praktyczne wskazówki dotyczące SPSS i analizy danych, zero spamu, wypisujesz się jednym klikiem."
+
+footer:
+  tagline: "SPSS, statystyka i metodologia badań naukowych — praktyczne poradniki."
+  disclaimer: "Treści mają charakter edukacyjny i nie zastępują konsultacji ze statystykiem ani promotorem pracy naukowej."
+
+email: "kontakt@analizastatystyczna.me"
+
+social:
+  fb: ""
+  ig: ""
+  yt: ""
+  tw: ""
+
+products:
+  - name: "Usługi statystyczne — Marek Porycki"
+    slug: "uslugi-statystyczne"
+    brand: "marek"
+    tagline_short: "Profesjonalna analiza statystyczna i konsultacje metodologiczne"
+    cta_text: "Sprawdź ofertę"
+    target_url: "https://marekporycki.pl/uslugi"
+    placement: "end"
+    target_category_slugs: "spss,metodologia,analiza-danych"
+    target_tags: "SPSS,statystyka,analiza,metodologia,konsultacje"
+    priority: 90
+    kind: "own"

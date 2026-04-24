@@ -1,0 +1,99 @@
+domain: "skanujfirme.pl"
+name: "Skanuj Firmę"
+tagline: "Audyt bezpieczeństwa i zgodności Twojej firmy"
+description: "Kompleksowy audyt zgodności z NIS2 i RODO. Skanowanie bezpieczeństwa IT, analiza ryzyka, plan naprawczy dla Twojej organizacji."
+lang: "pl"
+locale: "pl_PL"
+
+brand: "archaios"
+main_domain: "archaios.ai"
+funnel_type: "article_cta"
+role: "satellite"
+
+logo_mark: "🛡"
+logo_text: "Skanuj"
+logo_accent: "Firmę"
+
+colors:
+  primary: "#1a365d"
+  primary_dark: "#0f2440"
+  primary_light: "#4a7ab5"
+  accent: "#c0392b"
+  accent_dark: "#962d22"
+  trust: "#2980b9"
+
+hero:
+  eyebrow: "Audyt bezpieczeństwa i zgodności"
+  h1: "Audyt bezpieczeństwa i zgodności Twojej firmy"
+  subtitle: "NIS2 i RODO w jednym miejscu. Sprawdź, czy Twoja firma spełnia wymagania — i co musisz poprawić."
+  cta_primary:
+    text: "Czytaj artykuły"
+    url: "/artykuly.html"
+  cta_secondary:
+    text: "O projekcie"
+    url: "#o-nas"
+
+pillars:
+  - icon: "🇪🇺"
+    title: "NIS2"
+    desc: "Wymagania dyrektywy NIS2 — kogo dotyczy, co wdrożyć, jakie terminy."
+  - icon: "🔒"
+    title: "RODO"
+    desc: "Ochrona danych osobowych — obowiązki, procedury, kary za naruszenia."
+  - icon: "🛡️"
+    title: "Cyberbezpieczeństwo"
+    desc: "Zabezpieczenia techniczne — od firewalla po politykę haseł i backup."
+  - icon: "🖥️"
+    title: "Audyt IT"
+    desc: "Skanowanie infrastruktury, testy penetracyjne, analiza podatności."
+
+categories:
+  - name: "NIS2"
+    slug: "nis2"
+    icon: "🇪🇺"
+    color: "#1a365d"
+  - name: "RODO"
+    slug: "rodo"
+    icon: "🔒"
+    color: "#2980b9"
+  - name: "Bezpieczeństwo IT"
+    slug: "bezpieczenstwo-it"
+    icon: "🛡️"
+    color: "#c0392b"
+
+about:
+  intro: "SkanujFirme.pl to serwis łączący tematykę NIS2 i RODO w kontekście bezpieczeństwa IT. Pomagamy firmom zrozumieć wymagania regulacyjne i wdrożyć odpowiednie zabezpieczenia."
+  values:
+    - "Kompleksowość — NIS2 i RODO razem, bo w praktyce się przenikają"
+    - "Praktyczne checklisty — gotowe do wdrożenia w Twojej firmie"
+    - "Aktualność — śledzimy zmiany w przepisach na bieżąco"
+
+newsletter:
+  title_highlight: "cotygodniowy przegląd"
+  title_rest: "zmian w NIS2, RODO i cyberbezpieczeństwie"
+  subtitle: "Raz w tygodniu: nowe regulacje, zagrożenia, praktyczne wskazówki. Zero spamu."
+
+footer:
+  tagline: "Audyt bezpieczeństwa i zgodności — NIS2, RODO, cyberbezpieczeństwo w jednym miejscu."
+  disclaimer: "Treści mają charakter informacyjny i edukacyjny. Nie stanowią porady prawnej ani profesjonalnego audytu bezpieczeństwa."
+
+email: "kontakt@skanujfirme.pl"
+
+social:
+  fb: ""
+  ig: ""
+  yt: ""
+  tw: ""
+
+products:
+  - name: "ARCHAIOS Cybersecurity"
+    slug: "archaios-cyber"
+    brand: "archaios"
+    tagline_short: "Kompleksowy audyt NIS2 i RODO dla Twojej firmy"
+    cta_text: "Sprawdź ofertę"
+    target_url: "https://archaios.ai"
+    placement: "end"
+    target_category_slugs: ""
+    target_tags: "nis2,rodo,audyt,cyberbezpieczeństwo,skanowanie"
+    priority: 90
+    kind: "own"

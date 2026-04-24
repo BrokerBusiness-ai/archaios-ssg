@@ -1,0 +1,15 @@
+<aside class="product-cta product-cta--{{ product.placement }}" data-product-id="{{ product.slug }}">
+    {% if product.hero_image %}<div class="product-cta__image" style="background-image:url('{{ product.hero_image }}')"></div>{% endif %}
+    <div class="product-cta__body">
+        {% if product.brand %}<p class="product-cta__brand">{{ product.brand }}</p>{% endif %}
+        <h3 class="product-cta__title">{{ product.tagline_short or product.name }}</h3>
+        {% if product.tagline_long %}<p class="product-cta__text">{{ product.tagline_long }}</p>{% endif %}
+        {% if product.description and product.placement == 'end' %}<div class="product-cta__desc prose">{{ product.description | safe }}</div>{% endif %}
+        <a href="{{ product.cta_url }}" class="btn btn--primary product-cta__btn" target="_blank" rel="noopener sponsored" data-campaign="{{ article_slug | default('') }}">
+            {{ product.cta_text }} →
+        </a>
+        {% if product.kind == 'affiliate' and product.affiliate_disclaimer %}
+        <p class="product-cta__disclaimer">{{ product.affiliate_disclaimer }}</p>
+        {% endif %}
+    </div>
+</aside>
