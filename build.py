@@ -59,7 +59,7 @@ SRC = ROOT / "src"
 TPL_DIR = SRC / "templates"
 STATIC_DIR = SRC / "static"
 
-from domain_config import load_domain_config, list_domains, get_css_variables
+from domain_config import load_domain_config, list_domains, get_css_variables, get_full_css_variables
 
 
 def cfg(key: str, default: str = "") -> str:
@@ -577,6 +577,38 @@ def extract_faq_items(content: str) -> list[dict]:
     return items[:10]  # max 10 FAQ per artykuł
 
 
+def extract_howto_steps(content: str) -> list[dict]:
+    """Auto-detects HowTo steps from ordered lists or 'Krok X' headings."""
+    steps = []
+    # Pattern 1: <ol> with <li> items
+    ol_match = re.search(r'<ol[^>]*>(.*?)</ol>', content, re.DOTALL | re.IGNORECASE)
+    if ol_match:
+        li_pattern = re.compile(r'<li[^>]*>(.*?)</li>', re.DOTALL | re.IGNORECASE)
+        for li in li_pattern.findall(ol_match.group(1)):
+            text = re.sub(r'<[^>]+>', '', li).strip()
+            if text:
+                # Split on first period or colon for name vs text
+                split = re.split(r'[.:]', text, maxsplit=1)
+                steps.append({
+                    "name": split[0].strip(),
+                    "text": split[1].strip() if len(split) > 1 else text
+                })
+
+    # Pattern 2: "Krok X:" or "Step X:" headings
+    if not steps:
+        step_pattern = re.compile(
+            r'<h[234][^>]*>\s*(?:Krok|Step)\s+\d+[.:]\s*(.*?)</h[234]>\s*<p[^>]*>(.*?)</p>',
+            re.DOTALL | re.IGNORECASE
+        )
+        for name, text in step_pattern.findall(content):
+            steps.append({
+                "name": re.sub(r'<[^>]+>', '', name).strip(),
+                "text": re.sub(r'<[^>]+>', '', text).strip()[:300]
+            })
+
+    return steps if len(steps) >= 2 else []  # Need at least 2 steps
+
+
 def get_related(all_articles: list[dict], current: dict, n: int = 3) -> list[dict]:
     # Manual override
     manual = [s.strip() for s in (current.get("related_slugs") or "").split(",") if s.strip()]
@@ -753,7 +785,7 @@ def generate_htaccess(out: Path) -> None:
     Header set X-XSS-Protection "0"
     Header set Referrer-Policy "strict-origin-when-cross-origin"
     Header set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
-    Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://connect.facebook.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com https://www.facebook.com; frame-ancestors 'none'"
+    Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://connect.facebook.net; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com https://www.facebook.com; frame-ancestors 'none'"
     Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
 </IfModule>
 
@@ -803,12 +835,12 @@ Options -Indexes
     print(f"  ✓ .htaccess (security headers + cache + compression)")
 
 
-def generate_domain_css(out: Path, colors: dict) -> None:
-    """Generuje plik CSS z override kolorów dla domeny."""
+def generate_domain_css(out: Path, colors: dict, theme: dict | None = None) -> None:
+    """Generuje plik CSS z override kolorów i theme dla domeny."""
     css_dir = out / "css"
     css_dir.mkdir(parents=True, exist_ok=True)
     css_content = f""":root {{
-{get_css_variables(colors)}
+{get_full_css_variables(colors, theme or {})}
 }}
 """
     (css_dir / "domain-colors.css").write_text(css_content, encoding="utf-8")
@@ -889,6 +921,8 @@ def build(clean: bool = False, domain: str | None = None):
 
         # FAQ auto-detection
         faq_items = extract_faq_items(a.get("content", ""))
+        # HowTo auto-detection
+        howto_steps = extract_howto_steps(a.get("content", ""))
 
         render(env, "article.html", arts_dir / f"{a['slug']}.html",
                page={"slug": "article", "path": f"/artykuly/{a['slug']}.html"},
@@ -897,6 +931,7 @@ def build(clean: bool = False, domain: str | None = None):
                products_sidebar=by_placement["sidebar"],
                products_inline=by_placement["inline"],
                faq_items=faq_items,
+               howto_steps=howto_steps,
                article_slug=a["slug"], **common)
 
     # 4) Strony kategorii
@@ -945,7 +980,7 @@ def build(clean: bool = False, domain: str | None = None):
     # 8) Statyczne + default assets + domain CSS
     copy_static(out)
     ensure_default_assets(out)
-    generate_domain_css(out, CONFIG.get("colors", {}))
+    generate_domain_css(out, CONFIG.get("colors", {}), CONFIG.get("theme", {}))
 
     # 8b) Security headers (.htaccess)
     generate_htaccess(out)
