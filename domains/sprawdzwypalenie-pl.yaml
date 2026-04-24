@@ -15,12 +15,12 @@ logo_text: "Sprawdź"
 logo_accent: "Wypalenie"
 
 colors:
-  primary: "#2c6e8a"
-  primary_dark: "#1d4e66"
-  primary_light: "#6aafc9"
-  accent: "#e07b4f"
-  accent_dark: "#c0623a"
-  trust: "#7b68ee"
+  primary: "#7c5b3c"
+  primary_dark: "#5a4129"
+  primary_light: "#c4a882"
+  accent: "#e8922d"
+  accent_dark: "#c07824"
+  trust: "#7a9a6d"
 
 hero:
   eyebrow: "Wypalenie zawodowe"

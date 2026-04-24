@@ -15,12 +15,12 @@ logo_text: "JakSobie"
 logo_accent: "Radzić"
 
 colors:
-  primary: "#2c6e8a"
-  primary_dark: "#1d4e66"
-  primary_light: "#6aafc9"
-  accent: "#e07b4f"
-  accent_dark: "#c0623a"
-  trust: "#7b68ee"
+  primary: "#2a7f62"
+  primary_dark: "#1d5c46"
+  primary_light: "#6bbf9e"
+  accent: "#e08c4f"
+  accent_dark: "#c0703a"
+  trust: "#8b7bb8"
 
 hero:
   eyebrow: "Strategie radzenia sobie"

@@ -15,12 +15,12 @@ logo_text: "Test"
 logo_accent: "Predyspozycje"
 
 colors:
-  primary: "#2c6e8a"
-  primary_dark: "#1d4e66"
-  primary_light: "#6aafc9"
-  accent: "#e07b4f"
-  accent_dark: "#c0623a"
-  trust: "#7b68ee"
+  primary: "#6b5b95"
+  primary_dark: "#4e4270"
+  primary_light: "#9b8ec4"
+  accent: "#3cb4a0"
+  accent_dark: "#2d8f7d"
+  trust: "#d4a843"
 
 hero:
   eyebrow: "Testy i predyspozycje"

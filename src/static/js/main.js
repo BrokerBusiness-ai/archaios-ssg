@@ -200,4 +200,60 @@
             }
         });
     });
+
+    // ─── Share bar (article__share) ──────────────────────────
+    (function initShare() {
+        // Web Share API detection
+        if (navigator.share) {
+            document.querySelectorAll('[data-share="native"]').forEach(function(btn) {
+                btn.hidden = false;
+                btn.dataset.supported = '';
+            });
+        }
+
+        document.addEventListener('click', function(e) {
+            var btn = e.target.closest('[data-share]');
+            if (!btn) return;
+
+            var action = btn.dataset.share;
+
+            if (action === 'copy') {
+                e.preventDefault();
+                var url = btn.dataset.url;
+                navigator.clipboard.writeText(url).then(function() {
+                    var label = btn.querySelector('.share-btn__label');
+                    var copied = btn.querySelector('.share-btn__copied');
+                    if (label && copied) {
+                        label.hidden = true;
+                        copied.hidden = false;
+                        setTimeout(function() { label.hidden = false; copied.hidden = true; }, 2000);
+                    }
+                }).catch(function() {
+                    // Fallback for older browsers
+                    var ta = document.createElement('textarea');
+                    ta.value = btn.dataset.url;
+                    ta.style.position = 'fixed';
+                    ta.style.opacity = '0';
+                    document.body.appendChild(ta);
+                    ta.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(ta);
+                });
+            }
+
+            if (action === 'native') {
+                e.preventDefault();
+                navigator.share({
+                    title: btn.dataset.title,
+                    text: btn.dataset.text,
+                    url: btn.dataset.url
+                }).catch(function() {}); // User cancelled
+            }
+
+            // Track share events via GA4
+            if (action !== 'copy' && action !== 'native' && typeof gtag === 'function') {
+                gtag('event', 'share', { method: action, content_type: 'article', item_id: window.location.pathname });
+            }
+        });
+    })();
 })();

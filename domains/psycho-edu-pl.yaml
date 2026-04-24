@@ -15,12 +15,12 @@ logo_text: "Psycho"
 logo_accent: ".edu.pl"
 
 colors:
-  primary: "#2c6e8a"
-  primary_dark: "#215569"
-  primary_light: "#4a9bb5"
-  accent: "#e07b4f"
-  accent_dark: "#b8623e"
-  trust: "#5b8def"
+  primary: "#34568b"
+  primary_dark: "#243d66"
+  primary_light: "#6b8cc4"
+  accent: "#c49b3a"
+  accent_dark: "#a37e2d"
+  trust: "#2c8e8a"
 
 hero:
   eyebrow: "Edukacja psychologiczna"

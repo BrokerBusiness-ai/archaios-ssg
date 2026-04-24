@@ -128,6 +128,7 @@ def load_domain_config(domain: str) -> dict[str, Any]:
             "accent_dark": raw["colors"].get("accent_dark", "#b85a38"),
             "trust": raw["colors"].get("trust", "#5b8def"),
         },
+        "theme": raw["theme"],
         "hero": raw["hero"],
         "pillars": raw["pillars"],
         "categories": raw["categories"],
@@ -314,6 +315,90 @@ def get_css_variables(colors: dict[str, str]) -> str:
     --color-accent-light: {colors.get('accent_light', '#e8a48a')};
     --color-trust: {colors.get('trust', '#5b8def')};
     --color-trust-dark: {colors.get('trust_dark', '#4d78cb')};"""
+
+
+def _shadow_variables(warmth: str = "warm") -> str:
+    """Generates shadow CSS variables based on warmth preference."""
+    if warmth == "cool":
+        base = "0, 0, 0"
+    elif warmth == "none":
+        return """    --shadow-sm: none;
+    --shadow-md: none;
+    --shadow-lg: none;
+    --shadow-xl: none;"""
+    else:  # warm (default)
+        base = "61, 58, 53"
+    return f"""    --shadow-sm: 0 1px 2px rgba({base}, 0.05);
+    --shadow-md: 0 4px 12px rgba({base}, 0.08);
+    --shadow-lg: 0 16px 32px rgba({base}, 0.10);
+    --shadow-xl: 0 24px 48px rgba({base}, 0.14);"""
+
+
+def get_full_css_variables(colors: dict[str, str], theme: dict[str, Any] | None = None) -> str:
+    """Generuje pełny blok CSS variables — kolory + typografia + geometria + spacing + transitions + shadows."""
+    t = theme or {}
+
+    # Kolory (deleguj do istniejącej logiki)
+    color_block = get_css_variables(colors)
+
+    # Typografia
+    font_body = t.get("font_body", "Inter")
+    font_heading = t.get("font_heading", "Fraunces")
+    font_size_base = t.get("font_size_base", "16px")
+    line_height = t.get("line_height", "1.65")
+    heading_weight = t.get("heading_weight", "600")
+    letter_spacing_heading = t.get("letter_spacing_heading", "-0.01em")
+
+    # Geometria
+    radius_sm = t.get("radius_sm", "8px")
+    radius = t.get("radius", "14px")
+    radius_lg = t.get("radius_lg", "20px")
+    radius_pill = t.get("radius_pill", "50px")
+
+    # Layout
+    container_max = t.get("container_max", "1180px")
+    prose_max = t.get("prose_max", "720px")
+    gutter = t.get("gutter", "clamp(1rem, 4vw, 2rem)")
+    section_spacing = t.get("section_spacing", "clamp(3rem, 8vw, 6rem)")
+
+    # Transitions
+    transition_fast = t.get("transition_fast", "150ms")
+    transition_base = t.get("transition_base", "250ms")
+    transition_slow = t.get("transition_slow", "400ms")
+
+    # Shadows
+    shadow_warmth = t.get("shadow_warmth", "warm")
+    shadow_block = _shadow_variables(shadow_warmth)
+
+    return f"""{color_block}
+
+    /* Shadows */
+{shadow_block}
+
+    /* Typography */
+    --font-sans: '{font_body}', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-serif: '{font_heading}', Georgia, 'Times New Roman', serif;
+    --font-size-base: {font_size_base};
+    --line-height-base: {line_height};
+    --heading-weight: {heading_weight};
+    --letter-spacing-heading: {letter_spacing_heading};
+
+    /* Geometry */
+    --radius-sm: {radius_sm};
+    --radius: {radius};
+    --radius-lg: {radius_lg};
+    --radius-pill: {radius_pill};
+
+    /* Layout */
+    --container: {container_max};
+    --container-prose: {prose_max};
+    --space-gutter: {gutter};
+    --section-y: {section_spacing};
+
+    /* Transitions */
+    --t-fast: {transition_fast};
+    --t-base: {transition_base};
+    --t-slow: {transition_slow};"""
 
 
 if __name__ == "__main__":

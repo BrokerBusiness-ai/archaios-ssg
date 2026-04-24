@@ -82,6 +82,64 @@
 }
 </script>
 {% endif %}
+{% if howto_steps %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "{{ article.title | striptags }}",
+  "description": "{{ article.excerpt | striptags | truncate(200) }}",
+  "step": [{% for step in howto_steps %}
+    {
+      "@type": "HowToStep",
+      "position": {{ loop.index }},
+      "name": {{ step.name | striptags | tojson }},
+      "text": {{ step.text | striptags | truncate(300) | tojson }}
+    }{% if not loop.last %},{% endif %}{% endfor %}
+  ]
+}
+</script>
+{% endif %}
+{% if article.review %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Review",
+  "itemReviewed": {
+    "@type": "{{ article.review.item_type | default('Product') }}",
+    "name": {{ article.review.item_name | tojson }}
+  },
+  "reviewRating": {
+    "@type": "Rating",
+    "ratingValue": "{{ article.review.rating }}",
+    "bestRating": "{{ article.review.best_rating | default('5') }}"
+  },
+  "author": {
+    "@type": "Person",
+    "name": {{ article.author | tojson }}
+  },
+  "reviewBody": {{ article.excerpt | striptags | truncate(300) | tojson }}
+}
+</script>
+{% endif %}
+{% if article.claim %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ClaimReview",
+  "datePublished": "{{ article.published_at }}",
+  "url": "{{ site.url }}/artykuly/{{ article.slug }}.html",
+  "claimReviewed": {{ article.claim.text | striptags | tojson }},
+  "author": {"@type": "Organization", "name": {{ site.name | tojson }}},
+  "reviewRating": {
+    "@type": "Rating",
+    "ratingValue": "{{ article.claim.rating }}",
+    "bestRating": "5",
+    "alternateName": "{{ article.claim.verdict }}"
+  }
+}
+</script>
+{% endif %}
 {% endblock %}
 
 {% block content %}
@@ -121,6 +179,31 @@
         </figure>
         {% endif %}
 
+        {% block article_share %}
+        <div class="article__share" aria-label="Udostępnij artykuł">
+            <span class="article__share-label">Udostępnij:</span>
+            <a href="https://www.facebook.com/sharer/sharer.php?u={{ (site.url ~ '/artykuly/' ~ article.slug ~ '.html') | urlencode }}"
+               target="_blank" rel="noopener noreferrer" class="share-btn share-btn--fb" aria-label="Udostępnij na Facebooku" data-share="facebook">FB</a>
+            <a href="https://twitter.com/intent/tweet?url={{ (site.url ~ '/artykuly/' ~ article.slug ~ '.html') | urlencode }}&text={{ article.title | urlencode }}"
+               target="_blank" rel="noopener noreferrer" class="share-btn share-btn--tw" aria-label="Udostępnij na X/Twitter" data-share="twitter">X</a>
+            <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ (site.url ~ '/artykuly/' ~ article.slug ~ '.html') | urlencode }}"
+               target="_blank" rel="noopener noreferrer" class="share-btn share-btn--li" aria-label="Udostępnij na LinkedIn" data-share="linkedin">in</a>
+            <a href="https://api.whatsapp.com/send?text={{ (article.title ~ ' ' ~ site.url ~ '/artykuly/' ~ article.slug ~ '.html') | urlencode }}"
+               target="_blank" rel="noopener noreferrer" class="share-btn share-btn--wa" aria-label="Udostępnij na WhatsApp" data-share="whatsapp">WA</a>
+            <a href="https://t.me/share/url?url={{ (site.url ~ '/artykuly/' ~ article.slug ~ '.html') | urlencode }}&text={{ article.title | urlencode }}"
+               target="_blank" rel="noopener noreferrer" class="share-btn share-btn--tg" aria-label="Udostępnij na Telegram" data-share="telegram">TG</a>
+            <button type="button" class="share-btn share-btn--copy" aria-label="Kopiuj link" data-share="copy" data-url="{{ site.url }}/artykuly/{{ article.slug }}.html">
+                <span class="share-btn__label">Link</span>
+                <span class="share-btn__copied" hidden>Skopiowano!</span>
+            </button>
+            <button type="button" class="share-btn share-btn--native" aria-label="Udostępnij" data-share="native"
+                    data-title="{{ article.title | striptags }}" data-text="{{ article.excerpt | striptags | truncate(120) }}"
+                    data-url="{{ site.url }}/artykuly/{{ article.slug }}.html" hidden>
+                Więcej
+            </button>
+        </div>
+        {% endblock %}
+
         <!-- TOC auto-generowany z <h2> -->
         <details class="article__toc" open>
             <summary>Spis treści</summary>
@@ -159,10 +242,12 @@
         {% endfor %}
 
         {% if article.bibliography %}
-        <section class="article__bibliography" aria-labelledby="bibliography-title">
-            <h2 id="bibliography-title">📚 Źródła</h2>
-            <div class="prose">{{ article.bibliography | safe }}</div>
-        </section>
+        <aside class="article__bibliography" role="doc-bibliography" aria-label="Bibliografia">
+            <h2 id="bibliography-title">Źródła i bibliografia</h2>
+            <div class="bibliography__list" data-nosnippet>
+                {{ article.bibliography | safe }}
+            </div>
+        </aside>
         {% endif %}
 
         {% if article.tags %}
