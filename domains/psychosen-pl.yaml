@@ -108,3 +108,6 @@ products:
     target_tags: "sen,relaksacja,mindfulness,stres"
     priority: 80
     kind: "own"
+
+theme:
+  dark_mode: true

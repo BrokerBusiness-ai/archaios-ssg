@@ -93,6 +93,7 @@ def init_config(domain: str | None = None) -> None:
             "backend_url": cfg("BACKEND_URL", "http://127.0.0.1:8765"),
         }
         PILLARS = dcfg["pillars"]
+        CONFIG["theme"] = dcfg.get("theme", {})
     else:
         # Fallback: tryb kompatybilności (zdrowie.fit z .env)
         CONFIG = {
@@ -880,7 +881,8 @@ def build(clean: bool = False, domain: str | None = None):
               "newsletter": CONFIG["newsletter"], "colors": CONFIG.get("colors", {}),
               "hero_cfg": CONFIG.get("hero", {}), "about_cfg": CONFIG.get("about", {}),
               "footer_cfg": CONFIG.get("footer", {}), "now": now,
-              "critical_css": critical_css}
+              "critical_css": critical_css,
+              "theme": CONFIG.get("theme", {})}
 
     print(f"\n📊 Dane: {len(articles)} artykułów, {len(categories)} kategorii, {len(authors)} autorów, {len(products)} aktywnych produktów\n")
     print("📝 Renderowanie:")

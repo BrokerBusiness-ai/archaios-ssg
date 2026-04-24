@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="{{ site.lang }}" dir="ltr" prefix="og: https://ogp.me/ns#">
+<html lang="{{ site.lang }}" dir="ltr" prefix="og: https://ogp.me/ns#"{% if theme.dark_mode %} class="dark-auto"{% endif %}>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="{{ colors.primary | default('#4a7c59') }}">
-    <meta name="color-scheme" content="light dark">
+    {% if theme.dark_mode %}<meta name="color-scheme" content="dark light">{% else %}<meta name="color-scheme" content="light dark">{% endif %}
 
     <title>{% block title %}{{ site.name }} – {{ site.tagline }}{% endblock %}</title>
     <meta name="description" content="{% block description %}{{ site.description }}{% endblock %}">

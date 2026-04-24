@@ -201,6 +201,62 @@
         });
     });
 
+    // ─── Sticky CTA (po 60% scroll artykułu) ────────────────
+    (function initStickyCta() {
+        var cta = document.getElementById('sticky-cta');
+        if (!cta) return;
+        var dismissed = false;
+        var closeBtn = cta.querySelector('.sticky-cta__close');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', function () {
+                cta.removeAttribute('data-visible');
+                cta.setAttribute('hidden', '');
+                dismissed = true;
+            });
+        }
+        window.addEventListener('scroll', function () {
+            if (dismissed) return;
+            var denom = document.documentElement.scrollHeight - window.innerHeight;
+            if (denom <= 0) return;
+            var scrollPercent = window.scrollY / denom;
+            if (scrollPercent > 0.6) {
+                cta.removeAttribute('hidden');
+                cta.setAttribute('aria-hidden', 'false');
+                requestAnimationFrame(function () { cta.setAttribute('data-visible', ''); });
+            }
+        }, { passive: true });
+    })();
+
+    // ─── Cite button (APA 7) ───────────────────────────────
+    (function initCite() {
+        var months = ['stycznia', 'lutego', 'marca', 'kwietnia', 'maja', 'czerwca',
+                      'lipca', 'sierpnia', 'września', 'października', 'listopada', 'grudnia'];
+        document.addEventListener('click', function (e) {
+            var btn = e.target.closest('[data-cite]');
+            if (!btn) return;
+            var author = btn.dataset.author || '';
+            var title = btn.dataset.title || '';
+            var site = btn.dataset.site || '';
+            var url = btn.dataset.url || '';
+            var date = btn.dataset.date || '';
+            var year = date ? date.substring(0, 4) : String(new Date().getFullYear());
+            var monthNum = date ? parseInt(date.substring(5, 7), 10) : 0;
+            var day = date ? parseInt(date.substring(8, 10), 10) : 0;
+            var dateStr = (day && monthNum) ? (day + ' ' + months[monthNum - 1] + ' ' + year) : year;
+            // APA 7: Autor. (rok, data). Tytuł artykułu. Nazwa Serwisu. URL
+            var citation = author + '. (' + dateStr + '). ' + title + '. ' + site + '. ' + url;
+            var output = btn.nextElementSibling;
+            if (output) {
+                output.hidden = false;
+                output.textContent = citation;
+                output.style.userSelect = 'all';
+            }
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(citation).catch(function () {});
+            }
+        });
+    })();
+
     // ─── Share bar (article__share) ──────────────────────────
     (function initShare() {
         // Web Share API detection

@@ -1,4 +1,11 @@
 <article class="article-card" itemscope itemtype="https://schema.org/Article">
+    {% if a.tags %}
+        {% set _t = a.tags.lower() %}
+        {% if 'podstawowy' in _t %}<span class="difficulty-badge difficulty-badge--podstawowy">🟢 Podstawowy</span>
+        {% elif 'średniozaawansowany' in _t or 'sredniozaawansowany' in _t %}<span class="difficulty-badge difficulty-badge--sredniozaawansowany">🟡 Średniozaawansowany</span>
+        {% elif 'zaawansowany' in _t %}<span class="difficulty-badge difficulty-badge--zaawansowany">🔴 Zaawansowany</span>
+        {% endif %}
+    {% endif %}
     <a href="/artykuly/{{ a.slug }}.html" class="article-card__link-wrap" aria-label="Czytaj: {{ a.title }}">
         <div class="article-card__image">
             {% if a.image_thumb or a.image_webp or a.image_url %}

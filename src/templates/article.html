@@ -167,6 +167,13 @@
                 {% if article.published_at %}<time itemprop="datePublished" datetime="{{ article.published_at }}">{{ article.published_date_pl }}</time>{% endif %}
                 {% if article.reading_time %}<span>{{ article.reading_time }} min czytania</span>{% endif %}
                 {% if article.word_count %}<span>{{ article.word_count }} słów</span>{% endif %}
+                {% if article.tags %}
+                    {% set _tags_lower = article.tags.lower() %}
+                    {% if 'podstawowy' in _tags_lower %}<span class="difficulty-badge difficulty-badge--podstawowy">🟢 Podstawowy</span>
+                    {% elif 'średniozaawansowany' in _tags_lower or 'sredniozaawansowany' in _tags_lower %}<span class="difficulty-badge difficulty-badge--sredniozaawansowany">🟡 Średniozaawansowany</span>
+                    {% elif 'zaawansowany' in _tags_lower %}<span class="difficulty-badge difficulty-badge--zaawansowany">🔴 Zaawansowany</span>
+                    {% endif %}
+                {% endif %}
             </div>
         </header>
 
@@ -233,6 +240,16 @@
                 {% for product in products_sidebar %}
                     {% include "_product_cta.html" %}
                 {% endfor %}
+
+                {% if article.bibliography %}
+                <div class="research-badge">
+                    <h4><span class="research-badge__icon" aria-hidden="true">🔬</span> Badania mówią</h4>
+                    <div class="research-badge__content" data-nosnippet>
+                        {{ article.bibliography | striptags | truncate(300) }}
+                    </div>
+                    <a href="#bibliography-title" class="research-badge__link">Pełna bibliografia →</a>
+                </div>
+                {% endif %}
             </aside>
         </div>
 
@@ -249,6 +266,18 @@
             </div>
         </aside>
         {% endif %}
+
+        <div class="cite-block">
+            <button type="button" class="btn btn--ghost btn--sm" data-cite
+                    data-author="{{ article.author }}"
+                    data-title="{{ article.title | striptags }}"
+                    data-site="{{ site.name }}"
+                    data-url="{{ site.url }}/artykuly/{{ article.slug }}.html"
+                    data-date="{{ article.published_at }}">
+                📋 Cytuj ten artykuł (APA 7)
+            </button>
+            <div class="cite-block__output" hidden></div>
+        </div>
 
         {% if article.tags %}
         <footer class="article__footer">
@@ -269,6 +298,16 @@
         </div>
     </div>
 </section>
+{% endif %}
+
+{% if products_end %}
+<div class="sticky-cta" id="sticky-cta" hidden aria-hidden="true">
+    <div class="container sticky-cta__inner">
+        <p>{{ products_end[0].tagline_short }}</p>
+        <a href="{{ products_end[0].cta_url or products_end[0].target_url }}" class="btn btn--primary btn--sm" target="_blank" rel="noopener">{{ products_end[0].cta_text }}</a>
+        <button type="button" class="sticky-cta__close" aria-label="Zamknij">&times;</button>
+    </div>
+</div>
 {% endif %}
 {% endblock %}
 
