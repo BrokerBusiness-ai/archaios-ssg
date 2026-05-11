@@ -140,6 +140,16 @@ def get_article_by_slug(db: Session, slug: str, count_view: bool = False) -> Opt
     return _to_read(a)
 
 
+def _emit_article_webhook(db: Session, event_type: str, article):
+    """Helper - emit webhook event z try/except."""
+    try:
+        from app.services import webhook_service
+        webhook_service.emit_article_event(db, event_type, article)
+    except Exception as e:
+        import logging
+        logging.getLogger(__name__).error(f"Webhook emit failed for article.{event_type}: {e}")
+
+
 def create_article(db: Session, data: ArticleCreate) -> ArticleRead:
     slug = _unique_slug(db, data.title)
     article = Article(slug=slug, **data.model_dump())
@@ -148,6 +158,9 @@ def create_article(db: Session, data: ArticleCreate) -> ArticleRead:
     db.add(article)
     db.commit()
     db.refresh(article)
+    _emit_article_webhook(db, "created", article)
+    if article.is_published:
+        _emit_article_webhook(db, "published", article)
     return get_article_by_id(db, article.id)  # type: ignore
 
 
@@ -164,11 +177,15 @@ def update_article(db: Session, article_id: int, data: ArticleUpdate) -> Optiona
     for key, val in updates.items():
         setattr(article, key, val)
 
-    if not was_published and article.is_published:
+    just_published = not was_published and article.is_published
+    if just_published:
         article.published_at = datetime.utcnow()
 
     db.commit()
     db.refresh(article)
+    _emit_article_webhook(db, "updated", article)
+    if just_published:
+        _emit_article_webhook(db, "published", article)
     return get_article_by_id(db, article.id)
 
 
@@ -176,6 +193,8 @@ def delete_article(db: Session, article_id: int) -> bool:
     article = db.query(Article).get(article_id)
     if not article:
         return False
+    # Emit BEFORE delete (po delete article jest unbound)
+    _emit_article_webhook(db, "deleted", article)
     db.delete(article)
     db.commit()
     return True
@@ -185,10 +204,13 @@ def toggle_publish(db: Session, article_id: int) -> Optional[ArticleRead]:
     article = db.query(Article).get(article_id)
     if not article:
         return None
+    was_published = article.is_published
     article.is_published = not article.is_published
     if article.is_published and not article.published_at:
         article.published_at = datetime.utcnow()
     db.commit()
+    if not was_published and article.is_published:
+        _emit_article_webhook(db, "published", article)
     return get_article_by_id(db, article_id)
 
 

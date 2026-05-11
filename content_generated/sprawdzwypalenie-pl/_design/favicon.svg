@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <rect width="32" height="32" rx="7" fill="#7c5b3c"/>
+  <!-- Płomień przygaszony -->
+  <path d="M 16 8 Q 13 14 13 18 Q 13 22 16 24 Q 19 22 19 18 Q 19 14 16 8 Z" fill="#e8922d"/>
+  <path d="M 16 13 Q 14.5 16 14.5 18.5 Q 14.5 21 16 22 Q 17.5 21 17.5 18.5 Q 17.5 16 16 13 Z" fill="#c07824"/>
+  <!-- Mała iskra regeneracji u podstawy -->
+  <circle cx="16" cy="26" r="1.5" fill="#7a9a6d" opacity="0.8"/>
+</svg>

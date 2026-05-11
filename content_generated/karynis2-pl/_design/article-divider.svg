@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 24" fill="none">
+  <line x1="80" y1="12" x2="170" y2="12" stroke="#c0392b" stroke-width="1" opacity="0.4"/>
+  <text x="200" y="16" font-family="Inter, sans-serif" font-size="14" font-weight="800" fill="#1a365d" text-anchor="middle">€</text>
+  <line x1="230" y1="12" x2="320" y2="12" stroke="#c0392b" stroke-width="1" opacity="0.4"/>
+</svg>

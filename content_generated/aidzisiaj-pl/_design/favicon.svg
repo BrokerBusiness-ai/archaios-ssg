@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <rect width="32" height="32" rx="6" fill="#1a365d"/>
+  <text x="16" y="22" font-family="'IBM Plex Sans', sans-serif" font-size="16" font-weight="800" fill="#fdfcf9" text-anchor="middle" letter-spacing="-1">AI</text>
+  <circle cx="9" cy="9" r="2.5" fill="#f97316"/>
+  <circle cx="23" cy="9" r="2.5" fill="#06b6d4"/>
+  <line x1="9" y1="9" x2="23" y2="9" stroke="#fdfcf9" stroke-width="0.8" opacity="0.5"/>
+</svg>

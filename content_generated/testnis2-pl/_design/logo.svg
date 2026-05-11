@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 70" fill="none">
+  <g transform="translate(8, 10)">
+    <rect x="0" y="0" width="50" height="50" rx="11" fill="#0f2440"/>
+    <path d="M 25 8 L 39 14 L 39 25 Q 39 36 25 42 Q 11 36 11 25 L 11 14 Z" fill="#1a365d" stroke="#4a7ab5" stroke-width="1"/>
+    <path d="M 19 25 L 23 29 L 32 19" stroke="#c0392b" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="72" y="46" font-family="'IBM Plex Sans', 'Segoe UI', sans-serif" font-size="28" font-weight="600" fill="#0f2440" letter-spacing="-0.3">TestNIS2</text>
+  <text x="220" y="46" font-family="'IBM Plex Sans', sans-serif" font-size="28" font-weight="600" fill="#c0392b">.pl</text>
+</svg>

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 420" fill="none">
+  <defs>
+    <radialGradient id="navyRadA" cx="50%" cy="40%" r="80%">
+      <stop offset="0%" stop-color="#1a365d"/>
+      <stop offset="100%" stop-color="#0a1830"/>
+    </radialGradient>
+  </defs>
+  <rect width="600" height="420" fill="url(#navyRadA)"/>
+
+  <!-- Wykres wzrostu ROI -->
+  <g transform="translate(150, 280)">
+    <!-- osie -->
+    <line x1="0" y1="0" x2="300" y2="0" stroke="#fdfcf9" stroke-width="1" opacity="0.4"/>
+    <line x1="0" y1="0" x2="0" y2="-150" stroke="#fdfcf9" stroke-width="1" opacity="0.4"/>
+    <!-- linia ROI -->
+    <polyline points="0,-15 60,-30 120,-60 180,-100 240,-130 300,-145"
+              fill="none" stroke="#f97316" stroke-width="3"/>
+    <!-- punkty -->
+    <circle cx="0" cy="-15" r="5" fill="#f97316"/>
+    <circle cx="60" cy="-30" r="5" fill="#f97316"/>
+    <circle cx="120" cy="-60" r="5" fill="#06b6d4"/>
+    <circle cx="180" cy="-100" r="5" fill="#06b6d4"/>
+    <circle cx="240" cy="-130" r="5" fill="#06b6d4"/>
+    <circle cx="300" cy="-145" r="5" fill="#fdfcf9"/>
+    <!-- labels -->
+    <text x="0" y="20" font-family="Inter, sans-serif" font-size="9" fill="#a8b8d0" text-anchor="middle">M0</text>
+    <text x="60" y="20" font-family="Inter, sans-serif" font-size="9" fill="#a8b8d0" text-anchor="middle">M3</text>
+    <text x="120" y="20" font-family="Inter, sans-serif" font-size="9" fill="#a8b8d0" text-anchor="middle">M6</text>
+    <text x="180" y="20" font-family="Inter, sans-serif" font-size="9" fill="#a8b8d0" text-anchor="middle">M9</text>
+    <text x="240" y="20" font-family="Inter, sans-serif" font-size="9" fill="#a8b8d0" text-anchor="middle">M12</text>
+    <text x="300" y="20" font-family="Inter, sans-serif" font-size="9" fill="#a8b8d0" text-anchor="middle">M18</text>
+  </g>
+
+  <text x="300" y="40" font-family="'IBM Plex Sans', sans-serif" font-size="13" fill="#a8b8d0" text-anchor="middle" opacity="0.8" letter-spacing="3">ROI WDROŻENIA AI W POLSKIEJ FIRMIE</text>
+  <text x="300" y="120" font-family="'IBM Plex Sans', sans-serif" font-size="32" font-weight="700" fill="#fdfcf9" text-anchor="middle">+340% w 18 miesięcy</text>
+  <text x="300" y="155" font-family="Inter, sans-serif" font-size="14" fill="#a8b8d0" text-anchor="middle" opacity="0.7">średnia z 12 wdrożeń w sektorze MŚP</text>
+  <text x="300" y="395" font-family="'IBM Plex Sans', sans-serif" font-size="11" fill="#a8b8d0" text-anchor="middle" opacity="0.6">Customer service • Sprzedaż • Backoffice • Produkcja</text>
+</svg>

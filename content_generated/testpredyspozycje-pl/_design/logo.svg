@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 70" fill="none">
+  <g transform="translate(8, 10)">
+    <rect x="0" y="0" width="50" height="50" rx="11" fill="#4e4270"/>
+    <circle cx="25" cy="25" r="14" fill="none" stroke="#d4a843" stroke-width="1" opacity="0.7"/>
+    <path d="M 25 11 L 27.5 23 L 25 25 L 22.5 23 Z" fill="#3cb4a0"/>
+    <path d="M 25 39 L 27.5 27 L 25 25 L 22.5 27 Z" fill="#9b8ec4"/>
+    <circle cx="25" cy="25" r="2" fill="#fdfcf9"/>
+  </g>
+  <text x="72" y="46" font-family="'Source Serif Pro', Georgia, serif" font-size="28" font-weight="500" fill="#4e4270" letter-spacing="-0.3">Test</text>
+  <text x="138" y="46" font-family="'Source Serif Pro', Georgia, serif" font-size="28" font-weight="600" fill="#3cb4a0" letter-spacing="-0.3">Predyspozycje</text>
+</svg>

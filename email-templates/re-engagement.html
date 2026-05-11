@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Czy nadal chcesz dostawać Zdrowie.fit?</title>
+</head>
+<body style="margin:0;padding:0;background:#f6f0e6;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;color:#3d3a35;line-height:1.65;">
+
+<!--
+  ================================================
+  RE-ENGAGEMENT — szablon dla Brevo Automation
+  ================================================
+  Cel: wysyłany do osób które od 60+ dni nie kliknęły żadnego maila.
+  Brevo Automation: trigger "no clicks in last 60 days" + filter "subscribed > 60 days ago".
+  Po tym mailu: jeśli user nie kliknie w 14 dni → automatyczne unsubscribe (clean list = lepsza deliverability).
+-->
+
+<div style="display:none;font-size:1px;color:#f6f0e6;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;">
+Dawno Cię nie widzieliśmy. Jeden klik decyduje, czy zostajesz.
+</div>
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f6f0e6;padding:32px 16px;">
+  <tr><td align="center">
+    <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;background:#fdfcf9;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(61,58,53,0.08);">
+
+      <tr><td style="padding:48px 40px 24px;text-align:center;">
+        <div style="font-size:48px;margin-bottom:16px;">👋</div>
+        <h1 style="margin:0 0 16px;font-family:Georgia,serif;font-size:28px;line-height:1.25;color:#2d2a26;font-weight:600;">
+          Dawno Cię nie widzieliśmy.
+        </h1>
+        <p style="margin:0;font-size:16px;color:#6b665f;">
+          Skrzynka się zapycha. Twój czas jest cenny. Nie chcemy zajmować miejsca, jeśli to już Ci się nie przydaje.
+        </p>
+      </td></tr>
+
+      <tr><td style="padding:24px 40px 32px;">
+        <p style="margin:0 0 24px;font-size:16px;color:#3d3a35;text-align:center;">
+          Jedno proste pytanie: <strong>czy nadal chcesz dostawać tygodniowy przegląd Zdrowie.fit?</strong>
+        </p>
+
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;">
+          <tr><td align="center" style="border-radius:50px;background:#4a7c59;">
+            <a href="{{ params.confirm_stay_url }}" style="display:inline-block;padding:16px 36px;font-size:16px;font-weight:600;color:#ffffff;text-decoration:none;border-radius:50px;">
+              Tak, zostaję — kliknij
+            </a>
+          </td></tr>
+        </table>
+
+        <p style="margin:24px 0 0;text-align:center;">
+          <a href="{{ unsubscribe }}" style="font-size:13px;color:#8a857d;text-decoration:underline;">
+            Nie, wypisz mnie z listy
+          </a>
+        </p>
+      </td></tr>
+
+      <tr><td style="padding:0 40px 32px;">
+        <p style="margin:0;font-size:13px;color:#8a857d;text-align:center;line-height:1.6;font-style:italic;">
+          Jeśli nie klikniesz nic w ciągu 14 dni, automatycznie wypiszemy Cię z listy.
+          To nie jest kara — chcemy mieć listę osób, którym to faktycznie pomaga.
+        </p>
+      </td></tr>
+
+      <tr><td style="padding:24px 40px 32px;background:#f6f0e6;border-top:1px solid #e8e1d4;">
+        <p style="margin:0;font-size:11px;color:#8a857d;text-align:center;">
+          © {{ params.year }} Zdrowie.fit ·
+          <a href="https://zdrowie.fit/polityka-prywatnosci.html" style="color:#8a857d;text-decoration:underline;">Polityka prywatności</a> ·
+          <a href="{{ unsubscribe }}" style="color:#8a857d;text-decoration:underline;">Wypisz się</a>
+        </p>
+      </td></tr>
+
+    </table>
+  </td></tr>
+</table>
+
+</body>
+</html>

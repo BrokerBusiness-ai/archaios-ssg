@@ -1,0 +1,21 @@
+{# _sticky_cta.html — pasek konwersyjny dolny dla money page (role=funnel_end).
+   Pokazuje się po wyjściu hero z viewportu. Tekst i URL z yaml: sticky_cta.* #}
+{% if sticky_cta and sticky_cta.get('text') %}
+<div class="sticky-cta sticky-cta--funnel" id="sticky-cta" data-trigger="hero-out" hidden aria-hidden="true">
+    <div class="container sticky-cta__inner">
+        <p class="sticky-cta__text">{{ sticky_cta.text }}</p>
+        <div class="sticky-cta__actions">
+            {% if sticky_cta.url %}
+            <a href="{{ sticky_cta.url }}" class="btn btn--primary btn--sm">{{ sticky_cta.button | default('Zamów konsultację') }}</a>
+            {% endif %}
+            {% if sticky_cta.messenger %}
+            <a href="{{ sticky_cta.messenger }}" class="btn btn--ghost btn--sm" target="_blank" rel="noopener" aria-label="Napisz na Messengerze">💬 Messenger</a>
+            {% endif %}
+            {% if sticky_cta.whatsapp %}
+            <a href="{{ sticky_cta.whatsapp }}" class="btn btn--ghost btn--sm" target="_blank" rel="noopener" aria-label="Napisz na WhatsApp">📱 WhatsApp</a>
+            {% endif %}
+        </div>
+        <button type="button" class="sticky-cta__close" aria-label="Zamknij pasek z ofertą">&times;</button>
+    </div>
+</div>
+{% endif %}

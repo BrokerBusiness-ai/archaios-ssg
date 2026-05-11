@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rok razem — Zdrowie.fit</title>
+</head>
+<body style="margin:0;padding:0;background:#f6f0e6;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;color:#3d3a35;line-height:1.65;">
+
+<div style="display:none;font-size:1px;color:#f6f0e6;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;">
+Rok temu zostałeś z nami. Mała statystyka, mocne podziękowanie, jeden malutki nudge.
+</div>
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f6f0e6;padding:32px 16px;">
+  <tr><td align="center">
+    <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;background:#fdfcf9;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(61,58,53,0.08);">
+
+      <tr><td style="padding:32px 40px 16px;border-bottom:1px solid #e8e1d4;">
+        <table role="presentation" width="100%"><tr>
+          <td style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:#2d2a26;">Zdrowie<span style="color:#d9724a;">.fit</span></td>
+          <td align="right" style="font-size:11px;color:#8a857d;text-transform:uppercase;letter-spacing:0.1em;">Anniversary · 1 rok</td>
+        </tr></table>
+      </td></tr>
+
+      <!-- Header z gradientem -->
+      <tr><td style="background:linear-gradient(135deg,#d9724a 0%,#b85a38 100%);padding:48px 40px;text-align:center;">
+        <p style="margin:0 0 12px;font-size:13px;color:rgba(253,252,249,0.85);text-transform:uppercase;letter-spacing:0.15em;">
+          Rok temu, dokładnie {{ params.subscribed_date }}
+        </p>
+        <h1 style="margin:0 0 12px;font-family:Georgia,serif;font-size:32px;line-height:1.2;color:#fdfcf9;font-weight:600;">
+          Jesteś z nami od roku.
+        </h1>
+        <p style="margin:0;font-size:16px;color:rgba(253,252,249,0.95);">
+          Tylko podziękować i powiedzieć dwie rzeczy.
+        </p>
+      </td></tr>
+
+      <!-- Podziękowanie -->
+      <tr><td style="padding:40px 40px 24px;">
+        <p style="margin:0 0 16px;font-size:16px;color:#3d3a35;line-height:1.7;">
+          {% if contact.NAME %}{{ contact.NAME }}, dziękuję{% else %}Dziękuję{% endif %} osobiście za to, że poświęcasz nam swoje poniedziałki rano. W ciągu ostatnich 12 miesięcy w skrzynkę dostawałeś/aś:
+        </p>
+      </td></tr>
+
+      <!-- Statystyki -->
+      <tr><td style="padding:0 40px 24px;">
+        <table role="presentation" width="100%">
+          <tr>
+            <td width="33%" style="padding:0 8px;">
+              <table role="presentation" width="100%" style="background:#f6f0e6;border-radius:12px;">
+                <tr><td style="padding:24px;text-align:center;">
+                  <p style="margin:0 0 4px;font-family:Georgia,serif;font-size:32px;color:#4a7c59;font-weight:600;">~52</p>
+                  <p style="margin:0;font-size:12px;color:#6b665f;text-transform:uppercase;letter-spacing:0.1em;">tygodniowe maile</p>
+                </td></tr>
+              </table>
+            </td>
+            <td width="33%" style="padding:0 8px;">
+              <table role="presentation" width="100%" style="background:#f6f0e6;border-radius:12px;">
+                <tr><td style="padding:24px;text-align:center;">
+                  <p style="margin:0 0 4px;font-family:Georgia,serif;font-size:32px;color:#5b8def;font-weight:600;">{{ params.articles_count | default('~150') }}</p>
+                  <p style="margin:0;font-size:12px;color:#6b665f;text-transform:uppercase;letter-spacing:0.1em;">artykułów</p>
+                </td></tr>
+              </table>
+            </td>
+            <td width="33%" style="padding:0 8px;">
+              <table role="presentation" width="100%" style="background:#f6f0e6;border-radius:12px;">
+                <tr><td style="padding:24px;text-align:center;">
+                  <p style="margin:0 0 4px;font-family:Georgia,serif;font-size:32px;color:#d9724a;font-weight:600;">{{ params.citations_count | default('~800') }}</p>
+                  <p style="margin:0;font-size:12px;color:#6b665f;text-transform:uppercase;letter-spacing:0.1em;">cytatów z badań</p>
+                </td></tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </td></tr>
+
+      <!-- Dwie rzeczy do powiedzenia -->
+      <tr><td style="padding:24px 40px 16px;">
+        <p style="margin:0 0 16px;font-size:11px;color:#6b665f;text-transform:uppercase;letter-spacing:0.1em;font-weight:600;">
+          Dwie rzeczy, które chcę Ci powiedzieć
+        </p>
+
+        <table role="presentation" width="100%" style="background:#fdfcf9;border:2px solid #4a7c59;border-radius:12px;margin-bottom:16px;">
+          <tr><td style="padding:24px;">
+            <p style="margin:0 0 8px;font-family:Georgia,serif;font-size:18px;color:#2d2a26;font-weight:600;">
+              1. Twój czas i uwaga to prezent.
+            </p>
+            <p style="margin:0;font-size:15px;color:#3d3a35;line-height:1.6;">
+              Internet jest pełen serwisów, które krzyczą, klikbaitują, sprzedają suplementy. Wybrałeś/aś nas — newsletter, który raz w tygodniu mówi spokojnie, z bibliografią, bez krzyku. To dla nas dużo.
+            </p>
+          </td></tr>
+        </table>
+
+        <table role="presentation" width="100%" style="background:#fdfcf9;border:2px solid #d9724a;border-radius:12px;">
+          <tr><td style="padding:24px;">
+            <p style="margin:0 0 8px;font-family:Georgia,serif;font-size:18px;color:#2d2a26;font-weight:600;">
+              2. Jeśli to dla Ciebie wartość — poleć komuś.
+            </p>
+            <p style="margin:0 0 16px;font-size:15px;color:#3d3a35;line-height:1.6;">
+              Newsletter nie chodzi po reklamach. Rośnie tylko przez polecenia. Jeśli znasz jedną osobę, której podejście „spokojne, oparte na badaniach, bez sprzedawania" by się spodobało — prześlij jej ten link:
+            </p>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;">
+              <tr><td style="border-radius:50px;background:#d9724a;">
+                <a href="{{ params.referral_url | default('https://zdrowie.fit/?ref=anniversary') }}" style="display:inline-block;padding:12px 28px;font-size:14px;font-weight:600;color:#ffffff;text-decoration:none;border-radius:50px;">
+                  Skopiuj link polecający →
+                </a>
+              </td></tr>
+            </table>
+            <p style="margin:16px 0 0;font-size:13px;color:#8a857d;text-align:center;">
+              Lub po prostu prześlij dalej któryś z naszych ulubionych maili.
+            </p>
+          </td></tr>
+        </table>
+      </td></tr>
+
+      <!-- Podpis -->
+      <tr><td style="padding:24px 40px 32px;">
+        <p style="margin:0 0 8px;font-size:15px;color:#3d3a35;line-height:1.6;">
+          Do następnego poniedziałku.
+        </p>
+        <p style="margin:0;font-family:Georgia,serif;font-size:16px;color:#2d2a26;font-style:italic;">
+          — Zespół Zdrowie.fit
+        </p>
+      </td></tr>
+
+      <tr><td style="padding:24px 40px 32px;background:#f6f0e6;border-top:1px solid #e8e1d4;">
+        <p style="margin:0;font-size:11px;color:#8a857d;text-align:center;">
+          © {{ params.year }} Zdrowie.fit ·
+          <a href="https://zdrowie.fit/polityka-prywatnosci.html" style="color:#8a857d;text-decoration:underline;">Polityka prywatności</a> ·
+          <a href="{{ unsubscribe }}" style="color:#8a857d;text-decoration:underline;">Wypisz się</a>
+        </p>
+      </td></tr>
+
+    </table>
+  </td></tr>
+</table>
+
+</body>
+</html>

@@ -84,12 +84,12 @@ def _seed_categories(db: Session) -> dict[str, Category]:
     if db.query(Category).count() > 0:
         return {c.slug: c for c in db.query(Category).all()}
 
+    # Slugi muszą być spójne z domains/zdrowie-fit.yaml (categories) — inaczej
+    # build.py nie połączy artykułów z kategoriami i kategorie pozostaną puste.
     defs = [
-        ("Fizyczne", "fitness", "Trening, ruch, aktywność fizyczna", "💪", "#2563EB", 1),
-        ("Psychiczne", "psychiczne", "Zdrowie psychiczne, mindfulness, stres", "🧠", "#7C3AED", 2),
-        ("Odżywianie", "odzywianie", "Dieta, suplementacja, przepisy", "🥗", "#16A34A", 3),
-        ("Zdrowie", "zdrowie", "Sen, odporność, profilaktyka", "❤️", "#DC2626", 4),
-        ("Wellbeing", "wellbeing", "Styl życia, natura, relacje", "🌿", "#0D9488", 5),
+        ("Zdrowie fizyczne", "fizyczne", "Trening, ruch, aktywność fizyczna, neurobiologia ciała", "🏃", "#4a7c59", 1),
+        ("Zdrowie psychiczne", "psychiczne", "Mindfulness, stres, regulacja emocji, neuropsychologia", "🧠", "#5b8def", 2),
+        ("Dieta i odżywianie", "dieta", "Mikrobiom, dieta śródziemnomorska, MIND, suplementacja", "🥗", "#d9724a", 3),
     ]
     cats = {}
     for name, slug, desc, icon, color, order in defs:

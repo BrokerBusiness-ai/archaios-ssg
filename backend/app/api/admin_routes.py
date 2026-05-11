@@ -12,7 +12,7 @@ from app.core.database import get_db
 from app.models.admin_user import AdminUser
 from app.models.article import Article
 from app.models.category import Category
-from app.services import article_service, category_service, author_service, product_service
+from app.services import article_service, category_service, author_service, product_service, stats_service
 from app.schemas.article import ArticleCreate, ArticleUpdate
 from app.schemas.author import AuthorCreate, AuthorUpdate
 from app.schemas.category import CategoryCreate, CategoryUpdate
@@ -79,12 +79,24 @@ async def dashboard(request: Request, db: Session = Depends(get_db)):
     from sqlalchemy import func
     views = db.query(func.coalesce(func.sum(Article.views), 0)).scalar()
     recent = db.query(Article).order_by(Article.updated_at.desc()).limit(10).all()
+
+    # Live stats z trackera (server-side, niezależne od GA4)
+    overview = stats_service.get_overview(db)
+    daily_chart = stats_service.get_daily_chart(db, days=30)
+    top_month = stats_service.get_top_articles(db, period="month", limit=5)
+    live_readers = stats_service.get_live_readers(db)
+
     return _templates(request).TemplateResponse("admin/dashboard.html", {
         "request": request, "admin": admin,
         "articles": articles, "published": published, "drafts": articles - published,
         "categories": categories, "views": views, "recent": recent,
         "authors_count": db.query(__import__('app.models.author', fromlist=['Author']).Author).count(),
         "products_count": db.query(__import__('app.models.product', fromlist=['Product']).Product).count(),
+        # Tracker stats:
+        "stats_overview": overview,
+        "stats_daily_chart": daily_chart,
+        "stats_top_month": top_month,
+        "stats_live_readers": live_readers,
     })
 
 

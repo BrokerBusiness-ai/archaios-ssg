@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 420" fill="none">
+  <defs>
+    <radialGradient id="warmBg" cx="50%" cy="50%">
+      <stop offset="0%" stop-color="#fdfcf9"/>
+      <stop offset="100%" stop-color="#eee8de"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="600" height="420" fill="url(#warmBg)"/>
+
+  <!-- Dwie sylwetki obok siebie (codzienna psychologia = relacje) -->
+  <!-- Lewa postać -->
+  <g transform="translate(180, 140)">
+    <!-- Aureola emocjonalna -->
+    <circle cx="40" cy="40" r="55" fill="#2c6e8a" opacity="0.08"/>
+    <circle cx="40" cy="40" r="42" fill="#2c6e8a" opacity="0.12"/>
+    <!-- Głowa -->
+    <circle cx="40" cy="40" r="30" fill="#2c6e8a"/>
+    <!-- Oczy -->
+    <circle cx="32" cy="38" r="2.5" fill="#fdfcf9"/>
+    <circle cx="48" cy="38" r="2.5" fill="#fdfcf9"/>
+    <!-- Uśmiech -->
+    <path d="M 30 48 Q 40 54 50 48" stroke="#fdfcf9" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    <!-- Tułów -->
+    <path d="M 18 70 Q 18 78 22 88 L 30 165 L 50 165 L 58 88 Q 62 78 62 70 Z" fill="#2c6e8a"/>
+  </g>
+
+  <!-- Prawa postać -->
+  <g transform="translate(340, 140)">
+    <!-- Aureola emocjonalna (pomarańczowa) -->
+    <circle cx="40" cy="40" r="55" fill="#e07b4f" opacity="0.08"/>
+    <circle cx="40" cy="40" r="42" fill="#e07b4f" opacity="0.12"/>
+    <!-- Głowa -->
+    <circle cx="40" cy="40" r="30" fill="#e07b4f"/>
+    <!-- Oczy -->
+    <circle cx="32" cy="38" r="2.5" fill="#fdfcf9"/>
+    <circle cx="48" cy="38" r="2.5" fill="#fdfcf9"/>
+    <!-- Uśmiech -->
+    <path d="M 30 48 Q 40 54 50 48" stroke="#fdfcf9" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    <!-- Tułów -->
+    <path d="M 18 70 Q 18 78 22 88 L 30 165 L 50 165 L 58 88 Q 62 78 62 70 Z" fill="#e07b4f"/>
+  </g>
+
+  <!-- Linia komunikacji między nimi -->
+  <path d="M 252 200 Q 300 180 348 200" stroke="#7b68ee" stroke-width="2" stroke-dasharray="4,5" fill="none" opacity="0.6"/>
+  <text x="280" y="170" font-family="'Source Serif Pro', Georgia, serif" font-size="13" fill="#7b68ee" font-style="italic" opacity="0.8">↔</text>
+
+  <!-- Drobne emocje wokół (kropki w różnych kolorach) -->
+  <circle cx="100" cy="100" r="4" fill="#e07b4f" opacity="0.6"/>
+  <circle cx="120" cy="160" r="3" fill="#7b68ee" opacity="0.5"/>
+  <circle cx="80" cy="240" r="3.5" fill="#2c6e8a" opacity="0.5"/>
+  <circle cx="500" cy="100" r="4" fill="#7b68ee" opacity="0.6"/>
+  <circle cx="520" cy="180" r="3" fill="#e07b4f" opacity="0.5"/>
+  <circle cx="490" cy="260" r="3.5" fill="#2c6e8a" opacity="0.5"/>
+
+  <!-- Etykiety -->
+  <text x="100" y="65" font-family="'Source Serif Pro', Georgia, serif" font-size="13" fill="#1d4e66" opacity="0.7" letter-spacing="2">JA</text>
+  <text x="490" y="65" font-family="'Source Serif Pro', Georgia, serif" font-size="13" fill="#c0623a" opacity="0.7" letter-spacing="2">TY</text>
+</svg>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 70" fill="none">
+  <!-- Mark: płomień + iskra regeneracji -->
+  <g transform="translate(8, 10)">
+    <rect x="0" y="0" width="50" height="50" rx="11" fill="#7c5b3c"/>
+    <path d="M 25 12 Q 19 22 19 30 Q 19 38 25 41 Q 31 38 31 30 Q 31 22 25 12 Z" fill="#e8922d"/>
+    <path d="M 25 20 Q 22 26 22 31 Q 22 36 25 38 Q 28 36 28 31 Q 28 26 25 20 Z" fill="#c07824"/>
+    <circle cx="25" cy="44" r="2.5" fill="#7a9a6d"/>
+  </g>
+
+  <!-- Wordmark -->
+  <text x="72" y="46" font-family="'Source Serif Pro', Georgia, serif" font-size="28" font-weight="500" fill="#5a4129" letter-spacing="-0.3">Sprawdź</text>
+  <text x="200" y="46" font-family="'Source Serif Pro', Georgia, serif" font-size="28" font-weight="600" fill="#e8922d" letter-spacing="-0.3">Wypalenie</text>
+</svg>

@@ -1,5 +1,20 @@
 // Service Worker — offline-first for static assets, network-first for HTML
 const CACHE_NAME = '{{ site.name | lower | replace(" ", "-") }}-v{{ now.strftime("%Y%m%d%H%M") }}';
+
+// Bypass całkowity dla local development (127.0.0.1, localhost) — żeby
+// błędne 404 z lokalnego buildu nie zostawały w cache i blokowały kolejne próby.
+if (self.location.hostname === '127.0.0.1' || self.location.hostname === 'localhost') {
+    self.addEventListener('install', (e) => self.skipWaiting());
+    self.addEventListener('activate', (e) => {
+        e.waitUntil(
+            caches.keys().then(keys => Promise.all(keys.map(k => caches.delete(k))))
+                .then(() => self.registration.unregister())
+                .then(() => self.clients.matchAll())
+                .then(clients => clients.forEach(c => c.navigate(c.url)))
+        );
+    });
+    // Brak fetch handlera — przeglądarka idzie wprost do sieci.
+} else {
 const STATIC_ASSETS = [
     '/',
     '/css/fonts.css',
@@ -40,25 +55,31 @@ self.addEventListener('fetch', (e) => {
     if (e.request.method !== 'GET') return;
     if (url.hostname.includes('google') || url.hostname.includes('facebook')) return;
 
-    // Static assets: cache-first
+    // Static assets: cache-first, ALE cache TYLKO odpowiedzi z status 200.
+    // Bez tego sprawdzenia 404/500 było zapisywane do cache i broken obrazki
+    // zostawały tam permanentnie nawet po naprawieniu serwera (real bug fixed 2026-04-27).
     if (url.pathname.match(/\.(css|js|woff2|png|webp|jpg|svg|ico)$/)) {
         e.respondWith(
             caches.match(e.request).then(cached => cached || fetch(e.request).then(r => {
-                const clone = r.clone();
-                caches.open(CACHE_NAME).then(c => c.put(e.request, clone));
+                if (r && r.ok && r.status === 200) {
+                    const clone = r.clone();
+                    caches.open(CACHE_NAME).then(c => c.put(e.request, clone));
+                }
                 return r;
             }))
         );
         return;
     }
 
-    // HTML: network-first
+    // HTML: network-first, też cache TYLKO 200.
     if (e.request.headers.get('accept')?.includes('text/html')) {
         e.respondWith(
             fetch(e.request)
                 .then(r => {
-                    const clone = r.clone();
-                    caches.open(CACHE_NAME).then(c => c.put(e.request, clone));
+                    if (r && r.ok && r.status === 200) {
+                        const clone = r.clone();
+                        caches.open(CACHE_NAME).then(c => c.put(e.request, clone));
+                    }
                     return r;
                 })
                 .catch(() => caches.match(e.request).then(cached => cached || caches.match('/')))
@@ -66,3 +87,5 @@ self.addEventListener('fetch', (e) => {
         return;
     }
 });
+
+} // koniec else (production)

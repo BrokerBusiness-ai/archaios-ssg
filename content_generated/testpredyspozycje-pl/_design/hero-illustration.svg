@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 420" fill="none">
+  <defs>
+    <radialGradient id="violetRadial" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#fdfcf9"/>
+      <stop offset="100%" stop-color="#e8e1f0"/>
+    </radialGradient>
+  </defs>
+  <rect width="600" height="420" fill="url(#violetRadial)"/>
+
+  <!-- Pięć kręgów Big Five wokół centralnego punktu -->
+  <g transform="translate(300, 210)">
+    <!-- Connection lines -->
+    <line x1="0" y1="0" x2="0" y2="-110" stroke="#9b8ec4" stroke-width="1" opacity="0.4" stroke-dasharray="3,4"/>
+    <line x1="0" y1="0" x2="105" y2="-34" stroke="#9b8ec4" stroke-width="1" opacity="0.4" stroke-dasharray="3,4"/>
+    <line x1="0" y1="0" x2="65" y2="89" stroke="#9b8ec4" stroke-width="1" opacity="0.4" stroke-dasharray="3,4"/>
+    <line x1="0" y1="0" x2="-65" y2="89" stroke="#9b8ec4" stroke-width="1" opacity="0.4" stroke-dasharray="3,4"/>
+    <line x1="0" y1="0" x2="-105" y2="-34" stroke="#9b8ec4" stroke-width="1" opacity="0.4" stroke-dasharray="3,4"/>
+
+    <!-- 5 kręgów -->
+    <circle cx="0" cy="-110" r="22" fill="#4e4270" opacity="0.85"/>
+    <text x="0" y="-106" font-family="'Source Serif Pro', Georgia, serif" font-size="11" fill="#fdfcf9" text-anchor="middle">O</text>
+    <circle cx="105" cy="-34" r="22" fill="#3cb4a0" opacity="0.85"/>
+    <text x="105" y="-30" font-family="'Source Serif Pro', Georgia, serif" font-size="11" fill="#fdfcf9" text-anchor="middle">C</text>
+    <circle cx="65" cy="89" r="22" fill="#d4a843" opacity="0.85"/>
+    <text x="65" y="93" font-family="'Source Serif Pro', Georgia, serif" font-size="11" fill="#fdfcf9" text-anchor="middle">E</text>
+    <circle cx="-65" cy="89" r="22" fill="#9b8ec4" opacity="0.85"/>
+    <text x="-65" y="93" font-family="'Source Serif Pro', Georgia, serif" font-size="11" fill="#fdfcf9" text-anchor="middle">A</text>
+    <circle cx="-105" cy="-34" r="22" fill="#6b5b95" opacity="0.85"/>
+    <text x="-105" y="-30" font-family="'Source Serif Pro', Georgia, serif" font-size="11" fill="#fdfcf9" text-anchor="middle">N</text>
+
+    <!-- Centrum: Ja -->
+    <circle cx="0" cy="0" r="14" fill="#fdfcf9" stroke="#4e4270" stroke-width="1.5"/>
+    <text x="0" y="4" font-family="'Source Serif Pro', Georgia, serif" font-size="10" fill="#4e4270" text-anchor="middle" font-style="italic">Ty</text>
+  </g>
+
+  <!-- Etykiety pełne -->
+  <text x="300" y="80" font-family="'Source Serif Pro', Georgia, serif" font-size="11" fill="#4e4270" text-anchor="middle" opacity="0.7" letter-spacing="2">OTWARTOŚĆ</text>
+  <text x="450" y="170" font-family="'Source Serif Pro', Georgia, serif" font-size="11" fill="#3cb4a0" text-anchor="middle" opacity="0.7" letter-spacing="2">SUMIENNOŚĆ</text>
+  <text x="400" y="320" font-family="'Source Serif Pro', Georgia, serif" font-size="11" fill="#d4a843" text-anchor="middle" opacity="0.7" letter-spacing="2">EKSTRAWERSJA</text>
+  <text x="200" y="320" font-family="'Source Serif Pro', Georgia, serif" font-size="11" fill="#9b8ec4" text-anchor="middle" opacity="0.7" letter-spacing="2">UGODOWOŚĆ</text>
+  <text x="150" y="170" font-family="'Source Serif Pro', Georgia, serif" font-size="11" fill="#6b5b95" text-anchor="middle" opacity="0.7" letter-spacing="2">NEUROTYCZNOŚĆ</text>
+
+  <text x="300" y="40" font-family="'Source Serif Pro', Georgia, serif" font-size="13" fill="#4e4270" text-anchor="middle" opacity="0.7" letter-spacing="3" font-style="italic">PIĘĆ WYMIARÓW OSOBOWOŚCI</text>
+</svg>

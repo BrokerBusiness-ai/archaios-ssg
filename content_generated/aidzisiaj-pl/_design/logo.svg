@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 64" fill="none">
+  <rect x="0" y="8" width="48" height="48" rx="8" fill="#1a365d"/>
+  <text x="24" y="42" font-family="'IBM Plex Sans', sans-serif" font-size="22" font-weight="800" fill="#fdfcf9" text-anchor="middle" letter-spacing="-1">AI</text>
+  <circle cx="13" cy="20" r="3.5" fill="#f97316"/>
+  <circle cx="35" cy="20" r="3.5" fill="#06b6d4"/>
+  <text x="60" y="36" font-family="'IBM Plex Sans', sans-serif" font-size="22" font-weight="700" fill="#1a365d" letter-spacing="-0.5">AIdzisiaj<tspan fill="#f97316">.pl</tspan></text>
+  <text x="60" y="52" font-family="Inter, sans-serif" font-size="11" fill="#7a8aa0">Use cases • ROI • Wdrożenia w polskim biznesie</text>
+</svg>

@@ -1,0 +1,16 @@
+{# _trust_strip.html — pasek liczbowych dowodów (KPI) tuż pod hero.
+   Renderuje się gdy yaml ma `trust_strip.items`. Trzy mocne liczby — anchoring + specyficzność. #}
+{% if trust_strip and trust_strip.get('items') %}
+<section class="trust-strip" aria-label="Liczby, które robią różnicę">
+    <div class="container">
+        <ul class="trust-strip__grid">
+            {% for item in trust_strip['items'] %}
+            <li class="trust-strip__item">
+                <strong class="trust-strip__num">{{ item.value }}</strong>
+                <span class="trust-strip__label">{{ item.label }}</span>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</section>
+{% endif %}

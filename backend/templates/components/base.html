@@ -57,7 +57,8 @@ tr:hover{background:#f8fafc}
         <a href="/admin/categories" {% if active == "categories" %}class="active"{% endif %}>📁 Kategorie</a>
         <a href="/admin/authors" {% if active == "authors" %}class="active"{% endif %}>👤 Autorzy</a>
         <a href="/admin/products" {% if active == "products" %}class="active"{% endif %}>💰 Produkty / lejek</a>
-        <a href="/api/docs" target="_blank">📡 API Docs</a>
+        <a href="/admin/integrations" {% if active == "integrations" %}class="active"{% endif %}>🔌 Integracje (API + Webhooks)</a>
+        <a href="/api/docs" target="_blank">📡 API Docs (Swagger)</a>
         <div class="logout">
             <a href="/admin/logout">🚪 Wyloguj ({{ admin }})</a>
         </div>

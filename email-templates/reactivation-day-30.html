@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hej, dawno nas nie czytałeś — Zdrowie.fit</title>
+</head>
+<body style="margin:0;padding:0;background:#f6f0e6;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;color:#3d3a35;line-height:1.65;">
+
+<div style="display:none;font-size:1px;color:#f6f0e6;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;">
+Skrzynka jest zapchana, rozumiemy. Trzy artykuły, które naprawdę warto. Klik znaczy "wracam".
+</div>
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f6f0e6;padding:32px 16px;">
+  <tr><td align="center">
+    <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;background:#fdfcf9;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(61,58,53,0.08);">
+
+      <tr><td style="padding:32px 40px 16px;border-bottom:1px solid #e8e1d4;">
+        <table role="presentation" width="100%"><tr>
+          <td style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:#2d2a26;">Zdrowie<span style="color:#d9724a;">.fit</span></td>
+          <td align="right" style="font-size:11px;color:#8a857d;text-transform:uppercase;letter-spacing:0.1em;">Reactivation · 30d</td>
+        </tr></table>
+      </td></tr>
+
+      <tr><td style="padding:48px 40px 24px;text-align:center;">
+        <h1 style="margin:0 0 12px;font-family:Georgia,serif;font-size:28px;line-height:1.25;color:#2d2a26;font-weight:600;">
+          {% if contact.NAME %}Hej {{ contact.NAME }}{% else %}Hej{% endif %} — dawno Cię nie widzieliśmy.
+        </h1>
+        <p style="margin:0;font-size:16px;color:#6b665f;line-height:1.6;">
+          Skrzynka jest zapchana, mailing też. Bez problemu rozumiemy. Jeśli to nadal pasuje — kliknij dowolny artykuł poniżej. Jeden klik wystarczy, żebyśmy wiedzieli że jesteś.
+        </p>
+      </td></tr>
+
+      <!-- 3 najbardziej angażujące artykuły z ostatniego miesiąca -->
+      <tr><td style="padding:8px 40px 16px;">
+        <p style="margin:0 0 16px;font-size:11px;color:#6b665f;text-transform:uppercase;letter-spacing:0.1em;font-weight:600;">
+          To, co przegapiłeś — najmocniejsze z ostatnich tygodni
+        </p>
+
+        <table role="presentation" width="100%" style="margin-bottom:12px;background:#f6f0e6;border-radius:12px;border-left:4px solid #4a7c59;">
+          <tr><td style="padding:20px;">
+            <p style="margin:0 0 6px;font-size:11px;color:#4a7c59;text-transform:uppercase;letter-spacing:0.1em;font-weight:600;">{{ params.article1_category | default('Zdrowie fizyczne') }}</p>
+            <p style="margin:0 0 8px;font-family:Georgia,serif;font-size:18px;color:#2d2a26;font-weight:600;line-height:1.3;">
+              <a href="{{ params.article1_url }}" style="color:#2d2a26;text-decoration:none;">
+                {{ params.article1_title | default('Cold exposure — co naprawdę mówi nauka') }}
+              </a>
+            </p>
+            <p style="margin:0;font-size:14px;color:#6b665f;line-height:1.5;">
+              {{ params.article1_excerpt | default('Wim Hof, brunatna tkanka tłuszczowa, czego badania faktycznie pokazały, a co dopisał marketing biohackerów.') }}
+            </p>
+          </td></tr>
+        </table>
+
+        <table role="presentation" width="100%" style="margin-bottom:12px;background:#f6f0e6;border-radius:12px;border-left:4px solid #5b8def;">
+          <tr><td style="padding:20px;">
+            <p style="margin:0 0 6px;font-size:11px;color:#5b8def;text-transform:uppercase;letter-spacing:0.1em;font-weight:600;">{{ params.article2_category | default('Zdrowie psychiczne') }}</p>
+            <p style="margin:0 0 8px;font-family:Georgia,serif;font-size:18px;color:#2d2a26;font-weight:600;line-height:1.3;">
+              <a href="{{ params.article2_url }}" style="color:#2d2a26;text-decoration:none;">
+                {{ params.article2_title | default('Teoria poliwagalna — nerw błędny i emocje') }}
+              </a>
+            </p>
+            <p style="margin:0;font-size:14px;color:#6b665f;line-height:1.5;">
+              {{ params.article2_excerpt | default('Stephen Porges, ko-regulacja, traumy. Hipoteza, która zmieniła psychoterapię.') }}
+            </p>
+          </td></tr>
+        </table>
+
+        <table role="presentation" width="100%" style="margin-bottom:24px;background:#f6f0e6;border-radius:12px;border-left:4px solid #d9724a;">
+          <tr><td style="padding:20px;">
+            <p style="margin:0 0 6px;font-size:11px;color:#d9724a;text-transform:uppercase;letter-spacing:0.1em;font-weight:600;">{{ params.article3_category | default('Dieta i odżywianie') }}</p>
+            <p style="margin:0 0 8px;font-family:Georgia,serif;font-size:18px;color:#2d2a26;font-weight:600;line-height:1.3;">
+              <a href="{{ params.article3_url }}" style="color:#2d2a26;text-decoration:none;">
+                {{ params.article3_title | default('Mikrobiom — oś jelita-mózg a depresja') }}
+              </a>
+            </p>
+            <p style="margin:0;font-size:14px;color:#6b665f;line-height:1.5;">
+              {{ params.article3_excerpt | default('Co wiemy, co jest hipotezą, dla kogo probiotyki nic nie zrobią.') }}
+            </p>
+          </td></tr>
+        </table>
+      </td></tr>
+
+      <tr><td style="padding:0 40px 24px;">
+        <table role="presentation" width="100%" style="background:#fdfcf9;border:2px solid #e8e1d4;border-radius:12px;">
+          <tr><td style="padding:20px;text-align:center;">
+            <p style="margin:0;font-size:14px;color:#6b665f;line-height:1.6;font-style:italic;">
+              Jeśli newsletter już nie pasuje — żadne kliknięcie nie jest wymagane. Po prostu zignoruj ten mail. Jeśli przez 30 kolejnych dni nie zareagujesz, łagodnie zwolnimy do 1 maila na 2 tygodnie. Po 60 dniach — pełen reset.
+            </p>
+          </td></tr>
+        </table>
+      </td></tr>
+
+      <tr><td style="padding:24px 40px 32px;background:#f6f0e6;border-top:1px solid #e8e1d4;">
+        <p style="margin:0;font-size:11px;color:#8a857d;text-align:center;">
+          © {{ params.year }} Zdrowie.fit ·
+          <a href="https://zdrowie.fit/polityka-prywatnosci.html" style="color:#8a857d;text-decoration:underline;">Polityka prywatności</a> ·
+          <a href="{{ unsubscribe }}" style="color:#8a857d;text-decoration:underline;">Wypisz się</a>
+        </p>
+      </td></tr>
+
+    </table>
+  </td></tr>
+</table>
+
+</body>
+</html>

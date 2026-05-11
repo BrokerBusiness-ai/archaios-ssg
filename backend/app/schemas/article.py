@@ -49,28 +49,28 @@ class ArticleRead(BaseModel):
     id: int
     title: str
     slug: str
-    excerpt: str
-    content: str
-    category_id: Optional[int]
-    category_name: str = ""
-    category_slug: str = ""
+    excerpt: Optional[str] = ""
+    content: Optional[str] = ""
+    category_id: Optional[int] = None
+    category_name: Optional[str] = ""
+    category_slug: Optional[str] = ""
     author_id: Optional[int] = None
-    author: str
-    author_slug: str = ""
-    image_url: str
-    og_image_custom: str = ""
-    icon: str
-    tags: str
-    reading_time: int
-    bibliography: str = ""
-    related_slugs: str = ""
-    product_slugs: str = ""
-    is_published: bool
-    is_featured: bool
-    meta_title: str
-    meta_description: str
-    views: int
-    published_at: Optional[datetime]
+    author: Optional[str] = ""
+    author_slug: Optional[str] = ""
+    image_url: Optional[str] = ""
+    og_image_custom: Optional[str] = ""
+    icon: Optional[str] = "📝"
+    tags: Optional[str] = ""
+    reading_time: Optional[int] = 5
+    bibliography: Optional[str] = ""
+    related_slugs: Optional[str] = ""
+    product_slugs: Optional[str] = ""
+    is_published: bool = False
+    is_featured: bool = False
+    meta_title: Optional[str] = ""
+    meta_description: Optional[str] = ""
+    views: int = 0
+    published_at: Optional[datetime] = None
     created_at: datetime
     updated_at: datetime
 
@@ -81,21 +81,21 @@ class ArticleListItem(BaseModel):
     id: int
     title: str
     slug: str
-    excerpt: str
-    category_id: Optional[int]
-    category_name: str = ""
-    category_slug: str = ""
+    excerpt: Optional[str] = ""
+    category_id: Optional[int] = None
+    category_name: Optional[str] = ""
+    category_slug: Optional[str] = ""
     author_id: Optional[int] = None
-    author: str
-    author_slug: str = ""
-    image_url: str
-    icon: str
-    tags: str
-    reading_time: int
-    is_published: bool
-    is_featured: bool
-    views: int
-    published_at: Optional[datetime]
+    author: Optional[str] = ""
+    author_slug: Optional[str] = ""
+    image_url: Optional[str] = ""
+    icon: Optional[str] = "📝"
+    tags: Optional[str] = ""
+    reading_time: Optional[int] = 5
+    is_published: bool = False
+    is_featured: bool = False
+    views: int = 0
+    published_at: Optional[datetime] = None
     created_at: datetime
 
     model_config = {"from_attributes": True}

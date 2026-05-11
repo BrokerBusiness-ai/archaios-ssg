@@ -12,61 +12,61 @@
     <div class="form-row">
         <div class="form-group">
             <label for="name">Imię i nazwisko *</label>
-            <input type="text" id="name" name="name" value="{{ author.name if author else '' }}" required placeholder="np. dr Anna Kowalska">
+            <input type="text" id="name" name="name" value="{{ (author.name or '') if author else '' }}" required placeholder="np. dr Anna Kowalska">
         </div>
         <div class="form-group">
             <label for="credentials">Kredencjały (wyświetlane na stronie)</label>
-            <input type="text" id="credentials" name="credentials" value="{{ author.credentials if author else '' }}" placeholder="np. dr n. med., psychoterapeutka">
+            <input type="text" id="credentials" name="credentials" value="{{ (author.credentials or '') if author else '' }}" placeholder="np. dr n. med., psychoterapeutka">
         </div>
     </div>
 
     <div class="form-group">
         <label for="bio_short">Bio krótkie (1-2 zdania — pod nazwiskiem)</label>
-        <textarea id="bio_short" name="bio_short" rows="2" maxlength="500" style="min-height:auto">{{ author.bio_short if author else '' }}</textarea>
+        <textarea id="bio_short" name="bio_short" rows="2" maxlength="500" style="min-height:auto">{{ (author.bio_short or '') if author else '' }}</textarea>
     </div>
 
     <div class="form-group">
         <label for="bio_long">Bio długie (HTML — na stronie autora)</label>
-        <textarea id="bio_long" name="bio_long" rows="8">{{ author.bio_long if author else '' }}</textarea>
+        <textarea id="bio_long" name="bio_long" rows="8">{{ (author.bio_long or '') if author else '' }}</textarea>
     </div>
 
     <div class="form-row">
         <div class="form-group">
             <label for="photo_url">URL zdjęcia (kwadratowe ~400×400)</label>
-            <input type="text" id="photo_url" name="photo_url" value="{{ author.photo_url if author else '' }}">
+            <input type="text" id="photo_url" name="photo_url" value="{{ (author.photo_url or '') if author else '' }}">
         </div>
         <div class="form-group">
             <label for="specializations">Specjalizacje (przecinki)</label>
-            <input type="text" id="specializations" name="specializations" value="{{ author.specializations if author else '' }}" placeholder="np. psychoterapia, CBT, mindfulness">
+            <input type="text" id="specializations" name="specializations" value="{{ (author.specializations or '') if author else '' }}" placeholder="np. psychoterapia, CBT, mindfulness">
         </div>
     </div>
 
     <div class="form-row">
         <div class="form-group">
             <label for="email">Email (publiczny)</label>
-            <input type="email" id="email" name="email" value="{{ author.email if author else '' }}">
+            <input type="email" id="email" name="email" value="{{ (author.email or '') if author else '' }}">
         </div>
         <div class="form-group">
             <label for="linkedin">LinkedIn URL</label>
-            <input type="text" id="linkedin" name="linkedin" value="{{ author.linkedin if author else '' }}">
+            <input type="text" id="linkedin" name="linkedin" value="{{ (author.linkedin or '') if author else '' }}">
         </div>
     </div>
 
     <div class="form-row">
         <div class="form-group">
             <label for="twitter">Twitter/X URL</label>
-            <input type="text" id="twitter" name="twitter" value="{{ author.twitter if author else '' }}">
+            <input type="text" id="twitter" name="twitter" value="{{ (author.twitter or '') if author else '' }}">
         </div>
         <div class="form-group">
             <label for="website">Własna strona / blog</label>
-            <input type="text" id="website" name="website" value="{{ author.website if author else '' }}">
+            <input type="text" id="website" name="website" value="{{ (author.website or '') if author else '' }}">
         </div>
     </div>
 
     <div class="form-row">
         <div class="form-group">
             <label for="sort_order">Kolejność (0 = najwyżej)</label>
-            <input type="number" id="sort_order" name="sort_order" value="{{ author.sort_order if author else 0 }}">
+            <input type="number" id="sort_order" name="sort_order" value="{{ (author.sort_order or 0) if author else 0 }}">
         </div>
         <div class="form-group" style="display:flex;align-items:end;padding-bottom:8px">
             <label class="form-check">

@@ -1,0 +1,209 @@
+{% extends "components/base.html" %}
+{% set active = "integrations" %}
+{% block title %}Integracje (API + Webhooks){% endblock %}
+{% block content %}
+<div class="header">
+    <h1>Integracje</h1>
+    <a href="/api/docs" target="_blank" class="btn btn-sm btn-primary">📖 OpenAPI Docs</a>
+</div>
+
+<!-- ═══ API KEYS ═══ -->
+<div class="card" style="margin-bottom:24px">
+    <h2 style="font-size:1.1rem;margin-bottom:16px">🔑 API Keys</h2>
+    <p style="color:#64748b;margin-bottom:16px;font-size:0.9rem">
+        Klucze do zewnętrznych integracji (n8n, Make.com, Zapier, GPT Actions, MCP).
+        Header: <code>X-API-Key: zfit_xxx...</code>
+    </p>
+
+    <details style="margin-bottom:24px">
+        <summary style="cursor:pointer;padding:12px;background:#f8fafc;border-radius:8px;font-weight:600">+ Nowy API Key</summary>
+        <form method="post" action="/admin/integrations/api-keys/new" style="padding:16px;margin-top:8px;background:#f8fafc;border-radius:8px">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+                <div>
+                    <label>Nazwa *</label>
+                    <input type="text" name="name" required placeholder="n8n production" style="width:100%;padding:8px;border:1px solid #cbd5e1;border-radius:6px">
+                </div>
+                <div>
+                    <label>Scopes (CSV)</label>
+                    <select name="scopes" style="width:100%;padding:8px;border:1px solid #cbd5e1;border-radius:6px">
+                        <option value="read">read (tylko GET)</option>
+                        <option value="read,write">read,write (GET + POST/PUT/DELETE)</option>
+                        <option value="read,write,newsletter">read,write,newsletter</option>
+                        <option value="admin">admin (pełen dostęp)</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Wygasa po (dni, 0=nigdy)</label>
+                    <input type="number" name="expires_days" value="0" min="0" max="3650" style="width:100%;padding:8px;border:1px solid #cbd5e1;border-radius:6px">
+                </div>
+                <div>
+                    <label>Rate limit (req/min)</label>
+                    <input type="number" name="rate_limit_per_min" value="60" min="1" style="width:100%;padding:8px;border:1px solid #cbd5e1;border-radius:6px">
+                </div>
+            </div>
+            <div style="margin-bottom:12px">
+                <label>Opis</label>
+                <input type="text" name="description" placeholder="Do jakiego celu..." style="width:100%;padding:8px;border:1px solid #cbd5e1;border-radius:6px">
+            </div>
+            <button type="submit" class="btn btn-primary">Wygeneruj klucz</button>
+        </form>
+    </details>
+
+    {% if api_keys %}
+    <table>
+        <thead><tr>
+            <th>Nazwa</th><th>Prefix</th><th>Scopes</th><th>Status</th>
+            <th>Ostatnio użyty</th><th>Wygasa</th><th>Akcje</th>
+        </tr></thead>
+        <tbody>
+        {% for k in api_keys %}
+        <tr>
+            <td><strong>{{ k.name }}</strong>{% if k.description %}<br><small style="color:#64748b">{{ k.description }}</small>{% endif %}</td>
+            <td><code>{{ k.key_prefix }}...</code></td>
+            <td>{{ k.scopes }}</td>
+            <td>
+                {% if k.revoked_at %}<span class="badge badge-red">revoked</span>
+                {% elif not k.is_active %}<span class="badge badge-yellow">inactive</span>
+                {% elif k.expires_at and k.expires_at.replace(tzinfo=None) < now %}<span class="badge badge-red">expired</span>
+                {% else %}<span class="badge badge-green">active</span>{% endif %}
+            </td>
+            <td>{% if k.last_used_at %}{{ k.last_used_at.strftime('%Y-%m-%d %H:%M') }}<br><small style="color:#64748b">{{ k.last_used_ip or '' }}</small>{% else %}<span style="color:#94a3b8">nigdy</span>{% endif %}</td>
+            <td>{% if k.expires_at %}{{ k.expires_at.strftime('%Y-%m-%d') }}{% else %}<span style="color:#94a3b8">nigdy</span>{% endif %}</td>
+            <td>
+                {% if k.is_active and not k.revoked_at %}
+                <form method="post" action="/admin/integrations/api-keys/{{ k.id }}/revoke" style="display:inline" onsubmit="return confirm('Revoke this key? Cannot be undone.')">
+                    <button class="btn btn-sm btn-danger">Revoke</button>
+                </form>
+                {% else %}
+                <form method="post" action="/admin/integrations/api-keys/{{ k.id }}/delete" style="display:inline" onsubmit="return confirm('Delete permanently?')">
+                    <button class="btn btn-sm btn-danger">Delete</button>
+                </form>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="empty">Brak API keys. Utwórz pierwszy powyżej.</p>
+    {% endif %}
+</div>
+
+<!-- ═══ WEBHOOKS ═══ -->
+<div class="card">
+    <h2 style="font-size:1.1rem;margin-bottom:16px">🔔 Webhooks</h2>
+    <p style="color:#64748b;margin-bottom:16px;font-size:0.9rem">
+        Backend wysyła POST do skonfigurowanego URL gdy zachodzi event.
+        Headers: <code>X-Signature: sha256=...</code> (HMAC verification).
+        Eventy: <code>article.created</code>, <code>article.published</code>, <code>article.updated</code>, <code>article.deleted</code>, <code>subscriber.created</code>, <code>subscriber.unsubscribed</code>, lub <code>*</code> (wszystkie).
+    </p>
+
+    <details style="margin-bottom:24px">
+        <summary style="cursor:pointer;padding:12px;background:#f8fafc;border-radius:8px;font-weight:600">+ Nowy Webhook</summary>
+        <form method="post" action="/admin/integrations/webhooks/new" style="padding:16px;margin-top:8px;background:#f8fafc;border-radius:8px">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+                <div>
+                    <label>Nazwa *</label>
+                    <input type="text" name="name" required placeholder="Slack notify" style="width:100%;padding:8px;border:1px solid #cbd5e1;border-radius:6px">
+                </div>
+                <div>
+                    <label>Auto-disable po N failach</label>
+                    <input type="number" name="auto_disable_after_failures" value="10" min="1" style="width:100%;padding:8px;border:1px solid #cbd5e1;border-radius:6px">
+                </div>
+            </div>
+            <div style="margin-bottom:12px">
+                <label>URL *</label>
+                <input type="url" name="url" required placeholder="https://hooks.slack.com/..." style="width:100%;padding:8px;border:1px solid #cbd5e1;border-radius:6px">
+            </div>
+            <div style="margin-bottom:12px">
+                <label>Events (CSV lub * dla wszystkich)</label>
+                <input type="text" name="events" value="*" placeholder="article.published,subscriber.created" style="width:100%;padding:8px;border:1px solid #cbd5e1;border-radius:6px">
+            </div>
+            <button type="submit" class="btn btn-primary">Utwórz webhook</button>
+        </form>
+    </details>
+
+    {% if webhooks %}
+    <table>
+        <thead><tr>
+            <th>Nazwa</th><th>URL</th><th>Events</th><th>Status</th>
+            <th>Sukces / Fail</th><th>Ostatnio</th><th>Akcje</th>
+        </tr></thead>
+        <tbody>
+        {% for w in webhooks %}
+        <tr>
+            <td><strong>{{ w.name }}</strong></td>
+            <td><code style="font-size:0.8rem">{{ w.url[:50] }}{% if w.url|length > 50 %}...{% endif %}</code></td>
+            <td><small>{{ w.events }}</small></td>
+            <td>
+                {% if w.is_active %}<span class="badge badge-green">active</span>
+                {% else %}<span class="badge badge-yellow">disabled</span>{% endif %}
+            </td>
+            <td>
+                <span style="color:#16a34a">✓ {{ w.success_count }}</span> /
+                <span style="color:#dc2626">✗ {{ w.failure_count }}</span>
+            </td>
+            <td>
+                {% if w.last_triggered_at %}{{ w.last_triggered_at.strftime('%Y-%m-%d %H:%M') }}<br>
+                <small style="color:{% if w.last_status_code and 200 <= w.last_status_code < 300 %}#16a34a{% else %}#dc2626{% endif %}">HTTP {{ w.last_status_code or '?' }}</small>
+                {% else %}<span style="color:#94a3b8">nigdy</span>{% endif %}
+            </td>
+            <td>
+                <form method="post" action="/admin/integrations/webhooks/{{ w.id }}/test" style="display:inline">
+                    <button class="btn btn-sm btn-primary" style="background:#475569">Test</button>
+                </form>
+                <form method="post" action="/admin/integrations/webhooks/{{ w.id }}/toggle" style="display:inline">
+                    <button class="btn btn-sm">{% if w.is_active %}Pause{% else %}Resume{% endif %}</button>
+                </form>
+                <form method="post" action="/admin/integrations/webhooks/{{ w.id }}/delete" style="display:inline" onsubmit="return confirm('Delete?')">
+                    <button class="btn btn-sm btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="empty">Brak webhooków. Utwórz pierwszy powyżej.</p>
+    {% endif %}
+</div>
+
+<!-- ═══ DOKUMENTACJA ═══ -->
+<div class="card" style="margin-top:24px">
+    <h2 style="font-size:1.1rem;margin-bottom:16px">📚 Public API Documentation</h2>
+    <p style="color:#475569;margin-bottom:12px">
+        Read-only endpointy bez autentykacji — dla integracji typu „pokaż moje artykuły na innej stronie".
+    </p>
+    <table style="font-size:0.9rem">
+        <tr><th>Endpoint</th><th>Co robi</th></tr>
+        <tr><td><code>GET /api/v1/public/articles</code></td><td>Lista opublikowanych artykułów (paginacja, filter category_slug/tag)</td></tr>
+        <tr><td><code>GET /api/v1/public/articles/{slug}</code></td><td>Pełen artykuł z bibliografią</td></tr>
+        <tr><td><code>GET /api/v1/public/categories</code></td><td>Lista kategorii</td></tr>
+        <tr><td><code>GET /api/v1/public/authors</code></td><td>Lista autorów</td></tr>
+        <tr><td><code>GET /api/v1/public/authors/{slug}</code></td><td>Profil autora</td></tr>
+    </table>
+
+    <h3 style="margin-top:24px;font-size:1rem">🤖 Authenticated API (X-API-Key)</h3>
+    <p style="color:#475569;margin-bottom:8px">
+        Pełna lista endpointów: <a href="/api/docs" target="_blank" style="color:#3b82f6">/api/docs</a> (Swagger UI).
+    </p>
+    <p style="color:#475569;margin-bottom:8px">Przykład curl:</p>
+    <pre style="background:#0f172a;color:#cbd5e1;padding:12px;border-radius:8px;font-size:0.85rem;overflow:auto">curl -H "X-API-Key: zfit_xxx..." https://api.zdrowie.fit/api/articles/</pre>
+
+    <h3 style="margin-top:24px;font-size:1rem">🔔 Webhook payload format</h3>
+    <pre style="background:#0f172a;color:#cbd5e1;padding:12px;border-radius:8px;font-size:0.85rem;overflow:auto">{
+  "schema_version": "1.0",
+  "event": "article.published",
+  "timestamp": "2026-05-01T10:00:00Z",
+  "data": {
+    "id": 42, "slug": "cold-exposure", "title": "...",
+    "url": "https://zdrowie.fit/artykuly/cold-exposure.html"
+  }
+}
+
+# Verify signature (Python):
+import hmac, hashlib
+expected = "sha256=" + hmac.new(SECRET.encode(), body, hashlib.sha256).hexdigest()
+assert request.headers["X-Signature"] == expected</pre>
+</div>
+{% endblock %}

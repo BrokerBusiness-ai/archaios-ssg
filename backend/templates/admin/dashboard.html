@@ -2,15 +2,108 @@
 {% set active = "dashboard" %}
 {% block title %}Dashboard{% endblock %}
 {% block content %}
-<div class="header"><h1>Dashboard</h1></div>
-<div class="stats">
-    <div class="stat"><div class="stat-num">{{ articles }}</div><div class="stat-label">Artykuły</div></div>
-    <div class="stat"><div class="stat-num">{{ published }}</div><div class="stat-label">Opublikowane</div></div>
-    <div class="stat"><div class="stat-num">{{ drafts }}</div><div class="stat-label">Szkice</div></div>
-    <div class="stat"><div class="stat-num">{{ categories }}</div><div class="stat-label">Kategorie</div></div>
-    <div class="stat"><div class="stat-num">{{ views }}</div><div class="stat-label">Wyświetlenia</div></div>
+<div class="header">
+    <h1>Dashboard</h1>
+    <button onclick="location.reload()" class="btn btn-sm btn-primary" style="background:#475569">↻ Odśwież</button>
 </div>
-<div class="card">
+
+<!-- ═══ LIVE READERS ═══ -->
+<div class="card" style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);color:#f1f5f9;border:none;margin-bottom:24px">
+    <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap">
+        <div style="flex:0 0 auto">
+            <div style="display:inline-block;width:12px;height:12px;border-radius:50%;background:#10b981;margin-right:8px;animation:pulse 2s ease-in-out infinite"></div>
+            <span style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.1em;color:#94a3b8">LIVE — czytelnicy teraz</span>
+            <div style="font-size:3rem;font-weight:700;line-height:1;margin-top:4px;font-family:Georgia,serif">{{ stats_overview.live_readers }}</div>
+        </div>
+        {% if stats_live_readers %}
+        <div style="flex:1 1 auto;min-width:240px">
+            <p style="font-size:0.8rem;color:#94a3b8;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.1em">Co właśnie czytają</p>
+            {% for r in stats_live_readers[:5] %}
+            <div style="padding:6px 0;border-bottom:1px solid #334155;font-size:0.9rem">
+                <span style="color:#f59e0b;font-weight:600">{{ r.active_readers }}</span>
+                <span style="color:#cbd5e1;margin-left:8px">{{ r.title }}</span>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div style="flex:1 1 auto;color:#94a3b8;font-size:0.9rem;font-style:italic">Brak aktywnych czytelników w tej chwili.</div>
+        {% endif %}
+    </div>
+</div>
+<style>
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.6;transform:scale(1.3)} }
+</style>
+
+<!-- ═══ STATY DZIENNIE / TYDZIEŃ / MIESIĄC / ROK ═══ -->
+<div class="stats" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px">
+    <div class="stat" style="background:linear-gradient(135deg,#dbeafe 0%,#bfdbfe 100%)">
+        <div class="stat-num">{{ stats_overview.today_views }}</div>
+        <div class="stat-label">Dziś — odsłony</div>
+        <div style="font-size:0.8rem;color:#64748b;margin-top:4px">{{ stats_overview.today_unique }} unikalnych</div>
+    </div>
+    <div class="stat" style="background:linear-gradient(135deg,#dcfce7 0%,#bbf7d0 100%)">
+        <div class="stat-num">{{ stats_overview.week_views }}</div>
+        <div class="stat-label">Ten tydzień</div>
+        <div style="font-size:0.8rem;color:#64748b;margin-top:4px">{{ stats_overview.week_unique }} unikalnych</div>
+    </div>
+    <div class="stat" style="background:linear-gradient(135deg,#fef3c7 0%,#fde68a 100%)">
+        <div class="stat-num">{{ stats_overview.month_views }}</div>
+        <div class="stat-label">Ten miesiąc</div>
+        <div style="font-size:0.8rem;color:#64748b;margin-top:4px">{{ stats_overview.month_unique }} unikalnych</div>
+    </div>
+    <div class="stat" style="background:linear-gradient(135deg,#fee2e2 0%,#fecaca 100%)">
+        <div class="stat-num">{{ stats_overview.year_views }}</div>
+        <div class="stat-label">Ten rok</div>
+        <div style="font-size:0.8rem;color:#64748b;margin-top:4px">{{ stats_overview.year_unique }} unikalnych</div>
+    </div>
+    <div class="stat" style="background:linear-gradient(135deg,#f3e8ff 0%,#e9d5ff 100%)">
+        <div class="stat-num">{{ stats_overview.all_time_views }}</div>
+        <div class="stat-label">Wszystkie czasy</div>
+        <div style="font-size:0.8rem;color:#64748b;margin-top:4px">odsłon</div>
+    </div>
+</div>
+
+<!-- ═══ WYKRES 30 DNI ═══ -->
+<div class="card" style="margin-top:24px">
+    <h2 style="margin-bottom:16px;font-size:1.1rem">Odsłony — ostatnie 30 dni</h2>
+    <canvas id="chart-daily" style="max-height:280px"></canvas>
+</div>
+
+<!-- ═══ TOP ARTYKUŁY ═══ -->
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:24px">
+    <div class="card">
+        <h2 style="margin-bottom:16px;font-size:1.1rem">Top 5 artykułów (ten miesiąc)</h2>
+        {% if stats_top_month %}
+        <table>
+            <thead><tr><th>Artykuł</th><th style="text-align:right">Odsłony</th><th style="text-align:right">Unikalne</th></tr></thead>
+            <tbody>
+            {% for t in stats_top_month %}
+            <tr>
+                <td><strong>{{ t.title }}</strong><br><small style="color:#64748b">{{ t.slug }}</small></td>
+                <td style="text-align:right;font-weight:700">{{ t.views }}</td>
+                <td style="text-align:right;color:#64748b">{{ t.unique }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% else %}<p class="empty">Brak danych — nikt jeszcze nie czytał, albo tracker dopiero zaczął zbierać.</p>{% endif %}
+    </div>
+
+    <div class="card">
+        <h2 style="margin-bottom:16px;font-size:1.1rem">Stan content</h2>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div class="stat" style="padding:12px"><div class="stat-num" style="font-size:1.6rem">{{ articles }}</div><div class="stat-label">Artykuły</div></div>
+            <div class="stat" style="padding:12px"><div class="stat-num" style="font-size:1.6rem">{{ published }}</div><div class="stat-label">Opublikowane</div></div>
+            <div class="stat" style="padding:12px"><div class="stat-num" style="font-size:1.6rem">{{ drafts }}</div><div class="stat-label">Szkice</div></div>
+            <div class="stat" style="padding:12px"><div class="stat-num" style="font-size:1.6rem">{{ categories }}</div><div class="stat-label">Kategorie</div></div>
+            <div class="stat" style="padding:12px"><div class="stat-num" style="font-size:1.6rem">{{ authors_count }}</div><div class="stat-label">Autorzy</div></div>
+            <div class="stat" style="padding:12px"><div class="stat-num" style="font-size:1.6rem">{{ products_count }}</div><div class="stat-label">Produkty</div></div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══ OSTATNIO EDYTOWANE ═══ -->
+<div class="card" style="margin-top:24px">
     <h2 style="margin-bottom:16px;font-size:1.1rem">Ostatnio edytowane</h2>
     {% if recent %}
     <table>
@@ -32,4 +125,56 @@
     </table>
     {% else %}<p class="empty">Brak artykułów. <a href="/admin/articles/new">Utwórz pierwszy</a></p>{% endif %}
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+(function(){
+    const data = {{ stats_daily_chart | tojson }};
+    const labels = data.map(d => d.date.slice(5)); // "2026-04-28" → "04-28"
+    const views = data.map(d => d.views);
+    const uniqueSessions = data.map(d => d.unique);
+
+    const ctx = document.getElementById('chart-daily').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Odsłony',
+                    data: views,
+                    borderColor: '#3b82f6',
+                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                    tension: 0.3,
+                    fill: true,
+                    pointRadius: 3,
+                    pointHoverRadius: 6,
+                },
+                {
+                    label: 'Unikalne sesje',
+                    data: uniqueSessions,
+                    borderColor: '#10b981',
+                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                    tension: 0.3,
+                    fill: true,
+                    pointRadius: 3,
+                    pointHoverRadius: 6,
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: { intersect: false, mode: 'index' },
+            plugins: { legend: { position: 'bottom' } },
+            scales: {
+                y: { beginAtZero: true, ticks: { precision: 0 } }
+            }
+        }
+    });
+})();
+
+// Auto-refresh dashboard co 60 sekund (live readers + stats)
+setTimeout(() => location.reload(), 60000);
+</script>
 {% endblock %}

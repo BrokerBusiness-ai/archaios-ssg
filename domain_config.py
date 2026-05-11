@@ -82,6 +82,11 @@ def load_domain_config(domain: str) -> dict[str, Any]:
     raw.setdefault("footer", {})
     raw.setdefault("colors", {})
     raw.setdefault("theme", {})
+    raw.setdefault("testimonials", {})
+    raw.setdefault("trust_strip", {})
+    raw.setdefault("sticky_cta", {})
+    raw.setdefault("pricing", {})
+    raw.setdefault("faq", {})
 
     url = f"https://{raw['domain']}"
 
@@ -100,6 +105,10 @@ def load_domain_config(domain: str) -> dict[str, Any]:
             "yt": raw["social"].get("yt", ""),
             "tw": raw["social"].get("tw", ""),
             "email": raw["email"],
+            # Organization extras (E-E-A-T + AEO/GEO)
+            "founder": raw.get("founder", ""),
+            "foundingDate": raw.get("foundingDate", ""),
+            "address": raw.get("address", {}),
             # Dodatkowe pola per domena
             "brand": raw.get("brand", ""),
             "main_domain": raw.get("main_domain", ""),
@@ -108,6 +117,11 @@ def load_domain_config(domain: str) -> dict[str, Any]:
             "logo_mark": raw.get("logo_mark", "◐"),
             "logo_text": raw.get("logo_text", raw.get("name", "")),
             "logo_accent": raw.get("logo_accent", ""),
+            # Opcjonalna ścieżka SVG mark — gdy podana, header używa <img> zamiast emoji
+            "logo_mark_svg": raw.get("logo_mark_svg", ""),
+            # Backend URL (do <meta zf-backend> dla server-side trackera)
+            # Może być ustawione w yaml domeny ALBO w env BACKEND_URL.
+            "backend_url": (raw.get("backend_url") or os.environ.get("BACKEND_URL", "")).rstrip("/"),
         },
         "analytics": {
             "ga4_id": raw["analytics"].get("ga4_id", os.environ.get("GA4_ID", "")),
@@ -135,6 +149,11 @@ def load_domain_config(domain: str) -> dict[str, Any]:
         "products": raw["products"],
         "about": raw["about"],
         "footer": raw["footer"],
+        "testimonials": raw["testimonials"],
+        "trust_strip": raw["trust_strip"],
+        "sticky_cta": raw["sticky_cta"],
+        "pricing": raw["pricing"],
+        "faq": raw["faq"],
         # Meta
         "_domain": raw["domain"],
         "_config_path": str(path),

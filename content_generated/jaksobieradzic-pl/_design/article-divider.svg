@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 24" fill="none">
+  <line x1="80" y1="12" x2="170" y2="12" stroke="#e08c4f" stroke-width="1" opacity="0.4"/>
+  <!-- Środek: trzy stopnie schodów -->
+  <line x1="186" y1="14" x2="194" y2="14" stroke="#2a7f62" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="196" y1="11" x2="204" y2="11" stroke="#e08c4f" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="206" y1="8" x2="214" y2="8" stroke="#8b7bb8" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="230" y1="12" x2="320" y2="12" stroke="#e08c4f" stroke-width="1" opacity="0.4"/>
+</svg>

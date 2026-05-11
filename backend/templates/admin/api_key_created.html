@@ -1,0 +1,32 @@
+{% extends "components/base.html" %}
+{% set active = "integrations" %}
+{% block title %}API Key utworzony{% endblock %}
+{% block content %}
+<div class="header"><h1>🔑 API Key utworzony</h1></div>
+
+<div class="card" style="background:#fef3c7;border:2px solid #f59e0b">
+    <h2 style="color:#78350f;margin-bottom:8px">⚠️ ZAPISZ TERAZ — klucz pokażemy tylko raz</h2>
+    <p style="color:#78350f">Przechowujemy tylko hash. Jeśli zgubisz klucz — musisz wygenerować nowy.</p>
+</div>
+
+<div class="card">
+    <h3>Plain key (skopiuj):</h3>
+    <pre style="background:#0f172a;color:#10b981;padding:16px;border-radius:8px;font-size:1rem;font-family:monospace;word-break:break-all;user-select:all" id="plain-key">{{ plain_key }}</pre>
+
+    <button onclick="navigator.clipboard.writeText(document.getElementById('plain-key').textContent.trim()); this.textContent='✓ Skopiowano!'" class="btn btn-primary" style="margin-top:12px">📋 Kopiuj do schowka</button>
+
+    <h3 style="margin-top:24px">Szczegóły:</h3>
+    <table>
+        <tr><td>Nazwa</td><td><strong>{{ api_key.name }}</strong></td></tr>
+        <tr><td>Scopes</td><td><code>{{ api_key.scopes }}</code></td></tr>
+        <tr><td>Wygasa</td><td>{% if api_key.expires_at %}{{ api_key.expires_at.strftime('%Y-%m-%d') }}{% else %}nigdy{% endif %}</td></tr>
+        <tr><td>Rate limit</td><td>{{ api_key.rate_limit_per_min }} req/min</td></tr>
+    </table>
+
+    <h3 style="margin-top:24px">Przykład użycia:</h3>
+    <pre style="background:#0f172a;color:#cbd5e1;padding:12px;border-radius:8px;font-size:0.85rem;overflow:auto">curl -H "X-API-Key: {{ plain_key }}" \
+     https://api.zdrowie.fit/api/articles/</pre>
+
+    <a href="/admin/integrations" class="btn btn-primary" style="margin-top:24px">← Wróć do listy</a>
+</div>
+{% endblock %}

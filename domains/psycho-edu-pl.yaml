@@ -85,6 +85,11 @@ social:
   yt: ""
   tw: ""
 
+theme:
+  heading_weight: 700
+  letter_spacing_heading: "-0.01em"
+  radius: "6px"
+
 analytics:
   ga4_id: ""
   fb_pixel_id: ""

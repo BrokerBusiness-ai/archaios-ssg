@@ -1,0 +1,144 @@
+# SATELITA INPUTS — wypełnij i wklej do nowego czatu razem z kickoff prompt
+# Po wypełnieniu, ZAPISZ jako: domains/{{DOMAIN_SLUG}}.yaml
+# Wzór działający: domains/zdrowie-fit.yaml
+
+# ════════════════════════════════════════════════════════════════
+# IDENTITY
+# ════════════════════════════════════════════════════════════════
+domain: ""                # np. "testnis2.pl"
+name: ""                  # np. "Test NIS2"
+tagline: ""               # np. "Compliance NIS2 oparty na faktach"
+description: ""           # 120-160 znaków — meta description w Google
+lang: "pl"
+locale: "pl_PL"
+
+# ════════════════════════════════════════════════════════════════
+# BRAND ROLE w rodzinie Archaios
+# ════════════════════════════════════════════════════════════════
+brand: ""                 # np. "archaios"
+main_domain: ""           # flagowiec do którego prowadzi, np. "archaios.ai"
+role: "satellite"         # satellite | flagship
+funnel_type: "article_cta"  # article_cta | lead_magnet | direct_sale | brand_awareness
+
+# ════════════════════════════════════════════════════════════════
+# LOGO + KOLORY
+# ════════════════════════════════════════════════════════════════
+logo_mark: "◐"            # symbol balansu (zostaw)
+logo_text: ""             # np. "Test"
+logo_accent: ""           # terakotowa końcówka, np. "NIS2"
+
+colors:
+  primary: "#4a7c59"       # główny brand (sage / sapphire / etc)
+  primary_dark: "#3a6347"
+  primary_light: "#7fb3a3"
+  accent: "#d9724a"        # CTA + logo accent
+  accent_dark: "#b85a38"
+  trust: "#5b8def"         # badania, źródła naukowe
+
+# ════════════════════════════════════════════════════════════════
+# HERO — strona główna
+# ════════════════════════════════════════════════════════════════
+hero:
+  eyebrow: ""              # np. "Compliance dla średnich firm"
+  h1: ""                   # główny komunikat, max 80 znaków
+  subtitle: ""             # 1 zdanie pod h1
+  cta_primary:
+    text: "Czytaj artykuły"
+    url: "/artykuly.html"
+  cta_secondary:
+    text: "O projekcie"
+    url: "#o-nas"
+
+# ════════════════════════════════════════════════════════════════
+# PILLARS — 4-6 klikalnych kafelków na stronie głównej
+# ════════════════════════════════════════════════════════════════
+pillars:
+  - icon: ""              # emoji
+    title: ""             # 1-2 słowa
+    desc: ""              # 1 zdanie
+    link: ""              # /kategoria/{slug}.html
+  # ... powiel 4-6 razy
+
+# ════════════════════════════════════════════════════════════════
+# CATEGORIES — 2-5 kategorii artykułów
+# ════════════════════════════════════════════════════════════════
+categories:
+  - name: ""              # np. "Bezpieczeństwo techniczne"
+    slug: ""              # np. "techniczne"
+    icon: ""              # emoji
+    color: "#4a7c59"      # hex (zwykle = primary lub trust)
+  # ... powiel 2-5 razy
+
+# ════════════════════════════════════════════════════════════════
+# ABOUT — sekcja "Po co ta strona"
+# ════════════════════════════════════════════════════════════════
+about:
+  intro: ""               # 1-2 zdania
+  values:
+    - ""                  # 3-4 valuesy, każdy = "Tytuł — opis"
+
+# ════════════════════════════════════════════════════════════════
+# NEWSLETTER — Brevo
+# ════════════════════════════════════════════════════════════════
+newsletter:
+  endpoint: ""            # Form Action URL z Brevo (https://sibforms.com/serve/...)
+  provider: "brevo"
+  title_highlight: ""     # np. "cotygodniowy przegląd"
+  title_rest: ""          # np. "compliance NIS2"
+  subtitle: ""            # 1 zdanie zachęty
+
+# ════════════════════════════════════════════════════════════════
+# ANALYTICS
+# ════════════════════════════════════════════════════════════════
+analytics:
+  ga4_id: ""              # G-XXXXXXXXXX z Google Analytics 4
+  fb_pixel_id: ""         # opcjonalnie, dla Meta Ads
+
+# ════════════════════════════════════════════════════════════════
+# FOOTER
+# ════════════════════════════════════════════════════════════════
+footer:
+  tagline: ""             # 1 zdanie pod logo w stopce
+  disclaimer: ""          # np. "Treści mają charakter edukacyjny..."
+
+email: ""                 # kontakt@DOMAIN
+
+# ════════════════════════════════════════════════════════════════
+# E-E-A-T (Google Schema.org Organization)
+# ════════════════════════════════════════════════════════════════
+founder: "Marek Porycki"
+foundingDate: "2026-05"   # YYYY-MM
+address:
+  locality: "Warszawa"
+  region: "mazowieckie"
+  country: "PL"
+
+# ════════════════════════════════════════════════════════════════
+# SOCIAL
+# ════════════════════════════════════════════════════════════════
+social:
+  fb: ""                  # full URL
+  ig: ""
+  yt: ""
+  tw: ""
+
+# ════════════════════════════════════════════════════════════════
+# PRODUCTS — affiliate / own / partner CTA w artykułach
+# ════════════════════════════════════════════════════════════════
+products:
+  - name: ""
+    slug: ""
+    brand: ""
+    tagline_short: ""     # 1 zdanie marketing
+    cta_text: "Sprawdź"
+    target_url: ""        # z UTM
+    placement: "end"      # end | sidebar | inline
+    target_category_slugs: ""  # CSV
+    target_tags: ""       # CSV
+    priority: 50          # 0-100
+    kind: "own"           # own | affiliate | partner
+
+# ════════════════════════════════════════════════════════════════
+# BACKEND (opcjonalne, default false)
+# ════════════════════════════════════════════════════════════════
+# backend_url: ""         # https://api.{{DOMAIN}} jeśli DEPLOY_BACKEND=true

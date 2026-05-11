@@ -32,7 +32,7 @@
     <div class="container">
         <nav class="breadcrumb" aria-label="Okruszki">
             <a href="/">Start</a> <span>/</span>
-            <a href="/autorzy.html">Autorzy</a> <span>/</span>
+            <a href="/artykuly.html">Artykuły</a> <span>/</span>
             <span aria-current="page">{{ author.name }}</span>
         </nav>
     </div>
@@ -60,7 +60,7 @@
 
         {% if author.specializations_list %}
         <div style="margin:2rem 0">
-            <h3>Specjalizacje</h3>
+            <h2 style="font-size:1.25rem">Specjalizacje</h2>
             <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.5rem">
                 {% for s in author.specializations_list %}<span class="tag">{{ s }}</span>{% endfor %}
             </div>

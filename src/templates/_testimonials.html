@@ -1,0 +1,119 @@
+{# _testimonials.html — sekcja "Opinie klientów" (screeny z Messenger/WhatsApp/Signal).
+   Włącza się tylko gdy w domains/<slug>.yaml jest pole `testimonials.items`.
+   Schema.org Review markup — bonus dla AEO/GEO. #}
+{% if testimonials and testimonials.get('items') %}
+{% set tt = testimonials %}
+<section class="testimonials section" aria-labelledby="testimonials-title" id="opinie">
+    <div class="container">
+        <div class="section__header testimonials__header">
+            <h2 id="testimonials-title" class="section__title">{{ tt.title | default('Co mówią klienci') }}</h2>
+            {% if tt.lead %}<p class="section__lead">{{ tt.lead }}</p>{% endif %}
+        </div>
+
+        <div class="testimonials__grid" role="list">
+            {% for item in tt['items'] %}
+            {% set channel = (item.channel or 'messenger') | lower %}
+            {% set img = item.image %}
+            <button
+                type="button"
+                class="testimonial-card testimonial-card--{{ channel }}"
+                role="listitem"
+                data-testimonial-img="{{ img }}"
+                data-testimonial-alt="{{ item.alt | default('Wiadomość od klienta — ' ~ channel) }}"
+                data-testimonial-channel="{{ channel }}"
+                data-testimonial-name="{{ item.name | default('') }}"
+                data-testimonial-quote="{{ item.quote | default('') }}"
+                aria-label="Powiększ wiadomość — {{ item.name | default(channel) }}"
+                itemscope itemtype="https://schema.org/Review">
+                <meta itemprop="itemReviewed" content="{{ site.name }}">
+                <meta itemprop="reviewRating" content="5">
+                <meta itemprop="author" content="{{ item.name | default('Klient') }}">
+
+                <span class="testimonial-card__badge testimonial-card__badge--{{ channel }}" aria-hidden="true">
+                    {% if channel == 'whatsapp' %}WhatsApp
+                    {% elif channel == 'signal' %}Signal
+                    {% elif channel == 'messenger' %}Messenger
+                    {% elif channel == 'sms' %}SMS
+                    {% elif channel == 'email' %}E-mail
+                    {% else %}{{ channel | capitalize }}{% endif %}
+                </span>
+
+                <div class="testimonial-card__media">
+                    <img src="{{ img }}"
+                         alt="{{ item.alt | default('Wiadomość od klienta') }}"
+                         loading="lazy"
+                         decoding="async"
+                         itemprop="image">
+                </div>
+
+                {% if item.name or item.quote %}
+                <div class="testimonial-card__meta">
+                    {% if item.quote %}
+                    <p class="testimonial-card__quote" itemprop="reviewBody">„{{ item.quote }}"</p>
+                    {% endif %}
+                    {% if item.name %}
+                    <p class="testimonial-card__name">— {{ item.name }}{% if item.role %}, <span>{{ item.role }}</span>{% endif %}</p>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+                <span class="testimonial-card__zoom" aria-hidden="true">⛶ Powiększ</span>
+            </button>
+            {% endfor %}
+        </div>
+
+        {% if tt.note %}
+        <p class="testimonials__note">{{ tt.note }}</p>
+        {% endif %}
+
+        {% if tt.cta and tt.cta.url %}
+        <div class="testimonials__cta">
+            <a href="{{ tt.cta.url }}" class="btn btn--primary btn--lg">{{ tt.cta.text | default('Skontaktuj się') }}</a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+{# Lightbox modal — JS na końcu (vanilla, ~1.5KB) #}
+<dialog class="testimonial-lightbox" id="testimonial-lightbox" aria-label="Podgląd wiadomości">
+    <button type="button" class="testimonial-lightbox__close" aria-label="Zamknij podgląd">&times;</button>
+    <figure class="testimonial-lightbox__figure">
+        <img src="" alt="" id="testimonial-lightbox-img">
+        <figcaption class="testimonial-lightbox__caption" id="testimonial-lightbox-caption"></figcaption>
+    </figure>
+</dialog>
+
+<script>
+(function() {
+    const dlg = document.getElementById('testimonial-lightbox');
+    if (!dlg) return;
+    const img = document.getElementById('testimonial-lightbox-img');
+    const cap = document.getElementById('testimonial-lightbox-caption');
+    const closeBtn = dlg.querySelector('.testimonial-lightbox__close');
+
+    document.querySelectorAll('[data-testimonial-img]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            img.src = btn.dataset.testimonialImg;
+            img.alt = btn.dataset.testimonialAlt || '';
+            const ch = btn.dataset.testimonialChannel || '';
+            const nm = btn.dataset.testimonialName || '';
+            const qt = btn.dataset.testimonialQuote || '';
+            cap.innerHTML = (ch ? '<span class="testimonial-lightbox__badge">' + ch + '</span> ' : '')
+                          + (nm ? '<strong>' + nm + '</strong>' : '')
+                          + (qt ? '<span class="testimonial-lightbox__quote"> — „' + qt + '"</span>' : '');
+            if (typeof dlg.showModal === 'function') dlg.showModal();
+            else dlg.setAttribute('open', '');
+        });
+    });
+
+    const close = () => {
+        if (typeof dlg.close === 'function') dlg.close();
+        else dlg.removeAttribute('open');
+        img.src = '';
+    };
+    closeBtn.addEventListener('click', close);
+    dlg.addEventListener('click', (e) => { if (e.target === dlg) close(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && dlg.open) close(); });
+})();
+</script>
+{% endif %}

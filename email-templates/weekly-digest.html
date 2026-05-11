@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tygodniowy przegląd — Zdrowie.fit</title>
+</head>
+<body style="margin:0;padding:0;background:#f6f0e6;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;color:#3d3a35;line-height:1.65;">
+
+<!--
+  ================================================
+  WEEKLY DIGEST — szablon dla Brevo Automation
+  ================================================
+  Brevo zaciąga RSS z https://zdrowie.fit/rss.xml automatycznie.
+  Placeholdery do podmiany w UI Brevo:
+    {{rss:title}}      — tytuł artykułu
+    {{rss:link}}       — URL artykułu
+    {{rss:description}} — excerpt
+    {{rss:pubDate}}    — data publikacji
+    {{contact.NAME}}   — imię (jeśli masz w polu kontaktu)
+  Konfiguracja Brevo: Automation → New workflow → "RSS to Email" template.
+  Trigger: Co poniedziałek 8:00 + condition "Has new items in RSS feed".
+-->
+
+<div style="display:none;font-size:1px;color:#f6f0e6;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;">
+Trzy rzeczy z minionego tygodnia. Krótko, konkretnie, bez clickbaitu.
+</div>
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f6f0e6;padding:32px 16px;">
+  <tr><td align="center">
+    <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;background:#fdfcf9;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(61,58,53,0.08);">
+
+      <!-- Header -->
+      <tr><td style="padding:32px 40px 24px;border-bottom:1px solid #e8e1d4;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+          <tr>
+            <td style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:#2d2a26;letter-spacing:-0.02em;">
+              Zdrowie<span style="color:#d9724a;">.fit</span>
+            </td>
+            <td align="right" style="font-size:11px;color:#8a857d;text-transform:uppercase;letter-spacing:0.1em;">
+              Tygodniowy przegląd · {{ params.iso_week }}
+            </td>
+          </tr>
+        </table>
+      </td></tr>
+
+      <!-- Intro -->
+      <tr><td style="padding:32px 40px 16px;">
+        <h1 style="margin:0 0 12px;font-family:Georgia,serif;font-size:26px;line-height:1.25;color:#2d2a26;font-weight:600;">
+          Cześć{% if contact.NAME %} {{ contact.NAME }}{% endif %} — trzy rzeczy z minionego tygodnia.
+        </h1>
+        <p style="margin:0 0 8px;font-size:15px;color:#6b665f;">
+          Krótko, konkretnie, oparte na badaniach. Jeśli któryś temat zaciekawi — kliknij i czytaj dalej.
+        </p>
+      </td></tr>
+
+      <!-- RSS Items (Brevo wstawi automatycznie 3-5 najnowszych z feedu) -->
+      <tr><td style="padding:8px 40px 24px;">
+        {{!-- BREVO RSS BLOCK START --}}
+        {% for item in rss_items %}
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:20px;">
+          <tr><td style="padding:24px;background:#f6f0e6;border-radius:12px;border-left:4px solid #4a7c59;">
+            <p style="margin:0 0 8px;font-size:11px;color:#8a857d;text-transform:uppercase;letter-spacing:0.1em;">
+              {{ item.pubDate }}
+            </p>
+            <h2 style="margin:0 0 10px;font-family:Georgia,serif;font-size:20px;line-height:1.3;color:#2d2a26;font-weight:600;">
+              <a href="{{ item.link }}" style="color:#2d2a26;text-decoration:none;">
+                {{ item.title }}
+              </a>
+            </h2>
+            <p style="margin:0 0 14px;font-size:15px;color:#3d3a35;line-height:1.6;">
+              {{ item.description }}
+            </p>
+            <a href="{{ item.link }}" style="font-size:14px;font-weight:600;color:#4a7c59;text-decoration:none;border-bottom:1px solid #4a7c59;padding-bottom:1px;">
+              Czytaj cały artykuł →
+            </a>
+          </td></tr>
+        </table>
+        {% endfor %}
+        {{!-- BREVO RSS BLOCK END --}}
+      </td></tr>
+
+      <!-- Pytanie do przemyślenia (manualne, edytowane co tydzień przez Marka) -->
+      <tr><td style="padding:8px 40px 32px;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#fdfcf9;border:2px solid #d9724a;border-radius:12px;padding:24px;">
+          <tr><td>
+            <p style="margin:0 0 8px;font-size:11px;color:#d9724a;text-transform:uppercase;letter-spacing:0.1em;font-weight:600;">
+              Pytanie do przemyślenia
+            </p>
+            <p style="margin:0;font-family:Georgia,serif;font-size:18px;color:#2d2a26;line-height:1.4;font-style:italic;">
+              {{ params.weekly_question | default("Co konkretnego — jedna mała rzecz — chcesz w tym tygodniu zrobić dla swojego zdrowia?") }}
+            </p>
+          </td></tr>
+        </table>
+      </td></tr>
+
+      <!-- Footer -->
+      <tr><td style="padding:24px 40px 32px;background:#f6f0e6;border-top:1px solid #e8e1d4;">
+        <p style="margin:0 0 12px;font-size:13px;color:#6b665f;text-align:center;line-height:1.5;">
+          Masz temat, który chciałbyś żebyśmy poruszyli? <a href="mailto:kontakt@zdrowie.fit" style="color:#4a7c59;">Odpisz na ten email</a>.
+        </p>
+        <p style="margin:0 0 8px;font-size:11px;color:#8a857d;text-align:center;line-height:1.5;">
+          Otrzymujesz tygodniowy przegląd, bo zapisałeś/aś się na newsletter Zdrowie.fit.
+        </p>
+        <p style="margin:0;font-size:11px;color:#8a857d;text-align:center;">
+          © {{ params.year }} Zdrowie.fit ·
+          <a href="https://zdrowie.fit/polityka-prywatnosci.html" style="color:#8a857d;text-decoration:underline;">Polityka prywatności</a> ·
+          <a href="{{ unsubscribe }}" style="color:#8a857d;text-decoration:underline;">Wypisz się</a>
+        </p>
+      </td></tr>
+
+    </table>
+  </td></tr>
+</table>
+
+</body>
+</html>

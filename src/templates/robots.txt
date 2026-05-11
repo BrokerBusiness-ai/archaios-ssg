@@ -4,36 +4,57 @@ Disallow: /admin/
 Disallow: /api/
 Disallow: /data/
 
-# AI Crawlers — welcome
+# ════════════════════════════════════════════════════════════
+# AI CRAWLERS — pełna lista (26 botów, kwiecień 2026)
+# Zmień Allow: / na Disallow: / żeby zablokować trening AI.
+# ════════════════════════════════════════════════════════════
+
+# OpenAI
 User-agent: GPTBot
-Allow: /
-
 User-agent: ChatGPT-User
-Allow: /
-
+User-agent: OAI-SearchBot
+# Anthropic
+User-agent: ClaudeBot
 User-agent: Claude-Web
-Allow: /
-
+User-agent: claude-searchbot
+# Perplexity
 User-agent: PerplexityBot
-Allow: /
-
-User-agent: Amazonbot
-Allow: /
-
-User-agent: Applebot-Extended
-Allow: /
-
+User-agent: Perplexity-User
+# Google
 User-agent: Google-Extended
-Allow: /
-
+User-agent: GoogleOther
+# Apple
+User-agent: Applebot-Extended
+# Amazon
+User-agent: Amazonbot
+# ByteDance
 User-agent: Bytespider
+# Common Crawl (feeds many LLMs)
+User-agent: CCBot
+# Meta
+User-agent: Meta-ExternalAgent
+User-agent: Meta-ExternalFetcher
+# Cohere
+User-agent: cohere-ai
+User-agent: cohere-training-data-crawler
+# Inne
+User-agent: Diffbot
+User-agent: MistralAI-User
+User-agent: DuckAssistBot
+User-agent: YouBot
+User-agent: Timpibot
+User-agent: omgili
+User-agent: omgilibot
+User-agent: ImagesiftBot
 Allow: /
 
-User-agent: CCBot
-Allow: /
+# ════════════════════════════════════════════════════════════
+# AI policy / data manifests
+# ════════════════════════════════════════════════════════════
 
 Sitemap: {{ site.url }}/sitemap.xml
 
-# AI-optimized content index
-# See {{ site.url }}/llms.txt for structured site overview
-# See {{ site.url }}/llms-full.txt for full article content
+# AI training data manifest (llms.txt spec by Answer.AI)
+# {{ site.url }}/llms.txt        — structured site index
+# {{ site.url }}/llms-full.txt   — full article content
+# {{ site.url }}/ai.txt          — Spawning AI policy

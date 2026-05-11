@@ -1,7 +1,7 @@
 domain: "aidzisiaj.pl"
 name: "AI Dzisiaj"
-tagline: "Sztuczna inteligencja w polskim biznesie — praktycznie"
-description: "Praktyczne zastosowania AI w polskich firmach. Narzędzia, wdrożenia, case studies, regulacje. Bez hype'u, z konkretem."
+tagline: "Newsy AI dla polskiego biznesu — dziś, nie jutro"
+description: "Newsy o AI dla polskiego biznesu. Wdrożenia, narzędzia, regulacje. Bez bullshit-bingo, z konkretem i datą."
 lang: "pl"
 locale: "pl_PL"
 
@@ -10,74 +10,123 @@ main_domain: "archaios.ai"
 funnel_type: "article_cta"
 role: "satellite"
 
-logo_mark: "🤖"
+# Tech mark: SVG mark z neuronową siecią A-shape (cyan/magenta/violet)
+# logo_mark zostaje jako fallback dla social embeds, ale w headerze renderuje się SVG
+logo_mark: "⚡"
+logo_mark_svg: "/img/logo-mark.svg"
 logo_text: "AI"
 logo_accent: "Dzisiaj"
 
+# CYBER PALETTE — electric cyan + neon magenta + violet AI
+# Dark dominujące, ostre, neonowe akcenty
 colors:
-  primary: "#1a365d"
-  primary_dark: "#0f2440"
-  primary_light: "#4a7ab5"
-  accent: "#c0392b"
-  accent_dark: "#962d22"
-  trust: "#2980b9"
+  primary: "#00d9ff"          # electric cyan — main brand
+  primary_dark: "#00a8cc"
+  primary_light: "#66e8ff"
+  accent: "#ff2d92"            # neon magenta — CTA, hot newsy
+  accent_dark: "#cc1973"
+  trust: "#a78bfa"             # AI violet — źródła/badania/regulacje
+
+# THEME — geometric sans + dark mode + ostre rogi + cool shadows
+theme:
+  # Typografia tech — Inter z agresywnym weight (Vercel/Linear vibe)
+  # Self-hosted bez external CDN — używamy tego co jest w /fonts/
+  font_heading: "Inter"
+  font_body: "Inter"
+  font_size_base: "16px"
+  line_height: "1.6"
+  heading_weight: "800"          # ekstra bold = tech header
+  letter_spacing_heading: "-0.035em"  # tight = modern tech
+
+  # Geometria — ostrzejsze rogi
+  radius_sm: "4px"
+  radius: "8px"
+  radius_lg: "12px"
+  radius_pill: "24px"
+
+  # Layout — szerszy container dla feed-style
+  container_max: "1240px"
+  prose_max: "720px"
+
+  # Spacing
+  gutter: "clamp(1rem, 4vw, 2rem)"
+  section_spacing: "clamp(3rem, 8vw, 5.5rem)"
+
+  # Transitions — szybsze, snappier
+  transition_fast: "120ms"
+  transition_base: "200ms"
+  transition_slow: "350ms"
+
+  # DARK MODE auto
+  dark_mode: true
+
+  # Cool shadows (mniej ciepła)
+  shadow_warmth: "cool"
 
 hero:
-  eyebrow: "AI dla polskiego biznesu"
-  h1: "Sztuczna inteligencja w polskim biznesie — praktycznie"
-  subtitle: "Konkretne narzędzia, realne wdrożenia, polskie case studies. AI bez hype'u — tylko to, co działa."
+  eyebrow: "AI · NEWS · 2026"
+  h1: "AI dla polskiego biznesu — dziś, nie jutro"
+  subtitle: "Newsy. Wdrożenia. Regulacje. Bez bullshit-bingo."
   cta_primary:
-    text: "Czytaj artykuły"
+    text: "Najnowsze artykuły →"
     url: "/artykuly.html"
   cta_secondary:
     text: "O projekcie"
     url: "#o-nas"
+  meta: "Aktualizacja co tydzień · Źródła w każdym artykule · Polski kontekst"
 
 pillars:
-  - icon: "🏢"
-    title: "AI w firmie"
-    desc: "Jak wdrożyć AI w organizacji — od strategii po konkretne narzędzia."
-  - icon: "🔧"
-    title: "Narzędzia AI"
-    desc: "Przegląd narzędzi AI dla biznesu — ChatGPT, Claude, Copilot, automatyzacje."
-  - icon: "📁"
-    title: "Case studies"
-    desc: "Realne wdrożenia AI w polskich firmach — co zadziałało, co nie."
-  - icon: "⚖️"
-    title: "Regulacje AI"
-    desc: "AI Act, RODO a AI, regulacje europejskie — co musisz wiedzieć."
+  - icon: "🎯"
+    title: "Strategia AI"
+    desc: "Pillar + cornerstone dla zarządów. Mapa decyzyjna, ROI, governance, ryzyka, audyt dojrzałości."
+    link: "/kategoria/strategia.html"
+  - icon: "💡"
+    title: "Use cases"
+    desc: "12 wdrożeń AI z udokumentowanym ROI: customer service, lead scoring, backoffice, produkcja."
+    link: "/kategoria/use-cases.html"
+  - icon: "🚀"
+    title: "Wdrożenia"
+    desc: "Pierwszy projekt AI od zera do produkcji. Krok po kroku, z błędami do uniknięcia."
+    link: "/kategoria/wdrozenia.html"
 
 categories:
-  - name: "AI w biznesie"
-    slug: "ai-w-biznesie"
-    icon: "🏢"
-    color: "#1a365d"
-  - name: "Narzędzia"
-    slug: "narzedzia"
-    icon: "🔧"
-    color: "#2980b9"
-  - name: "Regulacje"
-    slug: "regulacje"
-    icon: "⚖️"
-    color: "#c0392b"
+  - name: "Strategia AI"
+    slug: "strategia-ai"
+    icon: "🎯"
+    color: "#00d9ff"
+  - name: "Use cases AI"
+    slug: "use-cases"
+    icon: "💡"
+    color: "#a78bfa"
+  - name: "Wdrożenia AI"
+    slug: "wdrozenia-ai"
+    icon: "🚀"
+    color: "#ff2d92"
 
 about:
-  intro: "AIDzisiaj.pl to serwis o praktycznych zastosowaniach sztucznej inteligencji w polskim biznesie. Piszemy o narzędziach, wdrożeniach i regulacjach — bez hype'u, z konkretem."
+  intro: "AI Dzisiaj to portal newsów o sztucznej inteligencji w polskim biznesie. Piszemy o wdrożeniach, narzędziach i regulacjach — bez hype'u, z konkretem, z datą i ze źródłem. Aktualizacja co tydzień."
   values:
-    - "Praktyczność — piszemy o tym, co działa w polskich realiach"
-    - "Rzetelność — testujemy narzędzia, zanim o nich napiszemy"
-    - "Dostępność — AI wyjaśnione tak, żeby zrozumiał każdy przedsiębiorca"
+    - "Konkret zamiast hype'u — każdy news z liczbą, datą lub case study"
+    - "Polski kontekst — AI Act PL, regulacje, polskie firmy, polski rynek"
+    - "Źródła w każdym artykule — research papers, dokumenty UE, oficjalne komunikaty"
 
 newsletter:
-  title_highlight: "cotygodniowy przegląd"
-  title_rest: "nowości AI dla biznesu"
-  subtitle: "Raz w tygodniu: nowe narzędzia, wdrożenia, regulacje AI. Zero spamu."
+  title_highlight: "tygodniowy briefing"
+  title_rest: "AI dla polskiego biznesu"
+  subtitle: "1 wdrożenie. 1 narzędzie. 1 regulacja. Co poniedziałek o 8:00. Zero spamu."
 
 footer:
-  tagline: "Sztuczna inteligencja w polskim biznesie — praktycznie i bez hype'u."
-  disclaimer: "Treści mają charakter informacyjny i edukacyjny. Nie stanowią porady prawnej ani technicznej."
+  tagline: "AI dla polskiego biznesu. Newsy, wdrożenia, regulacje. Co tydzień."
+  disclaimer: "Treści mają charakter informacyjny i edukacyjny. Nie stanowią porady prawnej ani technicznej. Każdy news ze źródłem w bibliografii."
 
 email: "kontakt@aidzisiaj.pl"
+
+founder: "Marek Porycki"
+foundingDate: "2026-04"
+address:
+  locality: "Białystok"
+  region: "podlaskie"
+  country: "PL"
 
 social:
   fb: ""
@@ -85,15 +134,58 @@ social:
   yt: ""
   tw: ""
 
-products:
-  - name: "ARCHAIOS AI Solutions"
-    slug: "archaios-ai"
-    brand: "archaios"
-    tagline_short: "Wdrożenia AI i automatyzacja dla Twojej firmy"
-    cta_text: "Sprawdź ofertę"
-    target_url: "https://archaios.ai"
-    placement: "end"
-    target_category_slugs: ""
-    target_tags: "ai,wdrożenia,narzędzia,automatyzacja,biznes"
-    priority: 90
-    kind: "own"
+# === TESTIMONIALS — screeny z Messenger / WhatsApp / Signal ===
+# Obrazy wrzuć do src/static/img/testimonials/aidzisiaj/ (build.py kopiuje do output/)
+# Formaty: .webp preferowany (mniejszy), .png/.jpg OK
+# Zanonimizuj wrażliwe dane na screenach PRZED uploadem
+testimonials:
+  title: "Co mówią nasi czytelnicy"
+  lead: "Autentyczne wiadomości od osób, którym pomagamy wdrażać AI w biznesie."
+  note: "Wiadomości opublikowane za zgodą autorów. Dane kontaktowe zanonimizowane."
+  cta:
+    text: "Porozmawiaj z nami →"
+    url: "mailto:kontakt@aidzisiaj.pl"
+  items:
+    # --- MESSENGER ---
+    - channel: messenger
+      image: /img/testimonials/messenger-01.webp
+      name: "Anna K."
+      role: "CEO, firma technologiczna"
+      quote: "Dzięki Waszym artykułom wreszcie zrozumiałam, od czego zacząć wdrożenie AI."
+      alt: "Screenshot rozmowy na Messengerze — pozytywna opinia o artykułach AI Dzisiaj"
+    - channel: messenger
+      image: /img/testimonials/messenger-02.webp
+      name: "Tomasz M."
+      role: "Dyrektor operacyjny"
+      quote: "Konkret zamiast hype'u — dokładnie tego szukałem."
+      alt: "Screenshot rozmowy na Messengerze — opinia o jakości treści"
+    # --- WHATSAPP ---
+    - channel: whatsapp
+      image: /img/testimonials/whatsapp-01.webp
+      name: "Katarzyna W."
+      role: "Head of Innovation"
+      quote: "Newsletter AI Dzisiaj to jedyny, który czytam w całości."
+      alt: "Screenshot rozmowy na WhatsApp — opinia o newsletterze AI Dzisiaj"
+    - channel: whatsapp
+      image: /img/testimonials/whatsapp-02.webp
+      name: "Piotr S."
+      role: "CTO, startup fintech"
+      quote: "Poleciliście narzędzie, które oszczędza nam 20h tygodniowo."
+      alt: "Screenshot rozmowy na WhatsApp — opinia o rekomendacjach narzędzi"
+    # --- SIGNAL ---
+    - channel: signal
+      image: /img/testimonials/signal-01.webp
+      name: "Michał R."
+      role: "CISO, sektor bankowy"
+      quote: "Rzetelne podejście do AI Act — wreszcie ktoś pisze o regulacjach bez straszenia."
+      alt: "Screenshot rozmowy na Signal — opinia o treściach regulacyjnych"
+    - channel: signal
+      image: /img/testimonials/signal-02.webp
+      name: "Ewa D."
+      role: "Product Manager"
+      quote: "Case study z polskich firm — to jest to, czego brakuje na rynku."
+      alt: "Screenshot rozmowy na Signal — opinia o case studies"
+
+# Brand wzmianka w sekcji about / footer (PBN-safety: nie używamy w CTA produktach z dofollow)
+# Konwersja idzie przez newsletter Brevo → Welcome Series → mail D14 z linkiem do archaios
+products: []

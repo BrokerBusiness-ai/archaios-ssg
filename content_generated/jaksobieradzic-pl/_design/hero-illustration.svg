@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 420" fill="none">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fdfcf9"/>
+      <stop offset="100%" stop-color="#ede5d3"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="600" height="420" fill="url(#bgGradient)"/>
+
+  <!-- Tło: subtelny zachód, ziemisty -->
+  <circle cx="450" cy="120" r="50" fill="#e08c4f" opacity="0.15"/>
+
+  <!-- Drabina/schody — symbol przejścia -->
+  <g transform="translate(180, 110)">
+    <!-- Cień -->
+    <ellipse cx="120" cy="280" rx="120" ry="8" fill="#1d5c46" opacity="0.1"/>
+
+    <!-- Drabina podstawowa -->
+    <line x1="60" y1="270" x2="60" y2="20" stroke="#1d5c46" stroke-width="4" stroke-linecap="round"/>
+    <line x1="180" y1="270" x2="180" y2="0" stroke="#1d5c46" stroke-width="4" stroke-linecap="round"/>
+
+    <!-- Stopnie (z gradientem od ciemniejszego/trudniejszego u dołu, do jaśniejszego u góry) -->
+    <line x1="60" y1="240" x2="180" y2="234" stroke="#2a7f62" stroke-width="5" stroke-linecap="round"/>
+    <line x1="60" y1="200" x2="180" y2="194" stroke="#2a7f62" stroke-width="5" stroke-linecap="round"/>
+    <line x1="60" y1="160" x2="180" y2="154" stroke="#e08c4f" stroke-width="5" stroke-linecap="round"/>
+    <line x1="60" y1="120" x2="180" y2="114" stroke="#e08c4f" stroke-width="5" stroke-linecap="round"/>
+    <line x1="60" y1="80" x2="180" y2="74" stroke="#8b7bb8" stroke-width="5" stroke-linecap="round"/>
+    <line x1="60" y1="40" x2="180" y2="34" stroke="#8b7bb8" stroke-width="5" stroke-linecap="round"/>
+
+    <!-- Mała postać na drugim szczeblu -->
+    <circle cx="120" cy="216" r="12" fill="#2a7f62"/>
+    <path d="M 110 240 Q 110 248 113 252 L 117 280 L 123 280 L 127 252 Q 130 248 130 240 Z" fill="#2a7f62"/>
+  </g>
+
+  <!-- Etykiety subtelne -->
+  <text x="50" y="50" font-family="'Source Serif Pro', Georgia, serif" font-size="13" fill="#1d5c46" opacity="0.8" letter-spacing="2">TUTAJ</text>
+  <text x="500" y="100" font-family="'Source Serif Pro', Georgia, serif" font-size="13" fill="#e08c4f" opacity="0.8" letter-spacing="2">DOKĄD</text>
+
+  <!-- Drobne kropki sygnały po drodze (małe wsparcia) -->
+  <circle cx="100" cy="200" r="3" fill="#e08c4f" opacity="0.7"/>
+  <circle cx="490" cy="200" r="3" fill="#8b7bb8" opacity="0.7"/>
+  <circle cx="80" cy="280" r="3" fill="#8b7bb8" opacity="0.6"/>
+  <circle cx="500" cy="280" r="3" fill="#e08c4f" opacity="0.6"/>
+</svg>

@@ -14,8 +14,8 @@ locale: "pl_PL"
 # BRAND & FUNNEL
 brand: "archaios"                       # nadrzędna marka: archaios | nurio | mediacja | broker | marek
 main_domain: "archaios.ai"             # domena docelowa CTA
-funnel_type: "article_cta"             # article_cta | lead_magnet | interactive
-role: "satellite"                       # satellite | main | hub
+funnel_type: "article_cta"             # article_cta | lead_magnet | interactive | service_landing
+role: "satellite"                       # satellite | main | hub | funnel_end (money page / strona usługowa, gdzie konwertuje się ruch z satelit)
 
 # LOGO
 logo_mark: "◐"                         # emoji/symbol w logo
@@ -122,6 +122,14 @@ footer:
 
 # KONTAKT
 email: "kontakt@example.pl"
+
+# ORGANIZATION EXTRAS (opcjonalne, ale silne dla E-E-A-T i AEO/GEO)
+founder: ""                              # imię i nazwisko założyciela
+foundingDate: ""                         # YYYY-MM lub YYYY-MM-DD
+address:                                 # opcjonalne — gdy firma ma siedzibę
+  locality: ""                           # miasto, np. "Warszawa"
+  region: ""                             # województwo
+  country: ""                            # ISO 3166-1 alpha-2, np. "PL"
 
 # SOCIAL MEDIA (opcjonalne)
 social:

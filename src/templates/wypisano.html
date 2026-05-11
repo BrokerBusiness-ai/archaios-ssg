@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Wypisałeś/aś się — dziękujemy | {{ site.name }}{% endblock %}
+{% block description %}Subskrypcja newslettera {{ site.name }} została zakończona.{% endblock %}
+{% block robots %}noindex,follow{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container article__container" style="max-width:560px;text-align:center">
+        <div style="font-size:4rem;margin-bottom:1rem" aria-hidden="true">👋</div>
+        <h1 style="margin-bottom:1rem">Wypisany/a. Bez urazy.</h1>
+        <p style="font-size:1.1rem;color:var(--color-text-muted);margin-bottom:1.5rem">
+            Subskrypcja zakończona. Twój adres przestaje być przetwarzany w celu wysyłki newslettera —
+            zgodnie z procedurą trafia na 30-dniową suppression list (techniczne potwierdzenie wypisu),
+            a potem zostaje trwale usunięty.
+        </p>
+        <p style="font-size:1rem;color:var(--color-text-muted);margin-bottom:2rem">
+            Dziękujemy, że byłeś/aś z nami. Jeśli to przez przypadek lub zmienisz zdanie —
+            możesz zapisać się ponownie w dowolnym momencie.
+        </p>
+
+        <div style="display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap">
+            <a href="/" class="btn btn--ghost">Wróć na stronę główną</a>
+            <a href="/#newsletter" class="btn btn--primary">Zapisz się ponownie</a>
+        </div>
+
+        <p style="margin-top:2.5rem;font-size:0.85rem;color:var(--color-text-light)">
+            Coś poszło nie tak albo masz pytania? <a href="mailto:{{ site.email }}">{{ site.email }}</a>
+        </p>
+    </div>
+</section>
+{% endblock %}

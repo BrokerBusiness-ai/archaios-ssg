@@ -1,0 +1,44 @@
+{% extends "components/base.html" %}
+{% set active = "integrations" %}
+{% block title %}Webhook utworzony{% endblock %}
+{% block content %}
+<div class="header"><h1>🔔 Webhook utworzony</h1></div>
+
+<div class="card" style="background:#fef3c7;border:2px solid #f59e0b">
+    <h2 style="color:#78350f;margin-bottom:8px">⚠️ ZAPISZ SECRET — pokażemy go tylko raz</h2>
+    <p style="color:#78350f">Secret jest potrzebny do weryfikacji HMAC podpisu po stronie odbiorcy.</p>
+</div>
+
+<div class="card">
+    <h3>Webhook secret:</h3>
+    <pre style="background:#0f172a;color:#10b981;padding:16px;border-radius:8px;font-size:1rem;font-family:monospace;word-break:break-all;user-select:all" id="secret">{{ secret }}</pre>
+    <button onclick="navigator.clipboard.writeText(document.getElementById('secret').textContent.trim()); this.textContent='✓ Skopiowano!'" class="btn btn-primary" style="margin-top:12px">📋 Kopiuj</button>
+
+    <h3 style="margin-top:24px">Szczegóły webhook:</h3>
+    <table>
+        <tr><td>Nazwa</td><td><strong>{{ webhook.name }}</strong></td></tr>
+        <tr><td>URL</td><td><code>{{ webhook.url }}</code></td></tr>
+        <tr><td>Events</td><td><code>{{ webhook.events }}</code></td></tr>
+    </table>
+
+    <h3 style="margin-top:24px">Weryfikacja po stronie odbiorcy (Python):</h3>
+    <pre style="background:#0f172a;color:#cbd5e1;padding:12px;border-radius:8px;font-size:0.85rem;overflow:auto">import hmac, hashlib
+
+SECRET = "{{ secret }}"
+
+def verify(body: bytes, signature_header: str) -> bool:
+    expected = "sha256=" + hmac.new(SECRET.encode(), body, hashlib.sha256).hexdigest()
+    return hmac.compare_digest(expected, signature_header)
+
+# W endpointcie:
+body = await request.body()
+sig = request.headers["X-Signature"]
+if not verify(body, sig):
+    raise HTTPException(401)</pre>
+
+    <h3 style="margin-top:24px">Test webhook</h3>
+    <p>Klik „Test" w liście wysyła event <code>test.ping</code> aby sprawdzić czy URL odbiera.</p>
+
+    <a href="/admin/integrations" class="btn btn-primary" style="margin-top:24px">← Wróć do listy</a>
+</div>
+{% endblock %}

@@ -8,34 +8,71 @@
 {% endblock %}
 
 {% block content %}
-<section class="hero" aria-labelledby="hero-title">
+<section class="hero {% if site.role == 'funnel_end' %}hero--funnel{% endif %}" aria-labelledby="hero-title">
     <div class="container hero__content">
-        <p class="hero__eyebrow">Psychosomatyka • Dietetyka • Neuronauka</p>
-        <h1 id="hero-title">Twoje ciało i umysł to <span class="highlight">jedno</span></h1>
-        <p class="hero__subtitle">Treści oparte na badaniach — jak dbać o formę fizyczną, żeby umysł za nią nadążył. I odwrotnie.</p>
+        {% if hero.eyebrow %}<p class="hero__eyebrow">{{ hero.eyebrow }}</p>{% endif %}
+        <h1 id="hero-title" class="hero__h1">{{ hero.h1 | default(site.tagline) }}</h1>
+        <p class="hero__subtitle">{{ hero.subtitle | default(site.description) }}</p>
+
+        {# Pain bullets pod subtitle — budują napięcie zanim pojawi się CTA #}
+        {% if hero.pain_bullets %}
+        <ul class="hero__pain">
+            {% for b in hero.pain_bullets %}<li>{{ b }}</li>{% endfor %}
+        </ul>
+        {% endif %}
+
         <div class="hero__cta">
-            <a href="/artykuly.html" class="btn btn--primary btn--lg">Czytaj artykuły</a>
-            <a href="#newsletter" class="btn btn--ghost btn--lg">Zapisz się na newsletter</a>
+            <a href="{{ hero.cta_primary.url | default('/artykuly.html') }}" class="btn btn--primary btn--lg">{{ hero.cta_primary.text | default('Czytaj artykuły') }}</a>
+            <a href="{{ hero.cta_secondary.url | default('#newsletter') }}" class="btn btn--ghost btn--lg">{{ hero.cta_secondary.text | default('Zapisz się na newsletter') }}</a>
         </div>
-        <p class="hero__meta">Zero reklam. Zero clickbaitu. Źródła pod każdym artykułem.</p>
+
+        {# Quick-contact dla funnel_end — Messenger/WhatsApp/Signal zaraz pod głównym CTA, low friction #}
+        {% if site.role == 'funnel_end' and hero.quick_contact %}
+        <div class="hero__quick" aria-label="Szybki kontakt">
+            <span class="hero__quick-label">Szybki kontakt:</span>
+            {% if hero.quick_contact.messenger %}<a class="hero__quick-link" href="{{ hero.quick_contact.messenger }}" target="_blank" rel="noopener" aria-label="Messenger">💬 Messenger</a>{% endif %}
+            {% if hero.quick_contact.whatsapp %}<a class="hero__quick-link" href="{{ hero.quick_contact.whatsapp }}" target="_blank" rel="noopener" aria-label="WhatsApp">📱 WhatsApp</a>{% endif %}
+            {% if hero.quick_contact.signal %}<a class="hero__quick-link" href="{{ hero.quick_contact.signal }}" target="_blank" rel="noopener" aria-label="Signal">🔐 Signal</a>{% endif %}
+            {% if hero.quick_contact.email %}<a class="hero__quick-link" href="mailto:{{ hero.quick_contact.email }}" aria-label="E-mail">✉️ {{ hero.quick_contact.email }}</a>{% endif %}
+        </div>
+        {% endif %}
+
+        <p class="hero__meta">{{ hero.meta | default('Zero reklam. Zero clickbaitu. Źródła pod każdym artykułem.') }}</p>
     </div>
 </section>
 
+{# Money page (role=funnel_end): trust strip → testimonials → pillars „Co dostajesz" → reszta. Social proof i konkrety zaraz po hero. #}
+{% if site.role == 'funnel_end' %}
+{% include "_trust_strip.html" %}
+{% include "_testimonials.html" %}
+{% endif %}
+
+{% if pillars %}
 <section class="pillars section" aria-labelledby="pillars-title">
     <div class="container">
-        <h2 id="pillars-title" class="section__title">Filary holistycznego zdrowia</h2>
-        <p class="section__lead">Nie da się oddzielić ciała od umysłu. Każdy z tych obszarów wpływa na pozostałe.</p>
+        <h2 id="pillars-title" class="section__title">{{ pillars_title | default('Czym się zajmujemy') }}</h2>
+        <p class="section__lead">{{ pillars_lead | default('Każdy z tych obszarów to fundament naszych treści.') }}</p>
         <div class="pillars__grid">
             {% for pillar in pillars %}
-            <article class="pillar">
-                <div class="pillar__icon" aria-hidden="true">{{ pillar.icon }}</div>
-                <h3>{{ pillar.title }}</h3>
-                <p>{{ pillar.desc }}</p>
-            </article>
+                {% if pillar.link %}
+                <a class="pillar pillar--link" href="{{ pillar.link }}" aria-label="{{ pillar.title }} — przejdź do kategorii">
+                    <div class="pillar__icon" aria-hidden="true">{{ pillar.icon }}</div>
+                    <h3>{{ pillar.title }}</h3>
+                    <p>{{ pillar.desc }}</p>
+                    <span class="pillar__cta" aria-hidden="true">Zobacz artykuły <span class="pillar__arrow">→</span></span>
+                </a>
+                {% else %}
+                <article class="pillar">
+                    <div class="pillar__icon" aria-hidden="true">{{ pillar.icon }}</div>
+                    <h3>{{ pillar.title }}</h3>
+                    <p>{{ pillar.desc }}</p>
+                </article>
+                {% endif %}
             {% endfor %}
         </div>
     </div>
 </section>
+{% endif %}
 
 <section class="section section--alt" aria-labelledby="latest-title">
     <div class="container">
@@ -51,18 +88,29 @@
     </div>
 </section>
 
+{# Satelity: testimonials niżej, pod artykułami. Money page: już wyrenderowane nad pillars. #}
+{% if site.role != 'funnel_end' %}
+{% include "_testimonials.html" %}
+{% endif %}
+
 <section id="o-nas" class="section about" aria-labelledby="about-title">
     <div class="container about__inner">
         <div class="about__text">
-            <h2 id="about-title" class="section__title">Po co ta strona?</h2>
-            <p>W internecie jest zalew treści o zdrowiu. Dużo z nich to marketing, clickbait albo powielanie mitów. <strong>Zdrowie.fit</strong> publikuje tylko treści oparte na badaniach — z linkami do źródeł, bez obietnic cudu.</p>
-            <p>Każdy artykuł przechodzi przez trzy pytania: <em>Czy to działa? Skąd to wiemy? Co z tym zrobić praktycznie?</em></p>
+            <h2 id="about-title" class="section__title">{{ about_title | default('Po co ta strona?') }}</h2>
+            <p>{{ about['intro'] | default(site.description) }}</p>
+            {% if about['values'] is defined and about['values'] %}
             <ul class="about__values">
-                <li><strong>Oparte na badaniach</strong> — każda teza ma źródło</li>
-                <li><strong>Praktyczne</strong> — konkretne kroki, nie ogólniki</li>
-                <li><strong>Bez obietnic cudu</strong> — mówimy co działa i dla kogo</li>
+                {% for v in about['values'] %}
+                <li>{{ v }}</li>
+                {% endfor %}
             </ul>
+            {% endif %}
         </div>
     </div>
 </section>
+
+{# Sticky CTA tylko dla money page — pojawia się po wyjściu hero z viewportu #}
+{% if site.role == 'funnel_end' %}
+{% include "_sticky_cta.html" %}
+{% endif %}
 {% endblock %}

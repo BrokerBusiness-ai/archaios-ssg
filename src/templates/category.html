@@ -8,15 +8,34 @@
 {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
+  "@id": "{{ site.url }}/kategoria/{{ category.slug }}.html#collection",
   "name": {{ category.name | tojson }},
   "description": {{ category.description | tojson }},
   "url": "{{ site.url }}/kategoria/{{ category.slug }}.html",
+  "isPartOf": {"@id": "{{ site.url }}/#website"},
+  "inLanguage": "{{ site.lang }}",
+  "datePublished": "{{ now.strftime('%Y-%m-%d') }}",
+  "dateModified": "{{ now.strftime('%Y-%m-%d') }}",
   "breadcrumb": {
     "@type": "BreadcrumbList",
     "itemListElement": [
       {"@type": "ListItem", "position": 1, "name": "Start", "item": "{{ site.url }}/"},
       {"@type": "ListItem", "position": 2, "name": "Artykuły", "item": "{{ site.url }}/artykuly.html"},
       {"@type": "ListItem", "position": 3, "name": {{ category.name | tojson }}, "item": {{ (site.url + '/kategoria/' + category.slug + '.html') | tojson }}}
+    ]
+  },
+  "mainEntity": {
+    "@type": "ItemList",
+    "numberOfItems": {{ articles | length }},
+    "itemListElement": [
+      {%- for a in articles %}
+      {
+        "@type": "ListItem",
+        "position": {{ loop.index }},
+        "url": "{{ site.url }}/artykuly/{{ a.slug }}.html",
+        "name": {{ a.title | tojson }}
+      }{% if not loop.last %},{% endif %}
+      {%- endfor %}
     ]
   }
 }
@@ -41,8 +60,9 @@
     </div>
 </section>
 
-<section class="section">
+<section class="section" aria-labelledby="cat-articles-title">
     <div class="container">
+        <h2 id="cat-articles-title" class="visually-hidden">Artykuły w kategorii {{ category.name }}</h2>
         {% if articles %}
         <div class="articles-grid">
             {% for a in articles %}{% include "_article_card.html" %}{% endfor %}

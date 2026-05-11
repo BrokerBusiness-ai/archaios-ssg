@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" fill="none">
+  <defs>
+    <linearGradient id="amberBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fdfcf9"/>
+      <stop offset="100%" stop-color="#f0e2c8"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#amberBg)"/>
+
+  <!-- Dekoracyjne elementy -->
+  <circle cx="1050" cy="200" r="280" fill="#e8922d" opacity="0.06"/>
+  <circle cx="200" cy="500" r="180" fill="#7a9a6d" opacity="0.05"/>
+
+  <!-- Mark po lewej -->
+  <g transform="translate(100, 220)">
+    <rect x="0" y="0" width="100" height="100" rx="22" fill="#7c5b3c"/>
+    <path d="M 50 22 Q 38 42 38 58 Q 38 74 50 80 Q 62 74 62 58 Q 62 42 50 22 Z" fill="#e8922d"/>
+    <path d="M 50 38 Q 44 50 44 60 Q 44 70 50 74 Q 56 70 56 60 Q 56 50 50 38 Z" fill="#c07824"/>
+    <circle cx="50" cy="86" r="4.5" fill="#7a9a6d"/>
+  </g>
+
+  <!-- Wordmark + tagline -->
+  <text x="240" y="270" font-family="'Source Serif Pro', Georgia, serif" font-size="68" font-weight="600" fill="#5a4129" letter-spacing="-0.5">Sprawdź<tspan fill="#e8922d"> Wypalenie</tspan></text>
+  <text x="240" y="325" font-family="Inter, system-ui, sans-serif" font-size="26" fill="#5a5a5a">Rozpoznaj i pokonaj wypalenie zawodowe</text>
+
+  <line x1="240" y1="365" x2="380" y2="365" stroke="#e8922d" stroke-width="3"/>
+
+  <text x="100" y="585" font-family="Inter, system-ui, sans-serif" font-size="20" fill="#7a7a7a">sprawdzwypalenie.pl · oparte na modelu Maslach</text>
+</svg>

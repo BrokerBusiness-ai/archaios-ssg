@@ -1,0 +1,119 @@
+{
+  "_comment": "Rejestr tematów per domena — przeciwdziała kanibalizacji SEO między satelitami klastra NURIO i ARCHAIOS. Każdy temat ma być unikalny w obrębie klastra; jeśli temat się powtarza — wymagany jest jasny inny kąt podejścia.",
+  "version": "1.0",
+  "last_updated": "2026-04-26",
+  "domains": {
+    "testnis2.pl": {
+      "cluster": "ARCHAIOS",
+      "topics": [
+        {"id": "tn2-01", "title": "NIS2 — checklista gotowości 10 obszarów", "slug": "nis2-checklista-gotowosci-10-obszarow", "funnel": "TOFU-pillar", "tags": ["NIS2","checklista","audyt","gotowość","ENISA"]},
+        {"id": "tn2-02", "title": "Kogo obowiązuje NIS2 w Polsce", "slug": "kogo-obowiazuje-nis2-w-polsce", "funnel": "TOFU", "tags": ["NIS2","podmioty-kluczowe","podmioty-istotne","Polska"]},
+        {"id": "tn2-03", "title": "NIS1 vs NIS2", "slug": "nis1-vs-nis2-co-sie-zmienilo", "funnel": "TOFU", "tags": ["NIS2","NIS1","porównanie","2024"]},
+        {"id": "tn2-04", "title": "NIS2 dla MŚP", "slug": "nis2-dla-msp-uproszczone-wymagania", "funnel": "MOFU", "tags": ["NIS2","MSP","SME","uproszczenia"]},
+        {"id": "tn2-05", "title": "Raportowanie incydentów 24/72h", "slug": "raportowanie-incydentow-24-72h-nis2", "funnel": "MOFU", "tags": ["NIS2","incydenty","raportowanie","CSIRT"]},
+        {"id": "tn2-06", "title": "Odpowiedzialność zarządu", "slug": "odpowiedzialnosc-zarzadu-nis2", "funnel": "MOFU", "tags": ["NIS2","zarząd","C-level","odpowiedzialność-osobista"]},
+        {"id": "tn2-07", "title": "NIS2 vs RODO", "slug": "nis2-vs-rodo-co-sie-naklada", "funnel": "MOFU-cornerstone", "tags": ["NIS2","RODO","GDPR","compliance"]},
+        {"id": "tn2-08", "title": "Łańcuch dostaw w NIS2", "slug": "lancuch-dostaw-w-nis2-supply-chain", "funnel": "MOFU", "tags": ["NIS2","supply-chain","dostawcy","third-party"]},
+        {"id": "tn2-09", "title": "Certyfikacje wymagane NIS2", "slug": "certyfikacje-wymagane-nis2", "funnel": "MOFU", "tags": ["NIS2","ISO27001","certyfikacje","cyberodporność"]},
+        {"id": "tn2-10", "title": "Test gotowości NIS2", "slug": "test-gotowosci-nis2-online", "funnel": "BOFU", "tags": ["NIS2","test-gotowości","audyt-przedwdrożeniowy"]}
+      ]
+    },
+    "testpredyspozycje.pl": {
+      "cluster": "NURIO",
+      "topics": [
+        {"id": "tp-01", "title": "Big Five a kariera", "slug": "big-five-a-kariera-predyktor-sukcesu", "funnel": "TOFU-pillar", "tags": ["Big-Five","NEO-PI-R","McCrae","Costa","kariera"]},
+        {"id": "tp-02", "title": "CliftonStrengths w praktyce", "slug": "cliftonstrengths-w-praktyce-mocne-strony", "funnel": "MOFU", "tags": ["Gallup","Buckingham","StrengthsFinder","mocne-strony"]},
+        {"id": "tp-03", "title": "MBTI vs Big Five", "slug": "mbti-vs-big-five-porownanie-naukowe", "funnel": "TOFU", "tags": ["MBTI","Big-Five","Myers-Briggs","psychometria"]},
+        {"id": "tp-04", "title": "Inteligencja emocjonalna w pracy", "slug": "inteligencja-emocjonalna-w-pracy", "funnel": "MOFU", "tags": ["EQ","Goleman","Bar-On","EI"]},
+        {"id": "tp-05", "title": "Neuroplastyczność a rozwój talentów", "slug": "neuroplastycznosc-a-rozwoj-talentow", "funnel": "TOFU", "tags": ["neuroplastyczność","Doidge","Dweck","growth-mindset"]},
+        {"id": "tp-06", "title": "Co naprawdę mierzą testy predyspozycji", "slug": "co-mierza-testy-predyspozycji-psychometria", "funnel": "MOFU", "tags": ["psychometria","trafność","rzetelność","walidacja"]},
+        {"id": "tp-07", "title": "Introwersja w świecie ekstrawertyków", "slug": "introwersja-w-swiecie-ekstrawertykow", "funnel": "TOFU", "tags": ["introwersja","Cain","Quiet","temperament"]},
+        {"id": "tp-08", "title": "Flow state — Csíkszentmihályi", "slug": "flow-state-csikszentmihalyi-w-praktyce", "funnel": "MOFU-cornerstone", "tags": ["flow","Csikszentmihalyi","optymalne-doswiadczenie"]},
+        {"id": "tp-09", "title": "Mocne strony w zespole", "slug": "mocne-strony-w-zespole", "funnel": "MOFU", "tags": ["zespół","Lencioni","komplementarność","CliftonStrengths"]},
+        {"id": "tp-10", "title": "Talenty wrodzone vs wyuczone", "slug": "talenty-wrodzone-vs-wyuczone", "funnel": "BOFU", "tags": ["talenty","deliberate-practice","Ericsson","Gladwell"]}
+      ]
+    },
+    "sprawdzwypalenie.pl": {
+      "cluster": "NURIO",
+      "topics": [
+        {"id": "sw-01", "title": "Test Maslach + diagnostyka", "slug": "test-maslach-diagnostyka-wypalenia", "funnel": "TOFU-pillar", "tags": ["MBI","Maslach","diagnoza","wypalenie"]},
+        {"id": "sw-02", "title": "Fazy wypalenia", "slug": "fazy-wypalenia-freudenberger-maslach", "funnel": "TOFU", "tags": ["fazy","Freudenberger","North","12-stages"]},
+        {"id": "sw-03", "title": "Zawody pomocowe", "slug": "wypalenie-zawody-pomocowe", "funnel": "MOFU", "tags": ["lekarze","nauczyciele","STS","compassion-fatigue"]},
+        {"id": "sw-04", "title": "Wypalenie vs depresja", "slug": "wypalenie-vs-depresja-roznicowanie", "funnel": "MOFU", "tags": ["różnicowanie","depresja","Bianchi","Schonfeld"]},
+        {"id": "sw-05", "title": "Quiet quitting", "slug": "quiet-quitting-psychologia-zjawiska", "funnel": "TOFU", "tags": ["quiet-quitting","disengagement","Gallup"]},
+        {"id": "sw-06", "title": "Powrót po wypaleniu", "slug": "powrot-po-wypaleniu-protokol", "funnel": "BOFU", "tags": ["regeneracja","powrót","protokół-90","Bakker"]},
+        {"id": "sw-07", "title": "Rola przełożonego", "slug": "rola-przelozonego-w-wypaleniu-zespolu", "funnel": "MOFU", "tags": ["JD-R","Bakker-Demerouti","leadership"]},
+        {"id": "sw-08", "title": "Work-life balance", "slug": "work-life-balance-evidence-based", "funnel": "MOFU", "tags": ["WLB","Friedman","total-leadership"]},
+        {"id": "sw-09", "title": "Fizjologia stresu chronicznego", "slug": "fizjologia-stresu-chronicznego", "funnel": "MOFU-cornerstone", "tags": ["McEwen","allostatic-load","HPA","cytokiny"]},
+        {"id": "sw-10", "title": "Wypalenie w IT", "slug": "wypalenie-w-it-specyfika-branzy", "funnel": "MOFU", "tags": ["IT","developers","crunch","tech-burnout"]}
+      ]
+    },
+    "jaksobieradzic.pl": {
+      "cluster": "NURIO",
+      "topics": [
+        {"id": "jr-01", "title": "Żałoba: fazy, trwanie, kiedy pomoc", "slug": "zaloba-fazy-trwanie-kiedy-szukac-pomocy", "funnel": "TOFU-pillar", "tags": ["żałoba","Kübler-Ross","Worden","strata"]},
+        {"id": "jr-02", "title": "Rozwód: psychologiczna mapa przejścia", "slug": "rozwod-psychologiczna-mapa-przejscia", "funnel": "MOFU", "tags": ["rozwód","strata-relacji","adaptacja","faza-przejścia"]},
+        {"id": "jr-03", "title": "Utrata pracy: kryzys tożsamości", "slug": "utrata-pracy-kryzys-tozsamosci", "funnel": "MOFU", "tags": ["utrata-pracy","Bridges","tranzycja","tożsamość"]},
+        {"id": "jr-04", "title": "Lęk przed przyszłością", "slug": "lek-przed-przyszloscia-jak-zyc", "funnel": "TOFU", "tags": ["lęk-przyszłość","niepewność","akceptacja","ACT"]},
+        {"id": "jr-05", "title": "Syndrom oszusta", "slug": "syndrom-oszusta-sukces-bez-radosci", "funnel": "MOFU", "tags": ["impostor-syndrome","Clance","perfekcjonizm"]},
+        {"id": "jr-06", "title": "Wypalenie rodzicielskie", "slug": "wypalenie-rodzicielskie-ukryta-epidemia", "funnel": "MOFU", "tags": ["wypalenie-rodzicielskie","Roskam","Mikolajczak","PBA"]},
+        {"id": "jr-07", "title": "Samotność", "slug": "samotnosc-od-izolacji-do-kontaktu", "funnel": "MOFU", "tags": ["samotność","izolacja","Cacioppo","Holt-Lunstad"]},
+        {"id": "jr-08", "title": "Trudne rozmowy", "slug": "trudne-rozmowy-jak-mowic-czego-sie-boisz", "funnel": "MOFU", "tags": ["trudne-rozmowy","komunikacja","Stone-Patton-Heen","NVC"]},
+        {"id": "jr-09", "title": "Kryzys wartości w połowie życia", "slug": "kryzys-wartosci-polowa-zycia-nie-kryzys-wieku", "funnel": "MOFU-cornerstone", "tags": ["kryzys-wartości","Jung","midlife","wartości-egzystencjalne"]},
+        {"id": "jr-10", "title": "Opieka nad osobą chorą", "slug": "opieka-nad-osoba-chora-jak-nie-zatracic-siebie", "funnel": "BOFU", "tags": ["opieka","caregiver-burnout","Maslach","wsparcie"]}
+      ]
+    },
+    "psychodzisiaj.pl": {
+      "cluster": "NURIO",
+      "topics": [
+        {"id": "pd-01", "title": "Prokrastynacja: dlaczego odkładamy", "slug": "prokrastynacja-dlaczego-odkladamy-wazne-sprawy", "funnel": "TOFU-pillar", "tags": ["prokrastynacja","Steel","temporal-motivation","emocje"]},
+        {"id": "pd-02", "title": "Gaslighting w relacjach", "slug": "gaslighting-w-relacjach-jak-rozpoznac", "funnel": "TOFU", "tags": ["gaslighting","DARVO","manipulacja","relacje"]},
+        {"id": "pd-03", "title": "Lęk społeczny vs introwertyzm", "slug": "lek-spoleczny-vs-introwertyzm-roznice", "funnel": "TOFU", "tags": ["lęk-społeczny","SAD","introwertyzm","Cain"]},
+        {"id": "pd-04", "title": "Gniew jako informacja", "slug": "gniew-regulacja-emocji-co-mowi", "funnel": "TOFU", "tags": ["gniew","regulacja-emocji","Gross","emocje-pierwotne"]},
+        {"id": "pd-05", "title": "People-pleasing", "slug": "people-pleasing-koszty-bycia-mily", "funnel": "MOFU", "tags": ["people-pleasing","fawn-response","granice","asertywność"]},
+        {"id": "pd-06", "title": "Granice psychologiczne", "slug": "granice-psychologiczne-w-praktyce", "funnel": "MOFU", "tags": ["granice","NVC","komunikacja","Cloud-Townsend"]},
+        {"id": "pd-07", "title": "Style przywiązania w dorosłości", "slug": "style-przywiazania-doroslosc-relacje", "funnel": "MOFU", "tags": ["przywiązanie","attachment","Bowlby","Mikulincer","ECR-R"]},
+        {"id": "pd-08", "title": "Efekt Dunninga-Krugera", "slug": "efekt-dunninga-krugera-niekompetencja", "funnel": "TOFU", "tags": ["dunning-kruger","metakognicja","kompetencja"]},
+        {"id": "pd-09", "title": "Emocje w decyzjach (Damasio)", "slug": "emocje-w-podejmowaniu-decyzji-damasio", "funnel": "MOFU-cornerstone", "tags": ["Damasio","markery-somatyczne","decyzje","wyspa"]},
+        {"id": "pd-10", "title": "Toxic positivity", "slug": "toxic-positivity-kiedy-pozytywne-szkodzi", "funnel": "BOFU", "tags": ["toxic-positivity","emotional-suppression","Pennebaker","walidacja"]}
+      ]
+    },
+    "psychosen.pl": {
+      "cluster": "NURIO",
+      "topics": [
+        {"id": "ps-01", "title": "Chronotypy: skowronki, sowy, kolibry", "slug": "chronotypy-skowronki-sowy-kolibry", "funnel": "TOFU-pillar", "tags": ["chronotypy","rytm-dobowy","social-jet-lag","gen-CLOCK"]},
+        {"id": "ps-02", "title": "Bezsenność pierwotna vs wtórna", "slug": "bezsennosc-pierwotna-wtorna", "funnel": "TOFU", "tags": ["bezsenność","insomnia","zaburzenia-snu"]},
+        {"id": "ps-03", "title": "CBT-I jako gold standard", "slug": "cbti-terapia-poznawczo-behawioralna-bezsennosci", "funnel": "MOFU", "tags": ["CBTI","sleep-restriction","stimulus-control","CBT"]},
+        {"id": "ps-04", "title": "Melatonina: dawkowanie i mity", "slug": "melatonina-co-robi-bledy-w-dawkowaniu", "funnel": "MOFU", "tags": ["melatonina","jet-lag","DLMO","suplementy"]},
+        {"id": "ps-05", "title": "Sen a konsolidacja pamięci", "slug": "sen-a-pamiec-konsolidacja-rem-nrem", "funnel": "TOFU", "tags": ["pamięć","REM","NREM","konsolidacja","Stickgold"]},
+        {"id": "ps-06", "title": "Niebieskie światło i ekrany", "slug": "niebieskie-swiatlo-ekrany-przed-snem", "funnel": "TOFU", "tags": ["blue-light","ipRGC","supresja-melatoniny","ekrany"]},
+        {"id": "ps-07", "title": "Sen polifazowy: dlaczego nie działa", "slug": "sen-polifazowy-uberman-dlaczego-nie-dziala", "funnel": "MOFU", "tags": ["polifazowy","uberman","everyman","debunking"]},
+        {"id": "ps-08", "title": "Po co śnimy", "slug": "po-co-snimy-neurobiologia-snow", "funnel": "TOFU", "tags": ["sny","REM","amygdala","Hobson","activation-synthesis"]},
+        {"id": "ps-09", "title": "Sen a depresja", "slug": "sen-a-depresja-dwukierunkowa-relacja", "funnel": "MOFU-cornerstone", "tags": ["depresja","sen","BDNF","cytokiny","sleep-deprivation-therapy"]},
+        {"id": "ps-10", "title": "Higiena snu evidence-based", "slug": "higiena-snu-evidence-based-12-zasad", "funnel": "BOFU", "tags": ["higiena-snu","RCT","sleep-hygiene","practice"]}
+      ]
+    },
+    "zdrowie.fit": {
+      "cluster": "NURIO",
+      "topics": [
+        {"id": "zf-01", "title": "Oś jelita–mózg: mikrobiom a depresja", "slug": "mikrobiom-os-jelita-mozg-depresja", "funnel": "TOFU-pillar", "tags": ["mikrobiom","depresja","os-jelita-mozg","nerw-bledny"]},
+        {"id": "zf-02", "title": "Trening siłowy jako antydepresant", "slug": "trening-silowy-antydepresant-metaanaliza", "funnel": "TOFU", "tags": ["depresja","trening-silowy","BDNF","exercise-medicine"]},
+        {"id": "zf-03", "title": "Układ glimfatyczny i sen", "slug": "uklad-glimfatyczny-sen-mozg", "funnel": "TOFU", "tags": ["sen","glimfatyczny","alzheimer","detoksykacja-mozgu"]},
+        {"id": "zf-04", "title": "Dieta MIND vs śródziemnomorska", "slug": "dieta-mind-vs-srodziemnomorska-mozg", "funnel": "MOFU", "tags": ["dieta-MIND","dieta-srodziemnomorska","demencja","mozg"]},
+        {"id": "zf-05", "title": "Polywagal Theory — nerw błędny", "slug": "polywagal-theory-nerw-bledny-emocje", "funnel": "MOFU", "tags": ["nerw-bledny","polywagal","HRV","regulacja-emocji"]},
+        {"id": "zf-06", "title": "Cold exposure — nauka vs marketing", "slug": "cold-exposure-zimne-prysznice-nauka", "funnel": "MOFU", "tags": ["zimno","krioterapia","wim-hof","biohacking"]},
+        {"id": "zf-07", "title": "Kortyzol a serce", "slug": "kortyzol-a-serce-stres-chroniczny", "funnel": "TOFU", "tags": ["kortyzol","stres","serce","psychosomatyka"]},
+        {"id": "zf-08", "title": "Cztery filary odporności psychicznej", "slug": "cztery-filary-odpornosci-psychicznej", "funnel": "MOFU-cornerstone", "tags": ["odpornosc","sen","dieta","ruch","relacje"]},
+        {"id": "zf-09", "title": "Kawa a zdrowie — metaanaliza 2024", "slug": "kawa-a-zdrowie-metaanaliza-2024", "funnel": "TOFU", "tags": ["kawa","kofeina","metaanaliza"]},
+        {"id": "zf-10", "title": "Audyt zdrowia w 5 testach z domu", "slug": "audyt-zdrowia-5-testow-z-domu", "funnel": "BOFU", "tags": ["test","diagnoza","HRV","domowy-audyt"]}
+      ]
+    }
+  },
+  "anti_cannibalization_rules": [
+    "Wypalenie zawodowe — TYLKO sprawdzwypalenie.pl. Dozwolone na innych: tylko z wyraźnie innym kątem (np. jaksobieradzic.pl: 'jak pomóc wypalonemu partnerowi').",
+    "Sen (główny temat) — TYLKO psychosen.pl. Dozwolone na zdrowie.fit: tylko fizjologia/neurobiologia (np. układ glimfatyczny — nie higiena snu).",
+    "Testy psychologiczne (NEO-FFI, Big Five, MBTI) — TYLKO testpredyspozycje.pl.",
+    "NIS2 — TYLKO testnis2.pl, karynis2.pl, skanujfirme.pl. Każda z innym kątem (gotowość vs kary vs audyt).",
+    "RAG/LLM techniczne — TYLKO ragpolska.pl. onpremiseai.pl tylko o wdrożeniach lokalnych, aidzisiaj.pl tylko o biznesie/regulacjach."
+  ]
+}

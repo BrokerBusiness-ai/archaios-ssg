@@ -37,21 +37,27 @@ pillars:
   - icon: "🏃"
     title: "Ruch"
     desc: "Trening siłowy, cardio, rozciąganie — jak ciało wpływa na umysł."
+    link: "/kategoria/fizyczne.html"
   - icon: "🧠"
     title: "Umysł"
     desc: "Mindfulness, terapia, zarządzanie stresem i emocjami."
+    link: "/kategoria/psychiczne.html"
   - icon: "🥗"
     title: "Odżywianie"
     desc: "Dieta oparta na badaniach, mikrobiom, suplementacja."
+    link: "/kategoria/dieta.html"
   - icon: "😴"
     title: "Regeneracja"
     desc: "Sen, odpoczynek, higiena dnia. Bez tego nic nie działa."
+    link: "/kategoria/fizyczne.html"
   - icon: "🌿"
     title: "Natura"
     desc: "Shinrin-yoku, światło dzienne, kontakt z przyrodą."
+    link: "/kategoria/fizyczne.html"
   - icon: "❤️"
     title: "Relacje"
     desc: "Więzi społeczne to jeden z najsilniejszych predyktorów zdrowia."
+    link: "/kategoria/psychiczne.html"
 
 categories:
   - name: "Zdrowie fizyczne"
@@ -75,6 +81,8 @@ about:
     - "Praktyczność — konkretne wskazówki, które możesz wdrożyć dziś"
 
 newsletter:
+  endpoint: "https://aa8e411c.sibforms.com/serve/MUIFAOcnvhfYV-5SERpYOpanAce1ef6YeZgo1P_MAW_qC564qu4R1_rLcfvS5BOFdmxkqYHyqgMdQvRmLRPVotbiEBjywcRusHwMMBihbWXNkV35Vgg6IKcexIteQzpMTvbvUPUwOHn6b_CzTb3abgzFNprmX7dSJinbnf5NozU1IbK7SUggClyAAiYAdId_IJ-7IoTaHj8B5a7ixg=="
+  provider: "brevo"
   title_highlight: "cotygodniowy przegląd"
   title_rest: "badań o zdrowiu"
   subtitle: "Raz w tygodniu: 3 konkretne wskazówki oparte na badaniach, zero spamu, wypisujesz się jednym klikiem."
@@ -85,8 +93,23 @@ footer:
 
 email: "kontakt@zdrowie.fit"
 
+# Analytics — GA4 + Meta Pixel
+# GA4: https://analytics.google.com → property zdrowie.fit → Admin → Data Streams → Web → Measurement ID (format: G-XXXXXXXXXX)
+# FB Pixel: https://business.facebook.com → Events Manager → Pixel ID (format: 16-cyfrowy numer)
+analytics:
+  ga4_id: "G-17TZ94QHWV"
+  fb_pixel_id: ""      # opcjonalnie, dla Meta Ads
+
+# Organization extras (E-E-A-T + schema.org enrichment)
+founder: "Marek Porycki"
+foundingDate: "2024-01"
+address:
+  locality: "Warszawa"
+  region: "mazowieckie"
+  country: "PL"
+
 social:
-  fb: ""
+  fb: "https://www.facebook.com/profile.php?id=61576496223239"
   ig: ""
   yt: ""
   tw: ""

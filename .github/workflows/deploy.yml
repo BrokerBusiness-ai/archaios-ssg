@@ -57,7 +57,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r backend/requirements.txt
-          pip install Pillow python-dotenv httpx pyyaml
+          pip install Pillow python-dotenv httpx pyyaml python-frontmatter markdown
 
       - name: Read domain slug → real domain
         id: cfg
@@ -68,6 +68,27 @@ jobs:
           echo "real_domain=$REAL_DOMAIN" >> "$GITHUB_OUTPUT"
           echo "slug=${{ matrix.domain }}" >> "$GITHUB_OUTPUT"
           echo "Domain slug='${{ matrix.domain }}' → real='$REAL_DOMAIN'"
+
+      - name: Initialize fresh DB for this domain
+        env:
+          # CI-only temporary credentials — niezbędne dla pydantic settings,
+          # ale baza jest tworzona od zera w każdym jobie i nigdy nie wychodzi poza runner
+          SECRET_KEY: ci-only-temp-secret-key-build-stage-not-for-runtime
+          ADMIN_USERNAME: ci-admin
+          ADMIN_PASSWORD: ci-only-temp-password-for-schema-creation-min-16
+          DATABASE_URL: sqlite:///./backend/zdrowiefit.db
+        run: |
+          python scripts/init_ci_db.py "${{ matrix.domain }}"
+
+      - name: Import articles from markdown sources
+        env:
+          USE_API: 'false'
+        run: |
+          if [ -d "content_generated/${{ matrix.domain }}" ]; then
+            python content_generated/import_articles.py "${{ matrix.domain }}" --force-update
+          else
+            echo "Brak content_generated/${{ matrix.domain }}/ — buduję domenę bez artykułów (tylko strony statyczne z YAML)."
+          fi
 
       - name: Build static site
         env:

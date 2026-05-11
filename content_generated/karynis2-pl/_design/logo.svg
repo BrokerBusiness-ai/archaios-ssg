@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 64" fill="none">
+  <rect x="0" y="8" width="48" height="48" rx="8" fill="#1a365d"/>
+  <text x="24" y="32" font-family="Inter, sans-serif" font-size="20" font-weight="800" fill="#fdfcf9" text-anchor="middle">€</text>
+  <path d="M 8 48 L 24 40 L 40 48 L 40 52 L 8 52 Z" fill="#c0392b"/>
+  <text x="60" y="36" font-family="'IBM Plex Sans', sans-serif" font-size="22" font-weight="700" fill="#1a365d" letter-spacing="-0.5">KaryNIS2<tspan fill="#c0392b">.pl</tspan></text>
+  <text x="60" y="52" font-family="Inter, sans-serif" font-size="11" fill="#7a8aa0">Sankcje • Precedensy • Postępowania</text>
+</svg>

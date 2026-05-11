@@ -48,16 +48,16 @@ pillars:
     desc: "Edukacja zespołu — od zarządu po administratorów IT."
 
 categories:
-  - name: "Audyt NIS2"
+  - name: "Gotowość NIS2"
     slug: "audyt-nis2"
     icon: "🔍"
     color: "#1a365d"
-  - name: "Regulacje"
+  - name: "Regulacje NIS2"
     slug: "regulacje"
     icon: "⚖️"
     color: "#2980b9"
-  - name: "Wdrożenia"
-    slug: "wdrozenia"
+  - name: "Wdrożenia NIS2"
+    slug: "wdrozenia-nis2"
     icon: "🛠️"
     color: "#c0392b"
 

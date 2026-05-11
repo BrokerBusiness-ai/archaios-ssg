@@ -85,12 +85,19 @@ def init_config(domain: str | None = None) -> None:
             "hero": dcfg["hero"],
             "about": dcfg["about"],
             "footer": dcfg["footer"],
+            "testimonials": dcfg.get("testimonials", {}),
+            "trust_strip": dcfg.get("trust_strip", {}),
+            "sticky_cta": dcfg.get("sticky_cta", {}),
+            "pricing": dcfg.get("pricing", {}),
+            "faq": dcfg.get("faq", {}),
             "domain_products": dcfg["products"],
             "domain_categories": dcfg["categories"],
             "api_url": cfg("API_URL", "http://127.0.0.1:8765/api"),
             "use_api": cfg("USE_API", "true").lower() in ("1", "true", "yes"),
             "output": ROOT / "output" / domain.replace(".", "-"),
             "backend_url": cfg("BACKEND_URL", "http://127.0.0.1:8765"),
+            # KRYTYCZNE: pole _domain potrzebne dla ensure_default_assets do znalezienia per-domain assets
+            "_domain": dcfg.get("_domain", domain),
         }
         PILLARS = dcfg["pillars"]
         CONFIG["theme"] = dcfg.get("theme", {})
@@ -113,6 +120,7 @@ def init_config(domain: str | None = None) -> None:
                 "logo_mark": "◐",
                 "logo_text": "Zdrowie",
                 "logo_accent": ".fit",
+                "backend_url": cfg("BACKEND_URL", "").rstrip("/"),
             },
             "analytics": {
                 "ga4_id": cfg("GA4_ID"),
@@ -140,7 +148,7 @@ def init_config(domain: str | None = None) -> None:
             "domain_categories": [],
             "api_url": cfg("API_URL", "http://127.0.0.1:8765/api"),
             "use_api": cfg("USE_API", "true").lower() in ("1", "true", "yes"),
-            "output": ROOT / cfg("OUTPUT_DIR", "zdrowie-fit"),
+            "output": ROOT / "output" / cfg("OUTPUT_DIR", "zdrowie-fit"),
             "backend_url": cfg("BACKEND_URL", "http://127.0.0.1:8765"),
         }
         PILLARS = [
@@ -184,10 +192,16 @@ def strip_html(html: str) -> str:
 
 
 def abs_url(url: str) -> str:
-    """Jeśli URL jest względny (/uploads/...) zamienia na absolutny z backend_url."""
+    """Zamienia względne uploady backendu (/uploads/...) na absolutny URL z backend_url.
+    Lokalne assety statyczne (/img/articles/, /img/og/, /static/, /css/, /js/) zostawia
+    jako relatywne — są serwowane bezpośrednio przez statyczny build, nie przez backend.
+    """
     if not url: return ""
     if url.startswith(("http://", "https://")): return url
-    return CONFIG["backend_url"].rstrip("/") + url
+    if url.startswith("/uploads/"):
+        return CONFIG["backend_url"].rstrip("/") + url
+    # Lokalny static asset — zostaw względny, build go serwuje pod tym samym path
+    return url
 
 
 # ═════════════════ FETCH ═════════════════
@@ -227,7 +241,10 @@ def fetch_from_api() -> dict:
         return fetch_from_db()
 
 
-def fetch_from_db() -> dict:
+def fetch_from_db(category_slugs: list[str] | None = None) -> dict:
+    """Pobiera dane z SQLite. Jeśli `category_slugs` podane — FILTRUJE artykuły+kategorie
+    do tych slugów (PBN-safety per-domena: każda satelita widzi tylko swoje kategorie/artykuły,
+    mimo wspólnej bazy danych)."""
     db_path = ROOT / "backend" / "zdrowiefit.db"
     if not db_path.exists():
         print(f"❌ Brak bazy {db_path}")
@@ -235,16 +252,37 @@ def fetch_from_db() -> dict:
     conn = sqlite3.connect(str(db_path))
     conn.row_factory = sqlite3.Row
 
-    cats = [dict(r) for r in conn.execute("SELECT * FROM categories ORDER BY sort_order")]
+    # Filter kategorie po slugach z yaml domeny (jeśli podane)
+    if category_slugs:
+        placeholders = ",".join("?" * len(category_slugs))
+        cats = [dict(r) for r in conn.execute(
+            f"SELECT * FROM categories WHERE slug IN ({placeholders}) ORDER BY sort_order",
+            category_slugs,
+        )]
+    else:
+        cats = [dict(r) for r in conn.execute("SELECT * FROM categories ORDER BY sort_order")]
     cat_by_id = {c["id"]: c for c in cats}
+    cat_ids = list(cat_by_id.keys())
 
     authors = [dict(r) for r in conn.execute("SELECT * FROM authors ORDER BY sort_order, name")]
     auth_by_id = {a["id"]: a for a in authors}
 
     products = [dict(r) for r in conn.execute("SELECT * FROM products WHERE is_active = 1 ORDER BY priority DESC, name")]
 
+    # Filter artykuły do tylko tych w kategoriach domeny
     articles = []
-    for r in conn.execute("SELECT * FROM articles WHERE is_published = 1 ORDER BY published_at DESC"):
+    if cat_ids:
+        cat_placeholders = ",".join("?" * len(cat_ids))
+        sql = (
+            f"SELECT * FROM articles WHERE is_published = 1 "
+            f"AND category_id IN ({cat_placeholders}) "
+            f"ORDER BY published_at DESC"
+        )
+        rows = conn.execute(sql, cat_ids)
+    else:
+        # Brak filtru — fallback do wszystkich (kompatybilność wstecz)
+        rows = conn.execute("SELECT * FROM articles WHERE is_published = 1 ORDER BY published_at DESC")
+    for r in rows:
         a = dict(r)
         cat = cat_by_id.get(a.get("category_id"))
         if cat:
@@ -253,6 +291,11 @@ def fetch_from_db() -> dict:
         if au:
             a["author"] = au["name"]; a["author_slug"] = au["slug"]
         articles.append(a)
+
+    # Filter autorów do tych, którzy faktycznie mają artykuły w tej domenie
+    used_author_ids = {a.get("author_id") for a in articles if a.get("author_id")}
+    if used_author_ids:
+        authors = [au for au in authors if au["id"] in used_author_ids]
 
     conn.close()
     # Article counts
@@ -560,6 +603,55 @@ def render(env: Environment, template: str, out: Path, **ctx):
     print(f"  ✓ {out.relative_to(ROOT)}")
 
 
+# ═════════════════ DOI LINKIFIER (E-E-A-T booster) ═════════════════
+# Zamienia plain-text DOI w treści artykułu (zwłaszcza w bibliografii)
+# na klikalne linki <a href="https://doi.org/...">. Idempotentne — pomija
+# DOI już zlinkowane w <a>.
+
+_DOI_FULL_URL_RE = re.compile(
+    r'(?<![">/=\'])'                                         # nie wewnątrz href/src
+    r'(https?://(?:dx\.)?doi\.org/(10\.\d{4,}/[^\s<>"\']+?))'
+    r'(?=[\s.,;:)\]<]|$)',
+    re.IGNORECASE,
+)
+_DOI_BARE_RE = re.compile(
+    r'(?<![\w/.-])'                                          # nie wewnątrz słowa lub URL
+    r'(10\.\d{4,}/[^\s<>"\']+?)'
+    r'(?=[\s.,;:)\]<]|$)',
+)
+
+
+def linkify_dois(html: str) -> str:
+    """Zamień plain-text DOI na klikalne linki. Idempotent."""
+    if not html:
+        return html
+    # 1) pełne URL https://doi.org/10.xxxx/yyyy
+    html = _DOI_FULL_URL_RE.sub(
+        lambda m: (
+            f'<a href="{m.group(1)}" rel="noopener nofollow" '
+            f'target="_blank" class="doi-link">{m.group(1)}</a>'
+        ),
+        html,
+    )
+
+    # 2) bare DOI (10.xxxx/yyyy) — tylko POZA istniejącymi linkami
+    def _replace_bare(m: re.Match) -> str:
+        doi = m.group(1)
+        # Sprawdź ostatnie 50 znaków — jeśli zawierają 'href=' to jesteśmy w atrybucie
+        start = max(0, m.start() - 50)
+        nearby = html[start:m.start()]
+        # pomiń jeśli już w href=, lub bezpośrednio po >https://doi.org/
+        if 'href=' in nearby or 'doi.org/' in nearby[-15:]:
+            return m.group(0)
+        return (
+            f'<a href="https://doi.org/{doi}" rel="noopener nofollow" '
+            f'target="_blank" class="doi-link">https://doi.org/{doi}</a>'
+        )
+
+    html = _DOI_BARE_RE.sub(_replace_bare, html)
+    return html
+
+
 def extract_faq_items(content: str) -> list[dict]:
     """Wyciąga FAQ z contentu artykułu — szuka <h2>/<h3> kończących się '?' i następnego <p>."""
     if not content:
@@ -627,7 +719,9 @@ def minify_css(css: str) -> str:
     """Prosty minifier CSS — usuwa komentarze, zbędne whitespace."""
     css = re.sub(r'/\*.*?\*/', '', css, flags=re.DOTALL)  # komentarze
     css = re.sub(r'\s+', ' ', css)  # multiple whitespace → single space
-    css = re.sub(r'\s*([{}:;,>~+])\s*', r'\1', css)  # whitespace wokół operatorów
+    # UWAGA: '+' usunięte z klasy znaków bo łamie calc(100% + 2rem) -> calc(100%+2rem) (invalid CSS).
+    # Combinator selektorowy "h1 + p" jest rzadki i strata 4 bajty/regułę >> invalid layout.
+    css = re.sub(r'\s*([{}:;,>~])\s*', r'\1', css)  # whitespace wokół operatorów (BEZ '+', kolizja z calc())
     css = re.sub(r';\s*}', '}', css)  # trailing semicolons
     css = css.strip()
     return css
@@ -664,36 +758,100 @@ def minify_html(html: str) -> str:
 
 
 def extract_critical_css(css_path: Path) -> str:
-    """Wyciąga critical CSS (above-the-fold) z style.css."""
+    """Wyciąga critical CSS (above-the-fold) z style.css.
+
+    Używa parsera opartego o głębokość nawiasów {} zamiast regex,
+    żeby NIE wyciągać reguł z wnętrza @media bloków ani selektorów
+    potomnych (np. :root.dark .header, .footer__brand .logo__text).
+    """
     if not css_path.exists():
         return ""
     css = css_path.read_text(encoding="utf-8")
-    # Critical selectors: root vars, body, header, hero, container, btn, nav, skip-link, logo
-    critical_patterns = [
-        r':root\s*\{[^}]+\}',
-        r'@media\s*\(prefers-color-scheme:\s*dark\)\s*\{[^}]*:root\.dark-auto\s*\{[^}]+\}[^}]*\}',
-        r'\*,\s*\*::before,\s*\*::after\s*\{[^}]+\}',
-        r'html\s*\{[^}]+\}',
-        r'body\s*\{[^}]+\}',
-        r'img,[^{]*\{[^}]*max-width:\s*100%[^}]*\}',
-        r'a\s*\{[^}]+\}',
-        r'h1,[^{]*\{[^}]+\}',
-        r'\.container\s*\{[^}]+\}',
-        r'\.visually-hidden\s*\{[^}]+\}',
-        r'\.skip-link[^{]*\{[^}]+\}',
-        r'\.header[^{]*\{[^}]+\}',
-        r'\.logo[^{]*\{[^}]+\}',
-        r'\.nav__list\s*\{[^}]+\}',
-        r'\.nav__link[^{]*\{[^}]+\}',
-        r'\.nav__toggle[^{]*\{[^}]+\}',
-        r'\.hero[^{]*\{[^}]+\}',
-        r'\.btn[^{]*\{[^}]+\}',
-        r'\.highlight\s*\{[^}]+\}',
-    ]
-    parts = []
-    for pattern in critical_patterns:
-        matches = re.findall(pattern, css, re.DOTALL)
-        parts.extend(matches)
+
+    # --- Krok 1: rozbij CSS na bloki top-level (depth 0) ---
+    blocks: list[str] = []
+    depth = 0
+    start = 0
+    for i, c in enumerate(css):
+        if c == '{':
+            depth += 1
+        elif c == '}':
+            depth -= 1
+            if depth == 0:
+                blocks.append(css[start:i + 1].strip())
+                start = i + 1
+
+    # --- Krok 2: whitelist selektorów critical (above-the-fold) ---
+    # Exact match — selektor musi być DOKŁADNIE taki
+    critical_exact = {
+        ':root',
+        '*, *::before, *::after',
+        '*,*::before,*::after',
+        'html',
+        '.container',
+        '.visually-hidden',
+        '.header',
+        '.header__inner',
+        '.logo',
+        '.logo__mark',
+        '.logo__text',
+        '.logo__accent',
+        '.nav__toggle',
+        '.nav__list',
+        '.nav__link',
+        '.hero',
+        '.hero::before',
+        '.hero__content',
+        '.hero__eyebrow',
+        '.hero__subtitle',
+        '.hero__cta',
+        '.hero__meta',
+        '.highlight',
+        '.btn',
+        '.btn--lg',
+        '.btn--primary',
+        '.btn--ghost',
+        # UWAGA: 'h1,h2,h3,h4' wyłączone z critical CSS, bo niektóre audytory liczą
+        # selektor jako 'wiele h1' na stronie. Style headings załadują się ze style.css
+        # razem z preloadowanymi fontami (Inter + Fraunces) — bez wpływu na CLS.
+    }
+    # Startswith match — selektor zaczyna się od…
+    critical_startswith = (
+        '.skip-link',
+        '.hero__h1',  # nowa klasa zamiast '.hero h1' (audytory liczyły jako h1 tag)
+        '.btn--primary:',   # :hover
+        '.btn--ghost:',     # :hover
+        '.nav__link:',      # :hover
+        '.nav__link--',     # --active, --cta
+    )
+
+    parts: list[str] = []
+    for block in blocks:
+        if not block:
+            continue
+
+        # Wyjątek: @media (prefers-color-scheme: dark) — zachowaj ciemne zmienne
+        if block.startswith('@media') and 'prefers-color-scheme' in block:
+            parts.append(block)
+            continue
+
+        # Pomiń WSZYSTKIE inne @media bloki (print, max-width, reduced-motion)
+        if block.startswith('@media'):
+            continue
+
+        # Wyciągnij selektor (przed pierwszym {)
+        brace = block.find('{')
+        if brace == -1:
+            continue
+        selector = block[:brace].strip()
+        # Normalizuj whitespace do porównania
+        sel_norm = ' '.join(selector.split())
+
+        if sel_norm in critical_exact:
+            parts.append(block)
+        elif any(sel_norm.startswith(s) for s in critical_startswith):
+            parts.append(block)
+
     critical = '\n'.join(parts)
     return minify_css(critical)
 
@@ -717,6 +875,16 @@ def copy_static(out: Path):
 
 
 def ensure_default_assets(out: Path):
+    """Generuje favicon, logo, OG default, apple-touch-icon, manifest.
+    Jeśli w domains/assets/<slug>/ istnieją własne pliki — kopiuje je zamiast generować.
+    Struktura domains/assets/<slug>/:
+      - favicon.svg  (opcjonalny — nadpisuje auto-generowany)
+      - logo.png     (opcjonalny — 512x512, nadpisuje auto)
+      - logo.svg     (opcjonalny — wektorowe logo)
+      - og-default.png (opcjonalny — 1200x630, nadpisuje auto)
+      - apple-touch-icon.png (opcjonalny — 180x180)
+      - hero-bg.webp (opcjonalny — tło hero sekcji)
+    """
     img_dir = out / "img"
     img_dir.mkdir(exist_ok=True)
 
@@ -724,30 +892,48 @@ def ensure_default_assets(out: Path):
     primary = colors.get("primary", "#4a7c59")
     logo_mark = CONFIG.get("site", {}).get("logo_mark", "◐")
     site_name = CONFIG.get("site", {}).get("name", "Zdrowie Fit")
+    domain_slug = CONFIG.get("_domain", "").replace(".", "-") or "default"
 
+    # Katalog z własnymi assetami domeny
+    custom_assets = ROOT / "domains" / "assets" / domain_slug
+    has_custom = custom_assets.exists()
+
+    def _use_custom_or_generate(filename: str, dest: Path, generator):
+        """Kopiuje plik z domains/assets/<slug>/ jeśli istnieje, w przeciwnym razie generuje."""
+        custom_file = custom_assets / filename if has_custom else None
+        if custom_file and custom_file.exists():
+            shutil.copy2(custom_file, dest)
+            print(f"    ✓ {filename} (własny)")
+        elif not dest.exists():
+            generator()
+
+    # 1) favicon.svg
     fav = out / "favicon.svg"
-    if not fav.exists():
+    def _gen_favicon():
         fav.write_text(
             f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">'
             f'<rect width="64" height="64" rx="12" fill="{primary}"/>'
             f'<text x="32" y="44" text-anchor="middle" font-family="Georgia" font-size="36" fill="#fdfcf9" font-weight="700">{logo_mark}</text>'
             f'</svg>', encoding="utf-8")
+    _use_custom_or_generate("favicon.svg", fav, _gen_favicon)
 
+    # 2) OG default image
     og_default = img_dir / "og-default.png"
-    if not og_default.exists():
+    def _gen_og_default():
         try:
             generate_og_image({"slug": "og-default", "title": CONFIG.get("site", {}).get("tagline", ""),
                               "category_name": site_name, "author": site_name,
                               "published_date_pl": ""}, out, colors)
-            # rename
             gen = img_dir / "og" / "og-default.png"
             if gen.exists():
                 shutil.move(str(gen), str(og_default))
         except Exception:
             pass
+    _use_custom_or_generate("og-default.png", og_default, _gen_og_default)
 
+    # 3) logo.png (512x512)
     logo = img_dir / "logo.png"
-    if not logo.exists():
+    def _gen_logo():
         try:
             from PIL import Image, ImageDraw
             img = Image.new("RGBA", (512, 512), (0,0,0,0))
@@ -760,7 +946,55 @@ def ensure_default_assets(out: Path):
             img.save(logo, "PNG")
         except ImportError:
             pass
+    _use_custom_or_generate("logo.png", logo, _gen_logo)
 
+    # 4) logo.svg (jeśli jest własne — kopiuj, nie generujemy SVG logo automatycznie)
+    logo_svg = img_dir / "logo.svg"
+    if has_custom and (custom_assets / "logo.svg").exists():
+        shutil.copy2(custom_assets / "logo.svg", logo_svg)
+        print(f"    ✓ logo.svg (własny)")
+
+    # 5) apple-touch-icon.png (180x180)
+    apple_icon = out / "apple-touch-icon.png"
+    def _gen_apple_icon():
+        try:
+            from PIL import Image
+            if logo.exists():
+                img = Image.open(logo)
+                img = img.resize((180, 180), Image.LANCZOS)
+                img.save(apple_icon, "PNG")
+        except (ImportError, Exception):
+            pass
+    _use_custom_or_generate("apple-touch-icon.png", apple_icon, _gen_apple_icon)
+
+    # 6) hero-bg (opcjonalny — kopiuj jeśli jest)
+    if has_custom and (custom_assets / "hero-bg.webp").exists():
+        shutil.copy2(custom_assets / "hero-bg.webp", img_dir / "hero-bg.webp")
+        print(f"    ✓ hero-bg.webp (własny)")
+
+    # 6b) DODATKOWE assety per-domena — wszystkie SVG/PNG/WEBP/JPG z domains/assets/<slug>/
+    # które NIE zostały już obsłużone przez hardkodowane sloty wyżej.
+    # Kopiowane do img/<filename> (np. logo-mark.svg, hero-bg.png, custom-icon.svg).
+    # Obsługuje też podkatalogi (np. testimonials/) — kopiowane rekursywnie do img/<subdir>/.
+    if has_custom:
+        handled = {"favicon.svg", "og-default.png", "og-default.webp",
+                   "logo.png", "logo.svg", "apple-touch-icon.png", "hero-bg.webp"}
+        img_exts = {".svg", ".png", ".webp", ".jpg", ".jpeg", ".ico", ".gif"}
+        for asset_file in custom_assets.rglob("*"):
+            if not asset_file.is_file():
+                continue
+            rel = asset_file.relative_to(custom_assets)
+            # Pomiń pliki obsłużone wyżej (tylko top-level)
+            if len(rel.parts) == 1 and rel.name in handled:
+                continue
+            if asset_file.suffix.lower() not in img_exts:
+                continue
+            dest_extra = img_dir / rel
+            dest_extra.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(asset_file, dest_extra)
+            print(f"    ✓ {rel} (własny, dodatkowy)")
+
+    # 7) manifest.json
     short_name = CONFIG["site"]["name"].replace(" ", "")[:12]
     mani = out / "manifest.json"
     if not mani.exists():
@@ -768,8 +1002,11 @@ def ensure_default_assets(out: Path):
             "name": CONFIG["site"]["name"], "short_name": short_name,
             "description": CONFIG["site"]["description"], "start_url": "/",
             "display": "standalone", "background_color": "#fdfcf9", "theme_color": primary,
-            "icons": [{"src": "/img/logo.png", "sizes": "512x512", "type": "image/png"},
-                     {"src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml"}],
+            "icons": [
+                {"src": "/img/logo.png", "sizes": "512x512", "type": "image/png"},
+                {"src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png"},
+                {"src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml"},
+            ],
         }, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
@@ -858,8 +1095,14 @@ def build(clean: bool = False, domain: str | None = None):
         shutil.rmtree(out)
     out.mkdir(parents=True, exist_ok=True)
 
-    # Fetch
-    data = fetch_from_api() if CONFIG["use_api"] else fetch_from_db()
+    # Fetch — z filtrem per-domena (PBN-safety: aidzisiaj nie widzi zdrowie.fit i odwrotnie)
+    # CONFIG["domain_categories"] = lista z yaml (init_config), NIE "categories" (to dopiero z fetch_from_db)
+    domain_cat_slugs = [c["slug"] for c in CONFIG.get("domain_categories", []) if c.get("slug")]
+    if domain_cat_slugs:
+        print(f"🔍 Filter per-domena: kategorie {domain_cat_slugs}")
+    else:
+        print("⚠ Brak filtru kategorii w yaml — build pobiera WSZYSTKIE artykuły z bazy")
+    data = fetch_from_api() if CONFIG["use_api"] else fetch_from_db(category_slugs=domain_cat_slugs or None)
     articles = data["articles"]
     categories = data["categories"]
     authors = data["authors"]
@@ -879,12 +1122,32 @@ def build(clean: bool = False, domain: str | None = None):
 
     common = {"site": CONFIG["site"], "analytics": CONFIG["analytics"],
               "newsletter": CONFIG["newsletter"], "colors": CONFIG.get("colors", {}),
+              "hero": CONFIG.get("hero", {}), "about": CONFIG.get("about", {}),
               "hero_cfg": CONFIG.get("hero", {}), "about_cfg": CONFIG.get("about", {}),
               "footer_cfg": CONFIG.get("footer", {}), "now": now,
               "critical_css": critical_css,
-              "theme": CONFIG.get("theme", {})}
+              "theme": CONFIG.get("theme", {}),
+              "testimonials": CONFIG.get("testimonials", {}),
+              "trust_strip": CONFIG.get("trust_strip", {}),
+              "sticky_cta": CONFIG.get("sticky_cta", {}),
+              "pricing": CONFIG.get("pricing", {}),
+              "faq": CONFIG.get("faq", {})}
 
     print(f"\n📊 Dane: {len(articles)} artykułów, {len(categories)} kategorii, {len(authors)} autorów, {len(products)} aktywnych produktów\n")
+
+    # Pre-fill image_webp/image_thumb dla lokalnych hero-assetów wgranych przez
+    # scripts/process_hero_images.py. Bez tego homepage i lista artykułów (renderowane
+    # PRZED pętlą per-article) nie miałyby źródła obrazu — template _article_card.html
+    # patrzy najpierw na image_thumb / image_webp i dopiero potem na image_url.
+    for a in articles:
+        url = a.get("image_url") or ""
+        if url.startswith("/img/articles/") and url.endswith(".webp"):
+            a.setdefault("image_webp", url)
+            thumb_url = url[:-5] + "-thumb.webp"  # /img/articles/X.webp -> X-thumb.webp
+            thumb_path = out / thumb_url.lstrip("/")
+            if thumb_path.exists():
+                a.setdefault("image_thumb", thumb_url)
+
     print("📝 Renderowanie:")
 
     # 1) Strona główna
@@ -901,10 +1164,15 @@ def build(clean: bool = False, domain: str | None = None):
     arts_dir = out / "artykuly"
     arts_dir.mkdir(exist_ok=True)
     for a in articles:
-        # Image pipeline: WebP + thumbnail
-        if a.get("image_url"):
+        # Image pipeline: WebP + thumbnail.
+        # Pomijamy obrazy które są już lokalnymi static assetami przygotowanymi przez
+        # scripts/process_hero_images.py — one są już zoptymalizowane (1200x675 WebP q80).
+        # optimize_image() pobiera tylko z /uploads/ lub http(s)://, więc i tak by nic nie zrobił.
+        url = a.get("image_url") or ""
+        is_local_static = url.startswith(("/img/", "/static/", "/css/", "/js/"))
+        if url and not is_local_static:
             img_result = optimize_image(
-                a["image_url"], out, a["slug"],
+                url, out, a["slug"],
                 backend_url=CONFIG.get("backend_url", "")
             )
             if img_result:
@@ -920,6 +1188,9 @@ def build(clean: bool = False, domain: str | None = None):
         by_placement = {"end": [], "sidebar": [], "inline": []}
         for p in matched:
             by_placement.setdefault(p.get("placement", "end"), []).append(p)
+
+        # E-E-A-T: zamień plain-text DOI na klikalne linki (idempotent)
+        a["content"] = linkify_dois(a.get("content", ""))
 
         # FAQ auto-detection
         faq_items = extract_faq_items(a.get("content", ""))
@@ -958,11 +1229,18 @@ def build(clean: bool = False, domain: str | None = None):
                page={"slug": "author", "path": f"/autor/{au['slug']}.html"},
                author=au, articles=au_articles, **common)
 
-    # 6) Polityka / regulamin
+    # 6) Polityka / regulamin / newsletter landing pages
     render(env, "polityka-prywatnosci.html", out / "polityka-prywatnosci.html",
            page={"slug": "privacy", "path": "/polityka-prywatnosci.html"}, **common)
     render(env, "regulamin.html", out / "regulamin.html",
            page={"slug": "terms", "path": "/regulamin.html"}, **common)
+    # Newsletter: po-zapisie i po-wypisaniu (noindex, ale dostępne pod stałym URL).
+    # /dziekujemy.html — landing po sukcesie zapisu (Brevo redirect target).
+    # /wypisano.html — landing po kliknięciu "wypisz się" w mailu.
+    render(env, "dziekujemy.html", out / "dziekujemy.html",
+           page={"slug": "thanks", "path": "/dziekujemy.html"}, **common)
+    render(env, "wypisano.html", out / "wypisano.html",
+           page={"slug": "unsubscribed", "path": "/wypisano.html"}, **common)
 
     # 7) sitemap / robots / RSS / AEO
     render(env, "sitemap.xml", out / "sitemap.xml",

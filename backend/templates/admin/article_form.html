@@ -12,7 +12,7 @@
     <div class="form-row">
         <div class="form-group">
             <label for="title">Tytuł *</label>
-            <input type="text" id="title" name="title" value="{{ article.title if article else '' }}" required>
+            <input type="text" id="title" name="title" value="{{ (article.title or '') if article else '' }}" required>
         </div>
         <div class="form-group">
             <label for="author_id">Autor</label>
@@ -28,12 +28,12 @@
 
     <div class="form-group">
         <label for="excerpt">Zajawka (~160 znaków — pokazuje się w Google i social)</label>
-        <textarea id="excerpt" name="excerpt" rows="2" maxlength="300" style="min-height:auto">{{ article.excerpt if article else '' }}</textarea>
+        <textarea id="excerpt" name="excerpt" rows="2" maxlength="300" style="min-height:auto">{{ (article.excerpt or '') if article else '' }}</textarea>
     </div>
 
     <div class="form-group">
         <label for="content">Treść artykułu</label>
-        <textarea id="content" name="content">{{ article.content if article else '' }}</textarea>
+        <textarea id="content" name="content">{{ (article.content or '') if article else '' }}</textarea>
     </div>
 
     <div class="form-row">
@@ -48,7 +48,7 @@
         </div>
         <div class="form-group">
             <label for="tags">Tagi (przecinki) — używane do dopasowywania produktów</label>
-            <input type="text" id="tags" name="tags" value="{{ article.tags if article else '' }}" placeholder="np. stres, sen, lęk">
+            <input type="text" id="tags" name="tags" value="{{ (article.tags or '') if article else '' }}" placeholder="np. stres, sen, lęk">
         </div>
     </div>
 
@@ -56,7 +56,7 @@
         <label>Zdjęcie wiodące</label>
         <div style="display:flex;gap:12px;align-items:flex-start">
             <div style="flex:1">
-                <input type="text" id="image_url" name="image_url" value="{{ article.image_url if article else '' }}" placeholder="URL obrazka lub wgraj plik poniżej" style="margin-bottom:8px">
+                <input type="text" id="image_url" name="image_url" value="{{ (article.image_url or '') if article else '' }}" placeholder="URL obrazka lub wgraj plik poniżej" style="margin-bottom:8px">
                 <div style="display:flex;gap:8px;align-items:center">
                     <input type="file" id="image-upload" accept="image/*" style="flex:1">
                     <button type="button" id="image-upload-btn" class="btn btn-primary btn-sm">Wgraj (auto-resize + WebP)</button>
@@ -70,18 +70,18 @@
     <div class="form-row">
         <div class="form-group">
             <label for="og_image_custom">Custom OG image (1200×630, opcjonalnie)</label>
-            <input type="text" id="og_image_custom" name="og_image_custom" value="{{ article.og_image_custom if article else '' }}" placeholder="Puste = generowany automatycznie z tytułem">
+            <input type="text" id="og_image_custom" name="og_image_custom" value="{{ (article.og_image_custom or '') if article else '' }}" placeholder="Puste = generowany automatycznie z tytułem">
         </div>
         <div class="form-group">
             <label for="icon">Ikona / emoji</label>
-            <input type="text" id="icon" name="icon" value="{{ article.icon if article else '📝' }}" maxlength="10">
+            <input type="text" id="icon" name="icon" value="{{ (article.icon or '📝') if article else '📝' }}" maxlength="10">
         </div>
     </div>
 
     <div class="form-row">
         <div class="form-group">
             <label for="reading_time">Czas czytania (min)</label>
-            <input type="number" id="reading_time" name="reading_time" value="{{ article.reading_time if article else 5 }}" min="1" max="120">
+            <input type="number" id="reading_time" name="reading_time" value="{{ (article.reading_time or 5) if article else 5 }}" min="1" max="120">
         </div>
         <div class="form-group" style="display:flex;gap:24px;align-items:end;padding-bottom:8px">
             <label class="form-check">
@@ -99,13 +99,13 @@
 
     <div class="form-group">
         <label for="bibliography">Bibliografia / Źródła (HTML — lista linków do badań, PubMed, DOI)</label>
-        <textarea id="bibliography" name="bibliography" rows="6" placeholder="&lt;ol&gt;&lt;li&gt;Smith et al. (2023). Title. &lt;a href=&quot;https://pubmed.ncbi.nlm.nih.gov/...&quot;&gt;PubMed&lt;/a&gt;&lt;/li&gt;&lt;/ol&gt;" style="min-height:120px;font-family:monospace;font-size:.85rem">{{ article.bibliography if article else '' }}</textarea>
+        <textarea id="bibliography" name="bibliography" rows="6" placeholder="&lt;ol&gt;&lt;li&gt;Smith et al. (2023). Title. &lt;a href=&quot;https://pubmed.ncbi.nlm.nih.gov/...&quot;&gt;PubMed&lt;/a&gt;&lt;/li&gt;&lt;/ol&gt;" style="min-height:120px;font-family:monospace;font-size:.85rem">{{ (article.bibliography or '') if article else '' }}</textarea>
         <small style="color:#64748b">W YMYL (zdrowie) Google mocno patrzy na źródła naukowe. Im więcej linków do PubMed/DOI, tym lepsze E-A-T.</small>
     </div>
 
     <div class="form-group">
         <label for="related_slugs">Powiązane artykuły (ręcznie, comma-separated slugs)</label>
-        <input type="text" id="related_slugs" name="related_slugs" value="{{ article.related_slugs if article else '' }}" placeholder="np. sen-regeneracja-mozgu,dieta-a-klarownosc-umyslu">
+        <input type="text" id="related_slugs" name="related_slugs" value="{{ (article.related_slugs or '') if article else '' }}" placeholder="np. sen-regeneracja-mozgu,dieta-a-klarownosc-umyslu">
         {% if all_articles %}
         <details style="margin-top:8px">
             <summary style="cursor:pointer;color:#64748b;font-size:.85rem">Lista dostępnych sluggów — kliknij, żeby dodać</summary>
@@ -120,7 +120,7 @@
 
     <div class="form-group">
         <label for="product_slugs">Produkty do promocji w tym artykule (ręczny wybór, puste = auto-matching)</label>
-        <input type="text" id="product_slugs" name="product_slugs" value="{{ article.product_slugs if article else '' }}" placeholder="Puste = automatyczne dopasowanie po kategoriach + tagach">
+        <input type="text" id="product_slugs" name="product_slugs" value="{{ (article.product_slugs or '') if article else '' }}" placeholder="Puste = automatyczne dopasowanie po kategoriach + tagach">
         {% if all_products %}
         <details style="margin-top:8px">
             <summary style="cursor:pointer;color:#64748b;font-size:.85rem">Dostępne produkty — kliknij, żeby dodać</summary>
@@ -137,15 +137,15 @@
     <div class="form-row">
         <div class="form-group">
             <label for="meta_title">Meta title (pokazuje się w Google) — puste = tytuł artykułu</label>
-            <input type="text" id="meta_title" name="meta_title" value="{{ article.meta_title if article else '' }}" maxlength="70">
+            <input type="text" id="meta_title" name="meta_title" value="{{ (article.meta_title or '') if article else '' }}" maxlength="70">
         </div>
         <div class="form-group">
             <label for="meta_description">Meta description — puste = zajawka</label>
-            <input type="text" id="meta_description" name="meta_description" value="{{ article.meta_description if article else '' }}" maxlength="180">
+            <input type="text" id="meta_description" name="meta_description" value="{{ (article.meta_description or '') if article else '' }}" maxlength="180">
         </div>
     </div>
 
-    <input type="hidden" name="author" value="{{ article.author if article else 'Zdrowie Fit Team' }}">
+    <input type="hidden" name="author" value="{{ (article.author or 'Zdrowie Fit Team') if article else 'Zdrowie Fit Team' }}">
 
     <div style="display:flex;gap:12px;margin-top:24px">
         <button type="submit" class="btn btn-primary">💾 {{ "Zapisz zmiany" if article else "Utwórz artykuł" }}</button>

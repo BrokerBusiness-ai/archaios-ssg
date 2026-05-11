@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" fill="none">
+  <defs>
+    <linearGradient id="navyBgR" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f2440"/>
+      <stop offset="100%" stop-color="#1a365d"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#navyBgR)"/>
+
+  <circle cx="1050" cy="200" r="280" fill="#00ff88" opacity="0.06"/>
+  <circle cx="200" cy="500" r="200" fill="#a855f7" opacity="0.06"/>
+
+  <g transform="translate(100, 220)">
+    <rect x="0" y="0" width="100" height="100" rx="22" fill="#1a365d" stroke="#00ff88" stroke-width="1.5"/>
+    <text x="50" y="50" font-family="'IBM Plex Mono', monospace" font-size="20" font-weight="700" fill="#00ff88" text-anchor="middle">RAG</text>
+    <rect x="20" y="60" width="60" height="4" fill="#a855f7"/>
+    <rect x="20" y="70" width="40" height="4" fill="#a855f7" opacity="0.6"/>
+    <rect x="20" y="80" width="50" height="4" fill="#a855f7" opacity="0.6"/>
+  </g>
+
+  <text x="240" y="270" font-family="'IBM Plex Sans', sans-serif" font-size="68" font-weight="700" fill="#fdfcf9" letter-spacing="-1">RAG<tspan fill="#a855f7">Polska</tspan><tspan fill="#fdfcf9">.pl</tspan></text>
+  <text x="240" y="325" font-family="Inter, system-ui, sans-serif" font-size="26" fill="#a8b8d0">RAG enterprise dla polskich firm</text>
+
+  <line x1="240" y1="365" x2="380" y2="365" stroke="#00ff88" stroke-width="3"/>
+
+  <text x="100" y="585" font-family="'IBM Plex Mono', monospace" font-size="18" fill="#7a8aa0">ragpolska.pl · embeddings · vector DB · agentic RAG</text>
+</svg>

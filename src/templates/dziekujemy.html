@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Dziękujemy — sprawdź skrzynkę | {{ site.name }}{% endblock %}
+{% block description %}Zapisałeś/aś się na newsletter {{ site.name }}. Sprawdź skrzynkę i potwierdź subskrypcję.{% endblock %}
+{% block robots %}noindex,follow{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container article__container" style="max-width:560px;text-align:center">
+        <div style="font-size:4rem;margin-bottom:1rem" aria-hidden="true">📬</div>
+        <h1 style="margin-bottom:1rem">Dziękujemy — jeszcze jeden krok.</h1>
+        <p style="font-size:1.1rem;color:var(--color-text-muted);margin-bottom:1.5rem">
+            Wysłaliśmy Ci email z linkiem aktywacyjnym. <strong>Kliknij w link</strong>, żeby potwierdzić subskrypcję — to standard RODO i ochrona przed pomyłkami.
+        </p>
+
+        <div class="article__toc" style="text-align:left;background:var(--color-bg-alt);padding:1.5rem;border-radius:var(--radius);margin:2rem 0">
+            <p style="font-weight:600;margin-bottom:0.75rem;color:var(--color-ink)">Nie widzisz emaila?</p>
+            <ul style="margin:0;padding-left:1.25rem;list-style:disc;color:var(--color-text);font-size:0.95rem;line-height:1.7">
+                <li>Sprawdź folder <strong>Spam / Oferty / Inne</strong> — pierwsza wiadomość bywa tam wrzucana.</li>
+                <li>Dodaj adres <a href="mailto:kontakt@{{ site.url | replace('https://', '') | replace('http://', '') }}">kontakt@{{ site.url | replace('https://', '') | replace('http://', '') }}</a> do kontaktów — kolejne maile trafią od razu do skrzynki głównej.</li>
+                <li>Email może dotrzeć z 1-2 minutowym opóźnieniem.</li>
+                <li>Jeśli nie ma go po 5 minutach — <a href="/#newsletter">spróbuj zapisać się jeszcze raz</a> lub <a href="mailto:{{ site.email }}">napisz do nas</a>.</li>
+            </ul>
+        </div>
+
+        <p style="margin-top:2rem">
+            <a href="/" class="btn btn--ghost">Wróć na stronę główną</a>
+        </p>
+    </div>
+</section>
+{% endblock %}

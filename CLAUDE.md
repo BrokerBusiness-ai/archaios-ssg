@@ -4,6 +4,24 @@ Wieloddomenowy silnik statycznych stron (dawniej `zdrowie-fit-generator`, od v1.
 
 Architektura: **FastAPI backend (CMS + API) → build.py (Jinja2 + Pillow, multi-domain) → statyczny HTML per domena → SFTP do Cyber_Folks**.
 
+## 🚀 Tworzenie nowej satelity — START TUTAJ
+
+**Gdy user prosi o nową satelitę** (lub mówi „dodaj domenę X" / „nowa strona z rodziny"):
+
+1. **Natychmiast przeczytaj `docs/SATELLITE_MASTER.md`** — JEDEN plik zawiera wszystko: krótki prompt do wklejenia (CZĘŚĆ 1), inputs template (CZĘŚĆ 2), fazy 0-9 (CZĘŚĆ 3), gotchy (CZĘŚĆ 4), DoD (CZĘŚĆ 5), timeline (CZĘŚĆ 6), pomocnicze linki (CZĘŚĆ 7)
+2. **Wzór działający** to `domains/zdrowie-fit.yaml` (kompletna, działająca konfiguracja)
+
+Procedura ~2h, prowadź usera fazami 1-7 (8 i 9 opcjonalne). Po każdej fazie poproś o output (screenshot/PowerShell wynik) zanim ruszysz dalej.
+
+**Gotchy do zapamiętania** (wszystkie z docs):
+- Cyber_Folks DNS panel zapisuje, ale często NIE commituje strefy bez kliku „Zapisz formularz" per rekord
+- Greylisting Cyber_Folks blokuje pierwsze maile od Brevo → forwarder kontakt@DOMAIN → Gmail jako workaround
+- Brevo: użyj **Domain Authentication** zamiast per-email Verify (omija problem z OTP)
+- `calc(100%+2rem)` invalid CSS po minify — `+` musi być z spacjami
+- WCAG: `--color-text-light: #8a857d` na cream tle = fail (3.23 contrast)
+- Newsletter section musi mieć HARDCODED ciemne tło, nie var() — flippuje w dark mode
+- Backend FastAPI na Cyber_Folks: passenger_wsgi.py + a2wsgi (ASGI→WSGI bridge)
+
 ## Kluczowe ścieżki
 
 | Co | Gdzie |

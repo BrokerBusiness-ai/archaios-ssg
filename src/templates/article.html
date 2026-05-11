@@ -229,7 +229,7 @@
 
             <aside class="article__sidebar" aria-label="Narzędzia artykułu">
                 <div class="sticky-box">
-                    <h4>Udostępnij</h4>
+                    <p class="sticky-box__label" aria-hidden="true">Udostępnij</p>
                     <a href="https://www.facebook.com/sharer/sharer.php?u={{ (site.url + '/artykuly/' + article.slug + '.html') | urlencode }}" target="_blank" rel="noopener" aria-label="Facebook">FB</a>
                     <a href="https://twitter.com/intent/tweet?url={{ (site.url + '/artykuly/' + article.slug + '.html') | urlencode }}&text={{ article.title | urlencode }}" target="_blank" rel="noopener" aria-label="X/Twitter">X</a>
                     <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ (site.url + '/artykuly/' + article.slug + '.html') | urlencode }}" target="_blank" rel="noopener" aria-label="LinkedIn">in</a>
@@ -241,15 +241,8 @@
                     {% include "_product_cta.html" %}
                 {% endfor %}
 
-                {% if article.bibliography %}
-                <div class="research-badge">
-                    <h4><span class="research-badge__icon" aria-hidden="true">🔬</span> Badania mówią</h4>
-                    <div class="research-badge__content" data-nosnippet>
-                        {{ article.bibliography | striptags | truncate(300) }}
-                    </div>
-                    <a href="#bibliography-title" class="research-badge__link">Pełna bibliografia →</a>
-                </div>
-                {% endif %}
+                {# Pelna bibliografia jest renderowana ponizej w <aside class="article__bibliography">.
+                   W waskim sidebarze (96-110px) streszczenie sie nie miesci czytelnie, wiec pomijamy. #}
             </aside>
         </div>
 

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" fill="none">
+  <defs>
+    <linearGradient id="earthGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fdfcf9"/>
+      <stop offset="100%" stop-color="#f0e9da"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#earthGrad)"/>
+
+  <!-- Dekoracyjne elementy: subtelne fale gleby/horyzontu -->
+  <path d="M 0 460 Q 300 440 600 455 T 1200 470 L 1200 630 L 0 630 Z" fill="#2a7f62" opacity="0.06"/>
+  <path d="M 0 510 Q 300 495 600 505 T 1200 515 L 1200 630 L 0 630 Z" fill="#e08c4f" opacity="0.05"/>
+
+  <!-- Główny znak po lewej -->
+  <g transform="translate(100, 220)">
+    <rect x="0" y="0" width="100" height="100" rx="22" fill="#2a7f62"/>
+    <line x1="28" y1="76" x2="28" y2="26" stroke="#fdfcf9" stroke-width="5" stroke-linecap="round"/>
+    <line x1="72" y1="70" x2="72" y2="20" stroke="#fdfcf9" stroke-width="5" stroke-linecap="round"/>
+    <line x1="28" y1="68" x2="72" y2="64" stroke="#e08c4f" stroke-width="4.5" stroke-linecap="round"/>
+    <line x1="28" y1="52" x2="72" y2="48" stroke="#e08c4f" stroke-width="4.5" stroke-linecap="round"/>
+    <line x1="28" y1="36" x2="72" y2="32" stroke="#e08c4f" stroke-width="4.5" stroke-linecap="round"/>
+  </g>
+
+  <!-- Wordmark + tagline -->
+  <text x="240" y="270" font-family="'Source Serif Pro', Georgia, serif" font-size="68" font-weight="600" fill="#1d5c46" letter-spacing="-0.5">Jak Sobie<tspan fill="#e08c4f"> Radzić</tspan></text>
+  <text x="240" y="325" font-family="Inter, system-ui, sans-serif" font-size="26" fill="#5a5a5a">Strategie radzenia sobie w trudnych sytuacjach</text>
+
+  <!-- Linia dekoracyjna -->
+  <line x1="240" y1="365" x2="380" y2="365" stroke="#e08c4f" stroke-width="3"/>
+
+  <!-- Footer -->
+  <text x="100" y="585" font-family="Inter, system-ui, sans-serif" font-size="20" fill="#7a7a7a">jaksobieradzic.pl · oparte na psychologii klinicznej</text>
+</svg>

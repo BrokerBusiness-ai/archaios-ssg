@@ -37,17 +37,17 @@ class AuthorRead(BaseModel):
     id: int
     name: str
     slug: str
-    bio_short: str
-    bio_long: str
-    credentials: str
-    photo_url: str
-    email: str
-    linkedin: str
-    twitter: str
-    website: str
-    specializations: str
-    is_active: bool
-    sort_order: int
+    bio_short: Optional[str] = ""
+    bio_long: Optional[str] = ""
+    credentials: Optional[str] = ""
+    photo_url: Optional[str] = ""
+    email: Optional[str] = ""
+    linkedin: Optional[str] = ""
+    twitter: Optional[str] = ""
+    website: Optional[str] = ""
+    specializations: Optional[str] = ""
+    is_active: bool = True
+    sort_order: int = 0
     created_at: datetime
 
     model_config = {"from_attributes": True}

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 70" fill="none">
+  <!-- Mark: okrąg z prostą twarzą emocjonalną (oczy + uśmiech) -->
+  <g transform="translate(8, 10)">
+    <rect x="0" y="0" width="50" height="50" rx="11" fill="#2c6e8a"/>
+    <circle cx="18" cy="22" r="2.5" fill="#fdfcf9"/>
+    <circle cx="32" cy="22" r="2.5" fill="#fdfcf9"/>
+    <path d="M 16 30 Q 25 36 34 30" stroke="#e07b4f" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- Wordmark -->
+  <text x="72" y="46" font-family="'Source Serif Pro', Georgia, serif" font-size="32" font-weight="500" fill="#2a2a2a" letter-spacing="-0.3">Psycho</text>
+  <text x="180" y="46" font-family="'Source Serif Pro', Georgia, serif" font-size="32" font-weight="600" fill="#e07b4f" letter-spacing="-0.3">Dzisiaj</text>
+</svg>

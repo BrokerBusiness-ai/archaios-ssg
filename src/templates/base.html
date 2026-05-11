@@ -12,12 +12,16 @@
     <meta name="robots" content="{% block robots %}index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1{% endblock %}">
     <meta name="generator" content="Archaios SSG">
     <meta name="format-detection" content="telephone=no">
+    {# Server-side tracker — JS pinguje ten URL żeby zapisać odsłonę.
+       Wartość z .env (BACKEND_URL). Pusty/brak → tracker odpada cicho. #}
+    {% if site.backend_url %}<meta name="zf-backend" content="{{ site.backend_url }}">{% endif %}
 
     <link rel="canonical" href="{% block canonical %}{{ site.url }}{{ page.path | default('/') }}{% endblock %}">
 
     <!-- Favicon + PWA -->
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/img/logo.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/img/logo.png">
     <link rel="manifest" href="/manifest.json">
 
     <!-- Open Graph -->
@@ -45,9 +49,12 @@
     <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-v18-latin-ext-regular.woff2" crossorigin>
     <link rel="preload" as="font" type="font/woff2" href="/fonts/fraunces-v38-latin-ext-600.woff2" crossorigin>
     {% if critical_css %}<style>{{ critical_css }}</style>{% endif %}
-    <link rel="stylesheet" href="/css/fonts.css">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/domain-colors.css">
+    {# Cache-busting: query string z timestamp buildu wymusza pobieranie CSS po kazdym deployu.
+       Bez tego Apache/Cloudflare/przegladarka serwowaly stary CSS przez godziny po deploycie. #}
+    {% set cb = '?v=' ~ now.strftime('%Y%m%d%H%M') %}
+    <link rel="stylesheet" href="/css/fonts.css{{ cb }}">
+    <link rel="stylesheet" href="/css/style.css{{ cb }}">
+    <link rel="stylesheet" href="/css/domain-colors.css{{ cb }}">
     <!-- DNS prefetch for analytics -->
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
     <link rel="dns-prefetch" href="https://connect.facebook.net">
@@ -79,7 +86,23 @@
           "@id": "{{ site.url }}/#organization",
           "name": "{{ site.name }}",
           "url": "{{ site.url }}",
+          "description": "{{ site.description }}",
           "logo": {"@type": "ImageObject", "url": "{{ site.url }}/img/logo.png"},
+          {% if site.email %}"email": "{{ site.email }}",
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "email": "{{ site.email }}",
+            "contactType": "customer support",
+            "availableLanguage": ["Polish"]
+          },{% endif %}
+          {% if site.founder %}"founder": {"@type": "Person", "name": "{{ site.founder }}"},{% endif %}
+          {% if site.foundingDate %}"foundingDate": "{{ site.foundingDate }}",{% endif %}
+          {% if site.address and site.address.locality %}"address": {
+            "@type": "PostalAddress",
+            "addressLocality": "{{ site.address.locality }}",
+            "addressRegion": "{{ site.address.region }}",
+            "addressCountry": "{{ site.address.country }}"
+          },{% endif %}
           "sameAs": [{% set links = [] %}{% if site.fb %}{% set _ = links.append(site.fb) %}{% endif %}{% if site.ig %}{% set _ = links.append(site.ig) %}{% endif %}{% if site.yt %}{% set _ = links.append(site.yt) %}{% endif %}{% if site.tw %}{% set _ = links.append(site.tw) %}{% endif %}{% for l in links %}"{{ l }}"{% if not loop.last %}, {% endif %}{% endfor %}]
         }
       ]
@@ -123,7 +146,11 @@
     <header class="header" role="banner">
         <div class="container header__inner">
             <a href="/" class="logo" aria-label="{{ site.name }} – strona główna">
+                {% if site.logo_mark_svg %}
+                <img class="logo__mark logo__mark--svg" src="{{ site.logo_mark_svg }}" alt="" width="48" height="48" loading="eager">
+                {% else %}
                 <span class="logo__mark">{{ site.logo_mark | default('◐') }}</span>
+                {% endif %}
                 <span class="logo__text">{{ site.logo_text | default(site.name) }}<span class="logo__accent">{{ site.logo_accent | default('') }}</span></span>
             </a>
             <nav class="nav" role="navigation" aria-label="Główna nawigacja">
@@ -148,14 +175,31 @@
             <div class="newsletter__text">
                 <h2 id="nl-title">Odbierz <span class="highlight">{{ newsletter.title_highlight | default('cotygodniowy przegląd') }}</span> {{ newsletter.title_rest | default('nowości') }}</h2>
                 <p>{{ newsletter.subtitle | default('Raz w tygodniu: konkretne wskazówki, zero spamu, wypisujesz się jednym klikiem.') }}</p>
+                <p class="newsletter__doubleoptin" aria-hidden="false">
+                    <span aria-hidden="true">📩</span>
+                    Po kliknięciu „Zapisz się" wyślemy Ci email z linkiem aktywacyjnym — to standard RODO i ochrona przed pomyłkami.
+                </p>
             </div>
-            <form class="newsletter__form" data-newsletter-form{% if newsletter.endpoint %} action="{{ newsletter.endpoint }}" method="post"{% endif %} novalidate>
+            <form class="newsletter__form"
+                  data-newsletter-form
+                  {% if newsletter.endpoint %}action="{{ newsletter.endpoint }}" method="post"{% endif %}
+                  novalidate
+                  aria-describedby="nl-status">
                 <label class="visually-hidden" for="nl-email">Twój adres e-mail</label>
-                <input type="email" id="nl-email" name="email" placeholder="twoj@email.pl" required autocomplete="email">
+                <input type="email" id="nl-email" name="EMAIL" placeholder="twoj@email.pl" required autocomplete="email" inputmode="email">
                 <button type="submit" class="btn btn--primary">Zapisz się</button>
                 <p class="newsletter__consent">
-                    <label><input type="checkbox" required> Zgadzam się na <a href="/polityka-prywatnosci.html">przetwarzanie danych</a> w celu otrzymywania newslettera.</label>
+                    <label for="nl-consent">
+                        <input type="checkbox" id="nl-consent" name="OPT_IN" value="1" required aria-label="Zgoda RODO na przetwarzanie danych w celu otrzymywania newslettera">
+                        <span>
+                            Wyrażam zgodę na przetwarzanie moich danych osobowych przez {{ site.name }}
+                            w celu otrzymywania newslettera. Wiem, że mogę wycofać zgodę w każdej chwili
+                            (link „wypisz się" w stopce każdego maila).
+                            <a href="/polityka-prywatnosci.html#newsletter">Szczegóły w polityce prywatności</a>.
+                        </span>
+                    </label>
                 </p>
+                <p id="nl-status" class="newsletter__status" data-newsletter-status role="status" aria-live="polite" hidden></p>
             </form>
         </div>
     </section>

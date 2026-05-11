@@ -8,14 +8,33 @@
 {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
+  "@id": "{{ site.url }}/artykuly.html#collection",
   "name": "Artykuły – {{ site.name }}",
   "url": "{{ site.url }}/artykuly.html",
-  "description": "Wszystkie artykuły o zdrowiu psychicznym i fizycznym.",
+  "description": "Wszystkie artykuły {{ site.name }} — posortowane i przefiltrowane.",
+  "isPartOf": {"@id": "{{ site.url }}/#website"},
+  "inLanguage": "{{ site.lang }}",
+  "datePublished": "{{ now.strftime('%Y-%m-%d') }}",
+  "dateModified": "{{ now.strftime('%Y-%m-%d') }}",
   "breadcrumb": {
     "@type": "BreadcrumbList",
     "itemListElement": [
       {"@type": "ListItem", "position": 1, "name": "Start", "item": "{{ site.url }}/"},
       {"@type": "ListItem", "position": 2, "name": "Artykuły", "item": "{{ site.url }}/artykuly.html"}
+    ]
+  },
+  "mainEntity": {
+    "@type": "ItemList",
+    "numberOfItems": {{ articles | length }},
+    "itemListElement": [
+      {%- for a in articles %}
+      {
+        "@type": "ListItem",
+        "position": {{ loop.index }},
+        "url": "{{ site.url }}/artykuly/{{ a.slug }}.html",
+        "name": {{ a.title | tojson }}
+      }{% if not loop.last %},{% endif %}
+      {%- endfor %}
     ]
   }
 }
@@ -33,8 +52,9 @@
     </div>
 </section>
 
-<section class="section">
+<section class="section" aria-labelledby="all-articles-title">
     <div class="container">
+        <h2 id="all-articles-title" class="visually-hidden">Wszystkie artykuły</h2>
         <div class="articles__toolbar">
             <div class="articles__filters" role="group" aria-label="Filtry kategorii">
                 <button type="button" class="filter-btn active" data-category="all">Wszystkie</button>
@@ -42,7 +62,8 @@
                 <button type="button" class="filter-btn" data-category="{{ cat.slug }}" style="--cat-color: {{ cat.color }}">{{ cat.icon }} {{ cat.name }}</button>
                 {% endfor %}
             </div>
-            <label class="articles__search">
+            <label class="articles__search" for="articles-search">
+                <span class="visually-hidden">Szukaj artykułu</span>
                 <input type="search" id="articles-search" placeholder="Szukaj..." aria-label="Szukaj artykułu">
             </label>
         </div>

@@ -1,10 +1,42 @@
-// Zdrowie.fit — strona artykułu: reading progress + TOC + scroll spy
+// Zdrowie.fit — strona artykułu: reading progress + TOC + scroll spy + tracker
 (function () {
     'use strict';
 
     const bar = document.getElementById('progress-bar');
     const article = document.querySelector('.article__content');
     const tocNav = document.getElementById('article-toc');
+
+    // ─── Server-side view tracker (niezależny od GA4 / ad-blockerów) ───
+    // Pinguje backend FastAPI raz na załadowanie strony artykułu.
+    // - URL backendu z <meta name="zf-backend" content="https://api.zdrowie.fit">
+    // - Jeśli meta nie ma → odpada cicho (na produkcji bez backendu)
+    // - CORS errors / offline / backend down — silently fail (nie zepsuje strony)
+    (function trackView() {
+        const path = window.location.pathname;
+        const match = path.match(/\/artykuly\/([^/]+)\.html$/);
+        if (!match) return;
+        const slug = match[1];
+
+        const backendMeta = document.querySelector('meta[name="zf-backend"]');
+        if (!backendMeta || !backendMeta.content) return;
+        const backend = backendMeta.content.replace(/\/$/, '');
+
+        // Ping po 1.5s — eliminuje pre-fetchery i instant bounce
+        setTimeout(() => {
+            try {
+                fetch(backend + '/api/stats/view', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',
+                    keepalive: true,
+                    body: JSON.stringify({
+                        slug: slug,
+                        referer: document.referrer || ''
+                    })
+                }).catch(() => {});
+            } catch (_) {}
+        }, 1500);
+    })();
 
     // ─── TOC auto-generator ───────────────────────────────
     if (tocNav && article) {
