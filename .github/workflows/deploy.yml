@@ -28,8 +28,9 @@ jobs:
       - id: pick
         shell: bash
         run: |
+          # Wykluczenia: _schema (placeholder), wppage-pl (już live, nie ruszać), psycho-edu-pl (DNS — lipiec/sierpień)
           if [[ "${{ github.event_name }}" == "push" || "${{ github.event.inputs.domain }}" == "all" ]]; then
-            DOMAINS=$(ls domains/*.yaml 2>/dev/null | xargs -n1 basename | sed 's/\.yaml$//' | grep -v '^_schema$' | jq -R -s -c 'split("\n") | map(select(length>0))')
+            DOMAINS=$(ls domains/*.yaml 2>/dev/null | xargs -n1 basename | sed 's/\.yaml$//' | grep -v '^_schema$' | grep -v '^wppage-pl$' | grep -v '^psycho-edu-pl$' | jq -R -s -c 'split("\n") | map(select(length>0))')
           else
             DOMAINS='["${{ github.event.inputs.domain }}"]'
           fi
